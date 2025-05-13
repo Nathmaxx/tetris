@@ -25,13 +25,16 @@ public abstract class Piece {
     }
 
     public void moveDown() {
+        y--;
     }
 
     public void moveLeft() {
+        x--;
     }
 
     public void moveRight() {
+        x++;
     }
 
-    public abstract void rotate();
+    public abstract void rotate(Side side);
 }
