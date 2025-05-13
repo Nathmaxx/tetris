@@ -10,10 +10,9 @@ public abstract class Piece {
 
     protected boolean[][] shape;
 
-    public Piece(int startX, int startY, Color color) {
+    public Piece(int startX, int startY) {
         this.x = startX;
         this.y = startY;
-        this.color = color;
     }
 
     public boolean[][] getShape() {

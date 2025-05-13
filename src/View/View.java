@@ -35,7 +35,7 @@ public class View  {
             }
         }
 
-        PieceL pieceL = new PieceL(2,5, Color.RED);
+        PieceL pieceL = new PieceL(2,5);
         
 
 
