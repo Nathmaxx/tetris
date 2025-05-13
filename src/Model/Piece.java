@@ -8,7 +8,7 @@ public abstract class Piece {
     protected int y;
     protected Color color;
 
-    protected boolean[][] shape;
+    protected boolean[][] actualShape;
 
     public Piece(int startX, int startY) {
         this.x = startX;
@@ -16,7 +16,7 @@ public abstract class Piece {
     }
 
     public boolean[][] getShape() {
-        return this.shape;
+        return this.actualShape;
     }
 
     public int getX() {
