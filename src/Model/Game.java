@@ -2,7 +2,7 @@ package Model;
 
 import java.awt.Color;
 
-public class Game {
+public class Game implements Runnable{
 
     private Grid grid;
     private int score;
@@ -57,5 +57,10 @@ public class Game {
     }
     public int getCols() {
         return cols;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Game is running");
     }
 }
