@@ -18,4 +18,10 @@ public class Grid {
         }
     }
     
+    public Box getBox(int row, int col) {
+        return boxes[row][col];
+    }
+
+   
+
 }
