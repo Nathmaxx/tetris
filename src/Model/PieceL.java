@@ -8,7 +8,7 @@ public class PieceL extends Piece {
                 { false, false, true, false },
                 { false, false, true, false },
                 { false, false, true, false },
-                { false, false, true, false },
+                { false, false, true, true },
         };
     }
 
