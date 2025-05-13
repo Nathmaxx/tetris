@@ -1,0 +1,24 @@
+Modèle: 
+
+Classe case : 
+- Position 
+- Couleur
+- remplie ou vide
+
+classe grille : 
+- Liste 2D de cases 
+
+pièce parent : 
+- classe avec les attributs des pièces 
+
+une classe par type de pièce : 
+- S
+- Z 
+- O
+- L
+- T
+- J
+- I
+
+classe Game :
+- Contient la gestion du jeu  
