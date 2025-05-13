@@ -1,17 +1,12 @@
 package Model;
 
-import java.util.HashMap;
-
 public class PieceL extends Piece {
-
-    private HashMap<Direction, boolean[][]> shapes = new HashMap<>();
 
     private final boolean[][] NORTH = new boolean[][] {
             { false, false, true, false },
             { false, false, true, false },
             { false, false, true, true },
             { false, false, false, false },
-
     };
 
     private final boolean[][] SOUTH = new boolean[][] {
@@ -19,7 +14,6 @@ public class PieceL extends Piece {
             { false, false, true, false },
             { false, false, true, false },
             { false, false, false, false },
-
     };
 
     private final boolean[][] EAST = new boolean[][] {
@@ -27,7 +21,6 @@ public class PieceL extends Piece {
             { false, true, true, true },
             { false, true, false, false },
             { false, false, false, false },
-
     };
 
     private final boolean[][] WEST = new boolean[][] {
@@ -35,16 +28,12 @@ public class PieceL extends Piece {
             { false, true, true, true },
             { false, true, false, false },
             { false, false, false, false },
-
     };
 
     public PieceL(int startX, int startY) {
         super(startX, startY);
         actualShape = NORTH;
-        shapes.put(Direction.NORTH, NORTH);
-        shapes.put(Direction.SOUTH, SOUTH);
-        shapes.put(Direction.WEST, WEST);
-        shapes.put(Direction.EAST, EAST);
+
     }
 
     public void rotate(Side side) {

@@ -17,10 +17,21 @@ public class Grid {
             }
         }
     }
-    
+
     public Box getBox(int row, int col) {
         return boxes[row][col];
     }
 
-   
+    public void addPiece(Piece piece) {
+        boolean[][] shape = piece.getShape();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (shape[i][j]) {
+                    boxes[i][j + 2].setEmpty(shape[i][j]);
+                    boxes[i][j + 2].setColor(Color.RED);
+                }
+            }
+        }
+    }
+
 }

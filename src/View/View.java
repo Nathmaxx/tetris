@@ -10,7 +10,7 @@ import javax.swing.border.Border;
 import Model.Game;
 import Model.PieceL;
 
-public class View  {
+public class View {
     private JPanel gamePanel;
 
     public View(Game modele) {
@@ -20,11 +20,12 @@ public class View  {
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
 
-
-
         gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(modele.getRows(), modele.getCols()));
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+
+        PieceL pieceL = new PieceL(2, 5);
+        modele.getGrid().addPiece(pieceL);
 
         for (int i = 0; i < modele.getRows(); i++) {
             for (int j = 0; j < modele.getCols(); j++) {
@@ -34,11 +35,6 @@ public class View  {
                 gamePanel.add(boxPanel);
             }
         }
-
-        PieceL pieceL = new PieceL(2,5);
-        
-
-
 
         gamePanel.setSize(new Dimension(800, 600));
         gamePanel.setBackground(Color.LIGHT_GRAY);

@@ -22,3 +22,16 @@ une classe par type de pièce :
 
 classe Game :
 - Contient la gestion du jeu  
+
+Etapes pour faire descendre une pièce : 
+
+- Avoir une grille 
+- Avoir une pièce
+- Pouvoir ajouter la pièce dans la grille (et entre la pièce et la grille) 
+- Avoir un timer 
+- parcourir les cases pour faire descendre la pièce 
+
+Grille.addPiece : 
+- prendre la grille 
+- prendre la pièce 
+- Faire un et binaire entre les deux en partant d'un point de départ
