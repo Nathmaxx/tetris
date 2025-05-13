@@ -10,24 +10,32 @@ public class PieceL extends Piece {
             { false, false, true, false },
             { false, false, true, false },
             { false, false, true, true },
+            { false, false, false, false },
+
     };
 
     private final boolean[][] SOUTH = new boolean[][] {
             { false, true, true, false },
             { false, false, true, false },
             { false, false, true, false },
+            { false, false, false, false },
+
     };
 
     private final boolean[][] EAST = new boolean[][] {
             { false, false, false, false },
             { false, true, true, true },
             { false, true, false, false },
+            { false, false, false, false },
+
     };
 
     private final boolean[][] WEST = new boolean[][] {
             { false, false, true, true },
             { false, true, true, true },
             { false, true, false, false },
+            { false, false, false, false },
+
     };
 
     public PieceL(int startX, int startY) {
