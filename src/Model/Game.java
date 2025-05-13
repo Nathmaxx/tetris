@@ -52,4 +52,10 @@ public class Game {
         this.score = score;
     }
 
+    public int getRows() {
+        return rows;
+    }
+    public int getCols() {
+        return cols;
+    }
 }

@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.Color;
+
 public class PieceL extends Piece {
 
     public PieceL(int startX, int startY) {
