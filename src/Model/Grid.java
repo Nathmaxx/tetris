@@ -13,9 +13,21 @@ public class Grid {
         boxes = new Box[rows][cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                boxes[i][j] = new Box(i, j, Color.WHITE);
+                boxes[i][j].setEmpty(false);
             }
         }
+    }
+
+    public boolean getBoxEmpty(int row, int col) {
+        return boxes[row][col].isEmpty();
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
     }
 
     public Box getBox(int row, int col) {
