@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.sql.Array;
 import java.util.ArrayList;
 
-
 public class Grid {
     private Box[][] boxes;
     private int rows;
@@ -24,22 +23,18 @@ public class Grid {
         }
     }
 
-   
-
-
     public void moveCurrentPieceDown() {
         currentPiece.setY(currentPiece.getY() + 1);
     }
 
-
     public void updateGrid() {
         boolean[][] shape = currentPiece.getShape();
-        if(currentPiece.getY() >= 1){
+        if (currentPiece.getY() >= 1) {
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     if (shape[i][j]) {
-                        boxes[currentPiece.getY() + (i-1) ][currentPiece.getX() + j].setIsComplete(false);
-                        boxes[currentPiece.getY() + (i-1) ][currentPiece.getX() + j].setColor(Color.WHITE);
+                        boxes[currentPiece.getY() + (i - 1)][currentPiece.getX() + j].setIsComplete(false);
+                        boxes[currentPiece.getY() + (i - 1)][currentPiece.getX() + j].setColor(Color.WHITE);
                     }
                 }
             }
@@ -47,8 +42,8 @@ public class Grid {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 4; j++) {
                     if (shape[i][j]) {
-                        boxes[currentPiece.getY() + i ][currentPiece.getX() + j].setIsComplete(false);
-                        boxes[currentPiece.getY() + i ][currentPiece.getX() + j].setColor(Color.WHITE);
+                        boxes[currentPiece.getY() + i][currentPiece.getX() + j].setIsComplete(false);
+                        boxes[currentPiece.getY() + i][currentPiece.getX() + j].setColor(Color.WHITE);
                     }
                 }
             }
@@ -63,8 +58,6 @@ public class Grid {
                 }
             }
         }
-
-      
     }
 
     public void printGrid() {
@@ -80,8 +73,6 @@ public class Grid {
         }
     }
 
-   
-
     public int getRows() {
         return rows;
     }
@@ -95,7 +86,7 @@ public class Grid {
     }
 
     public void setCurrentPiece(Piece piece) {
-        this.currentPiece = piece;        
+        this.currentPiece = piece;
     }
 
     public Piece getCurrentPiece() {
