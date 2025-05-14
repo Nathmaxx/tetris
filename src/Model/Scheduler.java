@@ -18,4 +18,11 @@ public class Scheduler extends Thread{
             }
         }
     }
+
+    public void setPause(long pause) {
+        this.pause = pause;
+    }
+    public long getPause() {
+        return pause;
+    }
 }

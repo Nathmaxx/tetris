@@ -12,6 +12,22 @@ public class Game extends Observable implements Runnable {
         this.grid = grid;
 
     }
+
+    public void moveLeft() {
+        grid.moveCurrentPieceLeft();
+        grid.updateGrid();
+        
+        setChanged(); 
+        notifyObservers(); 
+    }
+
+    public void moveRight() {
+        grid.moveCurrentPieceRight();
+        grid.updateGrid();
+
+        setChanged(); 
+        notifyObservers(); 
+    }
     
     public Grid getGrid() {
         return this.grid;
@@ -42,7 +58,7 @@ public class Game extends Observable implements Runnable {
         }
 
         grid.updateGrid();
-        grid.printGrid();
+        // grid.printGrid();
 
         setChanged(); 
         notifyObservers(); 

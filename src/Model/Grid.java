@@ -25,24 +25,23 @@ public class Grid {
         currentPiece.setY(currentPiece.getY() + 1);
     }
 
+    public void moveCurrentPieceLeft() {
+        currentPiece.setX(currentPiece.getX() - 1);
+        
+    }
+
+    public void moveCurrentPieceRight() {
+        currentPiece.setX(currentPiece.getX() + 1);
+    }
+
     public void updateGrid() {
         boolean[][] shape = currentPiece.getShape();
-        if (currentPiece.getY() >= 1) {
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    if (shape[i][j]) {
-                        boxes[currentPiece.getY() + (i - 1)][currentPiece.getX() + j].setIsComplete(false);
-                        boxes[currentPiece.getY() + (i - 1)][currentPiece.getX() + j].setColor(Color.WHITE);
-                    }
-                }
-            }
-        } else {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 4; j++) {
-                    if (shape[i][j]) {
-                        boxes[currentPiece.getY() + i][currentPiece.getX() + j].setIsComplete(false);
-                        boxes[currentPiece.getY() + i][currentPiece.getX() + j].setColor(Color.WHITE);
-                    }
+        Color pieceColor = currentPiece.getColor();
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (boxes[i][j].getColor().equals(pieceColor) && !boxes[i][j].getIsComplete()) {
+                    boxes[i][j].setColor(Color.WHITE);
                 }
             }
         }
@@ -50,9 +49,11 @@ public class Grid {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (shape[i][j]) {
-                    boxes[currentPiece.getY() + i][currentPiece.getX() + j].setIsComplete(true);
-                    boxes[currentPiece.getY() + i][currentPiece.getX() + j].setColor(Color.RED);
-
+                    int newY = currentPiece.getY() + i;
+                    int newX = currentPiece.getX() + j;
+                    if (newY >= 0 && newY < rows && newX >= 0 && newX < cols) {
+                        boxes[newY][newX].setColor(pieceColor);
+                    }
                 }
             }
         }

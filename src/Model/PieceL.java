@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.Color;
+
 public class PieceL extends Piece {
 
     private final boolean[][] NORTH = new boolean[][] {
@@ -30,8 +32,11 @@ public class PieceL extends Piece {
             { false, false, false, false },
     };
 
+
+
     public PieceL(int x, int y) {
         super(x, y);
+        this.color = Color.ORANGE;
         this.actualShape = NORTH;
     }
 

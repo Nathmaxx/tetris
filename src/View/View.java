@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.*;
+import Controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,27 +15,30 @@ import Model.PieceL;
 
 public class View implements Observer{
     private JPanel gamePanel;
-    private Game modele;
+    
 
 
-    public View(Game modele) {
-        this.modele = modele;
-        modele.addObserver(this); // S'abonne aux mises à jour du modèle
+    public View(Game model) {
+
+        model.addObserver(this); // S'abonne aux mises à jour du modèle
         JFrame frame = new JFrame("TETRIS");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 1400);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
 
+        Controller controller = new Controller(model);
+        frame.addKeyListener(controller);
+
         gamePanel = new JPanel();
-        gamePanel.setLayout(new GridLayout(modele.getRows(), modele.getCols()));
+        gamePanel.setLayout(new GridLayout(model.getRows(), model.getCols()));
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
-        for (int i = 0; i < modele.getRows(); i++) {
-            for (int j = 0; j < modele.getCols(); j++) {
+        for (int i = 0; i < model.getRows(); i++) {
+            for (int j = 0; j < model.getCols(); j++) {
                 JPanel boxPanel = new JPanel();
                 boxPanel.setBorder(border);
-                boxPanel.setBackground(modele.getGrid().getBox(i, j).getColor());
+                boxPanel.setBackground(model.getGrid().getBox(i, j).getColor());
                 gamePanel.add(boxPanel);
             }
         }

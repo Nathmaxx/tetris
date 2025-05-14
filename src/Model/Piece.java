@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.ArrayList;
+import java.awt.Color;
 
 public abstract class Piece {
 
@@ -8,6 +8,7 @@ public abstract class Piece {
 
     protected int x;
     protected int y;
+    protected Color color;
 
     public Piece(int x, int y) {
         this.x = x;
@@ -67,6 +68,12 @@ public abstract class Piece {
     public int getY() {
         return this.y;
     }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+     
 
     public void setX(int x) {
         this.x = x;
