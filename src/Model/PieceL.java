@@ -26,9 +26,9 @@ public class PieceL extends Piece {
     };
 
     private final boolean[][] WEST = new boolean[][] {
-            { false, false, true, true },
+            { false, false, false, false },
+            { false, false, false, true },
             { false, true, true, true },
-            { false, true, false, false },
             { false, false, false, false },
     };
 

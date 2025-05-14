@@ -2,8 +2,8 @@ package Model;
 
 public class PieceZ extends Piece{
     private final boolean[][] NORTH = new boolean[][] {
-            { true, true, false, false },
             { false, true, true, false },
+            { false, false, true, true },
             { false, false, false, false },
             { false, false, false, false },
     };
@@ -17,15 +17,15 @@ public class PieceZ extends Piece{
 
     private final boolean[][] SOUTH = new boolean[][] {
             { false, false, false, false },
-            { false, false, false, false },
-            { true, true, false, false },
             { false, true, true, false },
+            { false, false, true, true },
+            { false, false, false, false },
     };
 
     private final boolean[][] EST = new boolean[][] {
-            { false, true, false , false},
-            { true ,true ,false ,false},
-            { true ,false ,false ,false},
+            { false, false, false , true},
+            { false ,false ,true ,true},
+            { false ,false ,true ,false},
             { false ,false ,false ,false},
     };
 

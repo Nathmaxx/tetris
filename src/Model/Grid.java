@@ -7,6 +7,7 @@ public class Grid {
     private int rows;
     private int cols;
     private Piece currentPiece;
+    private Color backgroundColor = Color.BLACK;
 
     public Grid(int rows, int cols) {
         this.rows = rows;
@@ -15,7 +16,7 @@ public class Grid {
         boxes = new Box[rows][cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                boxes[i][j] = new Box(i, j, Color.WHITE);
+                boxes[i][j] = new Box(i, j, backgroundColor);
                 boxes[i][j].setIsComplete(false);
             }
         }
@@ -41,7 +42,7 @@ public class Grid {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if (boxes[i][j].getColor().equals(pieceColor) && !boxes[i][j].getIsComplete()) {
-                    boxes[i][j].setColor(Color.WHITE);
+                    boxes[i][j].setColor(backgroundColor);
                 }
             } 
         }
@@ -50,7 +51,7 @@ public class Grid {
             for (int j = 0; j < 4; j++) {
                 if (shape[i][j]) {
                     int newY = currentPiece.getY() + i;
-                    int newX = currentPiece.getX() + j;
+                    int newX = currentPiece.getX() + j ;
                     if (newY >= 0 && newY < rows && newX >= 0 && newX < cols) {
                         boxes[newY][newX].setColor(pieceColor);
                     }
@@ -135,10 +136,12 @@ public class Grid {
     }
     
     private void generateNewPiece() {
-        currentPiece = creatPiece();
+        currentPiece = createPiece();
     
         if (!canPlacePiece(currentPiece)) {
             System.out.println("Game Over!");
+            System.exit(0);
+            
         }
     }
     
@@ -157,8 +160,34 @@ public class Grid {
         return true;
     }
 
-    public Piece creatPiece() {
-        Piece piece = new PieceL(2,0);
+    public Piece createPiece() {
+        
+        int randomPiece = (int) (Math.random() * 7);
+        Piece piece = null;
+
+        switch (randomPiece) {
+            case 0:
+                piece = new PieceI(2, 0);
+                break;
+            case 1:
+                piece = new PieceJ(2, 0);
+                break;
+            case 2:
+                piece = new PieceL(2, 0);
+                break;
+            case 3:
+                piece = new PieceO(2, 0);
+                break;
+            case 4:
+                piece = new PieceS(2, 0);
+                break;
+            case 5:
+                piece = new PieceT(2, 0);
+                break;
+            case 6:
+                piece = new PieceZ(2, 0);
+                break;
+        }
         return piece;
     }
 

@@ -45,7 +45,7 @@ public class Game extends Observable implements Runnable {
     public void run() {
         Piece currenPiece = grid.getCurrentPiece();
         if (currenPiece == null) {
-            currenPiece = new PieceL(2, 0);
+            currenPiece = grid.createPiece();
             grid.setCurrentPiece(currenPiece);
             grid.updateGrid();
 
@@ -56,14 +56,11 @@ public class Game extends Observable implements Runnable {
         if (grid.checkMoveDown()) {
             grid.moveCurrentPieceDown();
         } else {
-            // Fixe la pièce courante dans la grille
             grid.placeCurrentPiece();
     
-            // Génère une nouvelle pièce
-            Piece newPiece = grid.creatPiece();
+            Piece newPiece = grid.createPiece();
             grid.setCurrentPiece(newPiece);
     
-            // Vérifie si le jeu est terminé
             if (!grid.canPlacePiece(newPiece)) {
                 System.out.println("Game Over!");
             }

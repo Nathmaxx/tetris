@@ -18,17 +18,17 @@ public class PieceI extends Piece{
     };
 
     private final boolean[][] EAST = new boolean[][] {
-            { false, true, false, false },    
-            { false, true, false, false },
-            { false, true, false, false },
-            { false, true, false, false },
-    };
-
-    private final boolean[][] WEST = new boolean[][] {
             { false, false, true, false },    
             { false, false, true, false },
             { false, false, true, false },
             { false, false, true, false },
+    };
+
+    private final boolean[][] WEST = new boolean[][] {
+            { false, false, false, true },    
+            { false, false, false, true },
+            { false, false, false, true },
+            { false, false, false, true },
     };
 
     public PieceI(int x, int y) {
