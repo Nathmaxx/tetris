@@ -28,8 +28,8 @@ public class Controller implements KeyListener {
                 }
                 break;
             case KeyEvent.VK_DOWN:
-                System.out.println("Down key pressed");
-                // model.movePieceDown();
+                
+                model.run();
                 break;
             case KeyEvent.VK_UP:
                 System.out.println("Up key pressed");

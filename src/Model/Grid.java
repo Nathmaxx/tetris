@@ -43,7 +43,7 @@ public class Grid {
                 if (boxes[i][j].getColor().equals(pieceColor) && !boxes[i][j].getIsComplete()) {
                     boxes[i][j].setColor(Color.WHITE);
                 }
-            }
+            } 
         }
 
         for (int i = 0; i < 4; i++) {
@@ -117,6 +117,54 @@ public class Grid {
         return true;
     }
 
+    public void placeCurrentPiece() {
+        boolean[][] shape = currentPiece.getShape();
+        int pieceRow = currentPiece.getY();
+        int pieceCol = currentPiece.getX();
+    
+        for (int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape[i].length; j++) {
+                if (shape[i][j]) {
+                    boxes[pieceRow + i][pieceCol + j].setIsComplete(true);
+                    boxes[pieceRow + i][pieceCol + j].setColor(currentPiece.getColor());
+                }
+            }
+        }
+    
+        generateNewPiece();
+    }
+    
+    private void generateNewPiece() {
+        currentPiece = creatPiece();
+    
+        if (!canPlacePiece(currentPiece)) {
+            System.out.println("Game Over!");
+        }
+    }
+    
+    boolean canPlacePiece(Piece piece) {
+        boolean[][] shape = piece.getShape();
+    
+        for (int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape[i].length; j++) {
+                if (shape[i][j]) {
+                    if (!checkMoveDown() || !checkMoveLeft() || !checkMoveRight()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public Piece creatPiece() {
+        Piece piece = new PieceL(2,0);
+        return piece;
+    }
+
+
+
+
     public int getRows() {
         return rows;
     }
@@ -136,4 +184,6 @@ public class Grid {
     public Piece getCurrentPiece() {
         return currentPiece;
     }
+
+    
 }

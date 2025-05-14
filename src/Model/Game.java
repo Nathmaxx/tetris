@@ -55,6 +55,18 @@ public class Game extends Observable implements Runnable {
         }
         if (grid.checkMoveDown()) {
             grid.moveCurrentPieceDown();
+        } else {
+            // Fixe la pièce courante dans la grille
+            grid.placeCurrentPiece();
+    
+            // Génère une nouvelle pièce
+            Piece newPiece = grid.creatPiece();
+            grid.setCurrentPiece(newPiece);
+    
+            // Vérifie si le jeu est terminé
+            if (!grid.canPlacePiece(newPiece)) {
+                System.out.println("Game Over!");
+            }
         }
 
         grid.updateGrid();
