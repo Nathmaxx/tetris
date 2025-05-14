@@ -73,6 +73,7 @@ public class Grid {
 
     public boolean checkMoveDown() {
         Integer[] maxIndices = currentPiece.maxDownIndex();
+        Integer[] rightIndices = currentPiece.rightIndex();
         for (int i = 0; i < maxIndices.length; i++) {
             if (maxIndices[i] != null) {
                 if (currentPiece.getY() + maxIndices[i] + 1 >= rows) {
