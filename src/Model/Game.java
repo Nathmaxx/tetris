@@ -95,11 +95,10 @@ public class Game implements Runnable{
 
     @Override
     public void run() {
-        if(!playing) {
-            playing = true;
-            currentPiece = getNewPiece();
-            currentPiece.moveDown();            
-        }
+        playing = true;
+        currentPiece = getNewPiece();
+        System.out.println("y piece "+currentPiece.getY());           
         System.out.println("Game is running");
+
     }
 }
