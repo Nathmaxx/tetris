@@ -29,7 +29,9 @@ public abstract class Piece {
                 }
             }
         }
-
+        for (int i =0; i < maxIndices.length; i++) {
+            System.out.println("maxIndices[" + i + "] = " + maxIndices[i]);
+        }
         return maxIndices;
     }
 
@@ -41,6 +43,8 @@ public abstract class Piece {
         return this.y;
     }
 
+     
+
     public void setX(int x) {
         this.x = x;
     }
@@ -48,6 +52,8 @@ public abstract class Piece {
     public void setY(int y) {
         this.y = y;
     }
+
+
 
     public abstract void rotate(Side side);
 }

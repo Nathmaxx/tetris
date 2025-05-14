@@ -37,9 +37,13 @@ public class Game extends Observable implements Runnable {
             notifyObservers(); 
             return;
         }
-        grid.moveCurrentPieceDown();
-        grid.printGrid();
+        if (grid.checkMoveDown()) {
+            grid.moveCurrentPieceDown();
+        }
+
         grid.updateGrid();
+        grid.printGrid();
+
         setChanged(); 
         notifyObservers(); 
 

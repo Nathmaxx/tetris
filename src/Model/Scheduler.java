@@ -7,7 +7,7 @@ public class Scheduler extends Thread{
 
     }
 
-    private long pause = 500;
+    private long pause = 1000;
     public  void run(){
         while (true){
             r.run();

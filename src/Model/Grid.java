@@ -73,6 +73,19 @@ public class Grid {
         }
     }
 
+    public boolean checkMoveDown(){
+        Integer[] maxIndices = currentPiece.maxDownIndex();
+        for (int i = 0; i < maxIndices.length; i++) {
+            if (maxIndices[i] != null) {
+                if (boxes[currentPiece.getX() + i][currentPiece.getY() + maxIndices[i] + 1].getIsComplete()) {
+                    System.out.println("X = " + currentPiece.getX() + " Y = " + (currentPiece.getY() + maxIndices[i] + 1));
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public int getRows() {
         return rows;
     }
