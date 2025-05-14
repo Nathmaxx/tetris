@@ -5,7 +5,7 @@ public class Box {
     private int x;
     private int y;
     private Color color;
-    private boolean isEmpty;
+    private boolean isComplete;
 
     public Box(int x, int y, Color color) {
         this.x = x;
@@ -28,11 +28,11 @@ public class Box {
     public void setColor(Color color) {
         this.color = color;
     }
-    public boolean isEmpty() {
-        return isEmpty;
+    public boolean getIsComplete() {
+        return isComplete;
     }
-    public void setEmpty(boolean isEmpty) {
-        this.isEmpty = isEmpty;
+    public void setIsComplete(boolean isComplete) {
+        this.isComplete = isComplete;
     }
     
 }

@@ -1,6 +1,8 @@
 package View;
 
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -10,10 +12,14 @@ import javax.swing.border.Border;
 import Model.Game;
 import Model.PieceL;
 
-public class View {
+public class View implements Observer{
     private JPanel gamePanel;
+    private Game modele;
+
 
     public View(Game modele) {
+        this.modele = modele;
+        modele.addObserver(this); // S'abonne aux mises à jour du modèle
         JFrame frame = new JFrame("TETRIS");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 1400);
@@ -38,5 +44,18 @@ public class View {
         gamePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         frame.add(gamePanel, BorderLayout.CENTER);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof Game) {
+            Game game = (Game) o;
+            for (int i = 0; i < game.getRows(); i++) {
+                for (int j = 0; j < game.getCols(); j++) {
+                    Color color = game.getGrid().getBox(i, j).getColor();
+                    gamePanel.getComponent(i * game.getCols() + j).setBackground(color);
+                }
+            }
+        }
     }
 }

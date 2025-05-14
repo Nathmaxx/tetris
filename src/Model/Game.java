@@ -1,71 +1,50 @@
 package Model;
 
 import java.awt.Color;
+import java.util.Observable;
 
-public class Game implements Runnable {
+public class Game extends Observable implements Runnable {
 
     private Grid grid;
-    private int score;
-    private int rows;
-    private int cols;
 
-    public Game(int rows, int cols) {
-        this.rows = rows;
-        this.cols = cols;
-        this.grid = new Grid(rows, cols);
-        this.score = 0;
+
+    public Game(Grid grid) {
+        this.grid = grid;
+
     }
-
-    public boolean rowCompleted(int row) {
-        for (int i = 0; i < cols; i++) {
-            if (grid.getBox(row, i).isEmpty()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean nextBox(int row, int col) {
-        if (row < 0 || row >= rows || col < 0 || col >= cols) {
-            return false;
-        }
-        return grid.getBox(row, col).isEmpty();
-    }
-
-    public void clearLine(int row) {
-        for (int i = 0; i < cols; i++) {
-            grid.getBox(row, i).setEmpty(true);
-            grid.getBox(row, i).setColor(Color.WHITE);
-        }
-        score += 10;
-    }
-
+    
     public Grid getGrid() {
-        return grid;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
+        return this.grid;
     }
 
     public int getRows() {
-        return rows;
+        return grid.getRows();
     }
 
     public int getCols() {
-        return cols;
+        return grid.getCols();
     }
-
-    
-
- 
 
     @Override
     public void run() {
+        Piece currenPiece = grid.getCurrentPiece();
+        if (currenPiece == null) {
+            currenPiece = new PieceL(2, 0);
+            grid.setCurrentPiece(currenPiece);
+            grid.updateGrid();
+
+            setChanged(); 
+            notifyObservers(); 
+            return;
+        }
+        grid.moveCurrentPieceDown();
+        grid.printGrid();
+        grid.updateGrid();
+        setChanged(); 
+        notifyObservers(); 
+
+
+
         System.out.println("Game is running");
     }
 }
