@@ -9,7 +9,7 @@ public class Game implements Runnable {
     private int rows;
     private int cols;
     private Piece currentPiece;
-    private boolean playing = false;
+    // private boolean playing = false;
 
     public Game(int rows, int cols) {
         this.rows = rows;
@@ -88,10 +88,14 @@ public class Game implements Runnable {
         // currentPiece = new PieceJ(0, 0);
         // break;
         // }
-        currentPiece = new PieceL();
+        currentPiece = new PieceL(2, 0);
 
         return currentPiece;
 
+    }
+
+    public void moveCurrentPieceDown() {
+        currentPiece.setY(currentPiece.getY() - 1);
     }
 
     @Override

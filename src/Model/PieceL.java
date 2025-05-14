@@ -30,8 +30,8 @@ public class PieceL extends Piece {
             { false, false, false, false },
     };
 
-    public PieceL() {
-        super();
+    public PieceL(int x, int y) {
+        super(x, y);
         this.actualShape = NORTH;
     }
 
