@@ -1,8 +1,6 @@
 package Model;
 
 import java.awt.Color;
-import java.sql.Array;
-import java.util.ArrayList;
 
 public class Grid {
     private Box[][] boxes;
@@ -73,12 +71,14 @@ public class Grid {
         }
     }
 
-    public boolean checkMoveDown(){
+    public boolean checkMoveDown() {
         Integer[] maxIndices = currentPiece.maxDownIndex();
         for (int i = 0; i < maxIndices.length; i++) {
             if (maxIndices[i] != null) {
-                if (boxes[currentPiece.getX() + i][currentPiece.getY() + maxIndices[i] + 1].getIsComplete()) {
-                    System.out.println("X = " + currentPiece.getX() + " Y = " + (currentPiece.getY() + maxIndices[i] + 1));
+                if (currentPiece.getY() + maxIndices[i] + 1 >= rows) {
+                    return false;
+                }
+                if (boxes[currentPiece.getY() + maxIndices[i] + 1][currentPiece.getX() + i].getIsComplete()) {
                     return false;
                 }
             }
