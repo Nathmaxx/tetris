@@ -24,7 +24,7 @@ public class View {
         gamePanel.setLayout(new GridLayout(modele.getRows(), modele.getCols()));
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
-        PieceL pieceL = new PieceL(2, 5);
+        PieceL pieceL = new PieceL();
         modele.getGrid().addPiece(pieceL);
 
         for (int i = 0; i < modele.getRows(); i++) {

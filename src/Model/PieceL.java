@@ -30,10 +30,9 @@ public class PieceL extends Piece {
             { false, false, false, false },
     };
 
-    public PieceL(int startX, int startY) {
-        super(startX, startY);
-        actualShape = NORTH;
-
+    public PieceL() {
+        super();
+        this.actualShape = NORTH;
     }
 
     public void rotate(Side side) {

@@ -2,7 +2,7 @@ package Model;
 
 import java.awt.Color;
 
-public class Game implements Runnable{
+public class Game implements Runnable {
 
     private Grid grid;
     private int score;
@@ -57,6 +57,7 @@ public class Game implements Runnable{
     public int getRows() {
         return rows;
     }
+
     public int getCols() {
         return cols;
     }
@@ -65,40 +66,39 @@ public class Game implements Runnable{
         // Randomly generate a new piece
         // int randomPiece = (int) (Math.random() * 7);
         // switch (randomPiece) {
-        //     case 0:
-        //         currentPiece = new PieceL(0, 0);
-        //         break;
-        //     case 1:
-        //         currentPiece = new PieceT(0, 0);
-        //         break;
-        //     case 2:
-        //         currentPiece = new PieceI(0, 0);
-        //         break;
-        //     case 3:
-        //         currentPiece = new PieceO(0, 0);
-        //         break;
-        //     case 4:
-        //         currentPiece = new PieceS(0, 0);
-        //         break;
-        //     case 5:
-        //         currentPiece = new PieceZ(0, 0);
-        //         break;
-        //     case 6:
-        //         currentPiece = new PieceJ(0, 0);
-        //         break;
+        // case 0:
+        // currentPiece = new PieceL(0, 0);
+        // break;
+        // case 1:
+        // currentPiece = new PieceT(0, 0);
+        // break;
+        // case 2:
+        // currentPiece = new PieceI(0, 0);
+        // break;
+        // case 3:
+        // currentPiece = new PieceO(0, 0);
+        // break;
+        // case 4:
+        // currentPiece = new PieceS(0, 0);
+        // break;
+        // case 5:
+        // currentPiece = new PieceZ(0, 0);
+        // break;
+        // case 6:
+        // currentPiece = new PieceJ(0, 0);
+        // break;
         // }
-        currentPiece = new PieceL(0, 0);
+        currentPiece = new PieceL();
 
         return currentPiece;
-        
+
     }
 
     @Override
     public void run() {
-        if(!playing) {
+        if (!playing) {
             playing = true;
             currentPiece = getNewPiece();
-            currentPiece.moveDown();            
         }
         System.out.println("Game is running");
     }
