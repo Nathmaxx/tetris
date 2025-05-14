@@ -6,6 +6,7 @@ public class Grid {
     private Box[][] boxes;
     private int rows;
     private int cols;
+    private Piece currentPiece;
 
     public Grid(int rows, int cols) {
         this.rows = rows;
@@ -35,16 +36,24 @@ public class Grid {
         return boxes[row][col];
     }
 
-    public void addPiece(Piece piece) {
-        boolean[][] shape = piece.getShape();
+    public void setCurrentPiece(Piece piece) {
+        this.currentPiece = piece;        
+    }
+
+    public void moveCurrentPieceDown() {
+        currentPiece.setY(currentPiece.getY() + 1);
+    }
+
+
+    public void updateGrid() {
+        boolean[][] shape = currentPiece.getShape();
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (shape[i][j]) {
-                    boxes[i][j + 2].setEmpty(shape[i][j]);
-                    boxes[i][j + 2].setColor(Color.RED);
+                    boxes[currentPiece.getY() + i][currentPiece.getX() + j].setEmpty(shape[i][j]);
+                    boxes[currentPiece.getY() + i][currentPiece.getX() + j].setColor(Color.RED);
                 }
             }
         }
     }
-
 }

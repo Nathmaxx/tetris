@@ -8,8 +8,6 @@ public class Game implements Runnable {
     private int score;
     private int rows;
     private int cols;
-    private Piece currentPiece;
-    // private boolean playing = false;
 
     public Game(int rows, int cols) {
         this.rows = rows;
@@ -62,41 +60,9 @@ public class Game implements Runnable {
         return cols;
     }
 
-    public Piece getNewPiece() {
-        // Randomly generate a new piece
-        // int randomPiece = (int) (Math.random() * 7);
-        // switch (randomPiece) {
-        // case 0:
-        // currentPiece = new PieceL(0, 0);
-        // break;
-        // case 1:
-        // currentPiece = new PieceT(0, 0);
-        // break;
-        // case 2:
-        // currentPiece = new PieceI(0, 0);
-        // break;
-        // case 3:
-        // currentPiece = new PieceO(0, 0);
-        // break;
-        // case 4:
-        // currentPiece = new PieceS(0, 0);
-        // break;
-        // case 5:
-        // currentPiece = new PieceZ(0, 0);
-        // break;
-        // case 6:
-        // currentPiece = new PieceJ(0, 0);
-        // break;
-        // }
-        currentPiece = new PieceL(2, 0);
+    
 
-        return currentPiece;
-
-    }
-
-    public void moveCurrentPieceDown() {
-        currentPiece.setY(currentPiece.getY() - 1);
-    }
+ 
 
     @Override
     public void run() {
