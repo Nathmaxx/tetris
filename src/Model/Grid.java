@@ -1,6 +1,8 @@
 package Model;
 
 import java.awt.Color;
+import java.sql.Array;
+import java.util.ArrayList;
 
 
 public class Grid {
@@ -24,25 +26,6 @@ public class Grid {
 
    
 
-    public int getRows() {
-        return rows;
-    }
-
-    public int getCols() {
-        return cols;
-    }
-
-    public Box getBox(int row, int col) {
-        return boxes[row][col];
-    }
-
-    public void setCurrentPiece(Piece piece) {
-        this.currentPiece = piece;        
-    }
-
-    public Piece getCurrentPiece() {
-        return currentPiece;
-    }
 
     public void moveCurrentPieceDown() {
         currentPiece.setY(currentPiece.getY() + 1);
@@ -95,5 +78,27 @@ public class Grid {
             }
             System.out.println();
         }
+    }
+
+   
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public Box getBox(int row, int col) {
+        return boxes[row][col];
+    }
+
+    public void setCurrentPiece(Piece piece) {
+        this.currentPiece = piece;        
+    }
+
+    public Piece getCurrentPiece() {
+        return currentPiece;
     }
 }
