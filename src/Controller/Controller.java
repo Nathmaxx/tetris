@@ -17,20 +17,23 @@ public class Controller implements KeyListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
                 System.out.println("Left key pressed");
-                model.moveLeft();
+                if (model.getGrid().checkMoveLeft()) {
+                    model.moveLeft();
+                }
                 break;
             case KeyEvent.VK_RIGHT:
                 System.out.println("Right key pressed");
-                model.moveRight();
-                
+                if (model.getGrid().checkMoveRight()) {
+                    model.moveRight();
+                }
                 break;
             case KeyEvent.VK_DOWN:
                 System.out.println("Down key pressed");
-                // model.movePieceDown(); 
+                // model.movePieceDown();
                 break;
             case KeyEvent.VK_UP:
                 System.out.println("Up key pressed");
-                // model.rotatePiece(); 
+                // model.rotatePiece();
                 break;
         }
     }

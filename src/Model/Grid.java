@@ -27,7 +27,7 @@ public class Grid {
 
     public void moveCurrentPieceLeft() {
         currentPiece.setX(currentPiece.getX() - 1);
-        
+
     }
 
     public void moveCurrentPieceRight() {
@@ -74,13 +74,42 @@ public class Grid {
 
     public boolean checkMoveDown() {
         Integer[] maxIndices = currentPiece.maxDownIndex();
-        Integer[] rightIndices = currentPiece.rightIndex();
         for (int i = 0; i < maxIndices.length; i++) {
             if (maxIndices[i] != null) {
                 if (currentPiece.getY() + maxIndices[i] + 1 >= rows) {
                     return false;
                 }
                 if (boxes[currentPiece.getY() + maxIndices[i] + 1][currentPiece.getX() + i].getIsComplete()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkMoveLeft() {
+        Integer[] maxIndices = currentPiece.leftIndex();
+        for (int i = 0; i < maxIndices.length; i++) {
+            if (maxIndices[i] != null) {
+                if (currentPiece.getX() + maxIndices[i] == 0) {
+                    return false;
+                }
+                if (boxes[currentPiece.getY() + i][currentPiece.getX() + maxIndices[i] - 1].getIsComplete()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkMoveRight() {
+        Integer[] maxIndices = currentPiece.rightIndex();
+        for (int i = 0; i < maxIndices.length; i++) {
+            if (maxIndices[i] != null) {
+                if (currentPiece.getX() + maxIndices[i] == cols - 1) {
+                    return false;
+                }
+                if (boxes[currentPiece.getY() + i][currentPiece.getX() + maxIndices[i] + 1].getIsComplete()) {
                     return false;
                 }
             }
