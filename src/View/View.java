@@ -22,8 +22,13 @@ public class View implements Observer{
 
         model.addObserver(this); // S'abonne aux mises à jour du modèle
         JFrame frame = new JFrame("TETRIS");
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenHeight = screenSize.height- 100; 
+        int frameWidth = screenHeight/2;
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 1400);
+        frame.setSize(frameWidth, screenHeight);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
 
