@@ -6,7 +6,7 @@ import Model.Scheduler;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Grid grid = new Grid(20, 10);
+        Grid grid = new Grid(22, 10);
         
         // Create the game model
         Game model = new Game(grid);

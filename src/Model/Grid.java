@@ -191,10 +191,11 @@ public class Grid {
     private void generateNewPiece() {
         currentPiece = createPiece();
 
-        if (!canPlacePiece(currentPiece)) {
+        if (canPlacePiece(currentPiece)) {
+            // Piece can be placed, proceed
+        } else {
             System.out.println("Game Over!");
             setIsGameOver(true);
-            
         }
     }
 

@@ -37,7 +37,7 @@ public class View implements Observer {
         gamePanel.setLayout(new GridLayout(model.getRows(), model.getCols()));
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
-        for (int i = 0; i < model.getRows(); i++) {
+        for (int i = 0; i < model.getRows(); i++) { //on commence à 2 pour permettre a la piece de decendre
             for (int j = 0; j < model.getCols(); j++) {
                 JPanel boxPanel = new JPanel();
                 boxPanel.setBorder(border);
