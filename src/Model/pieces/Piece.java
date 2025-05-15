@@ -20,6 +20,7 @@ public abstract class Piece {
     protected int y;
     protected Color color;
 
+
     public Piece(int x, int y) {
         this.x = x;
         this.y = y;

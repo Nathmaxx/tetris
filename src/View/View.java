@@ -18,7 +18,7 @@ public class View implements Observer {
 
     public View(Game model) {
 
-        model.addObserver(this); // S'abonne aux mises à jour du modèle
+        model.addObserver(this); 
         JFrame frame = new JFrame("TETRIS");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

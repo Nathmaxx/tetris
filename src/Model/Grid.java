@@ -23,6 +23,7 @@ public class Grid {
     private Color backgroundColor = Color.BLACK;
     private Random random = new Random();
     private List<Integer> pieceBag = new ArrayList<>();
+    private boolean isGameOver = false;
 
     public Grid(int rows, int cols) {
         this.rows = rows;
@@ -192,8 +193,8 @@ public class Grid {
 
         if (!canPlacePiece(currentPiece)) {
             System.out.println("Game Over!");
-            System.exit(0);
-
+            setIsGameOver(true);
+            
         }
     }
 
@@ -286,4 +287,12 @@ public class Grid {
         return currentPiece;
     }
 
+    public void setIsGameOver(boolean isGameOver) {
+        this.isGameOver = isGameOver;
+    }
+
+    public boolean getIsGameOver() {
+        return isGameOver;
+    }
+    
 }

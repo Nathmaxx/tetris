@@ -17,17 +17,17 @@ public class Game extends Observable implements Runnable {
     public void moveLeft() {
         grid.moveCurrentPieceLeft();
         grid.updateGrid();
-
-        setChanged();
-        notifyObservers();
+        
+        setChanged(); 
+        notifyObservers(); 
     }
 
     public void moveRight() {
         grid.moveCurrentPieceRight();
         grid.updateGrid();
 
-        setChanged();
-        notifyObservers();
+        setChanged(); 
+        notifyObservers(); 
     }
 
     public void rotate() {
@@ -50,38 +50,47 @@ public class Game extends Observable implements Runnable {
         return grid.getCols();
     }
 
+    public boolean isGameOver() {
+        return grid.getIsGameOver();
+    }
+
     @Override
     public void run() {
-        Piece currenPiece = grid.getCurrentPiece();
-        if (currenPiece == null) {
-            currenPiece = grid.createPiece();
-            grid.setCurrentPiece(currenPiece);
-            grid.updateGrid();
+        if (!isGameOver()) {
+            Piece currenPiece = grid.getCurrentPiece();
+            if (currenPiece == null) {
+                currenPiece = grid.createPiece();
+                grid.setCurrentPiece(currenPiece);
+                grid.updateGrid();
 
-            setChanged();
-            notifyObservers();
-            return;
-        }
-        if (grid.checkMoveDown()) {
-            grid.moveCurrentPieceDown();
-        } else {
-            grid.placeCurrentPiece();
-
-            Piece newPiece = grid.createPiece();
-            grid.setCurrentPiece(newPiece);
-
-            if (!grid.canPlacePiece(newPiece)) {
-                System.out.println("Game Over!");
+                setChanged(); 
+                notifyObservers(); 
+                return;
             }
+            if (grid.checkMoveDown()) {
+                grid.moveCurrentPieceDown();
+            } else {
+                grid.placeCurrentPiece();
+        
+                Piece newPiece = grid.createPiece();
+                grid.setCurrentPiece(newPiece);
+        
+                // if (!grid.canPlacePiece(newPiece)) {
+                //     System.out.println("Game Over!");
+                // }
+            }
+
+            grid.updateGrid();
+            // grid.printGrid();
+            System.out.println(isGameOver());
+
+
+            setChanged(); 
+            notifyObservers(); 
         }
+        
 
-        grid.removeLine();
 
-        grid.updateGrid();
-        // grid.printGrid();
-
-        setChanged();
-        notifyObservers();
 
         System.out.println("Game is running");
     }
