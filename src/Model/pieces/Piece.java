@@ -1,12 +1,20 @@
 package Model.pieces;
 
+import Model.Direction;
 import java.awt.Color;
-
-import Model.Side;
 
 public abstract class Piece {
 
     protected boolean[][] actualShape;
+    protected Direction actualDirection;
+
+    protected abstract boolean[][] getNorthShape();
+
+    protected abstract boolean[][] getEastShape();
+
+    protected abstract boolean[][] getSouthShape();
+
+    protected abstract boolean[][] getWestShape();
 
     protected int x;
     protected int y;
@@ -15,6 +23,8 @@ public abstract class Piece {
     public Piece(int x, int y) {
         this.x = x;
         this.y = y;
+        this.actualShape = getNorthShape();
+        this.actualDirection = Direction.NORTH;
     }
 
     public boolean[][] getShape() {
@@ -63,6 +73,28 @@ public abstract class Piece {
         return maxIndices;
     }
 
+    public boolean[][] nextDirectionShape(Direction direction) {
+        boolean[][] returnValue = null;
+        switch (direction) {
+            case NORTH:
+                returnValue = getEastShape();
+                break;
+            case EAST:
+                returnValue = getSouthShape();
+                break;
+            case SOUTH:
+                returnValue = getWestShape();
+                break;
+            case WEST:
+                returnValue = getNorthShape();
+                break;
+            default:
+                returnValue = getNorthShape();
+                break;
+        }
+        return returnValue;
+    }
+
     public int getX() {
         return this.x;
     }
@@ -83,5 +115,8 @@ public abstract class Piece {
         this.y = y;
     }
 
-    public abstract void rotate(Side side);
+    public Direction getActualDirection() {
+        return this.actualDirection;
+    }
+
 }

@@ -2,73 +2,64 @@ package Model.pieces;
 
 import java.awt.Color;
 
-import Model.Side;
-
 public class PieceL extends Piece {
 
-    private final boolean[][] NORTH = new boolean[][] {
-            { false, false, true, false },
-            { false, false, true, false },
-            { false, false, true, true },
-            { false, false, false, false },
-    };
+	private final boolean[][] NORTH = new boolean[][] {
+			{ false, false, true, false },
+			{ false, false, true, false },
+			{ false, false, true, true },
+			{ false, false, false, false },
+	};
 
-    private final boolean[][] SOUTH = new boolean[][] {
-            { false, true, true, false },
-            { false, false, true, false },
-            { false, false, true, false },
-            { false, false, false, false },
-    };
+	private final boolean[][] SOUTH = new boolean[][] {
+			{ false, true, true, false },
+			{ false, false, true, false },
+			{ false, false, true, false },
+			{ false, false, false, false },
+	};
 
-    private final boolean[][] EAST = new boolean[][] {
-            { false, false, false, false },
-            { false, true, true, true },
-            { false, true, false, false },
-            { false, false, false, false },
-    };
+	private final boolean[][] EAST = new boolean[][] {
+			{ false, false, false, false },
+			{ false, true, true, true },
+			{ false, true, false, false },
+			{ false, false, false, false },
+	};
 
-    private final boolean[][] WEST = new boolean[][] {
-            { false, false, false, false },
-            { false, false, false, true },
-            { false, true, true, true },
-            { false, false, false, false },
-    };
+	private final boolean[][] WEST = new boolean[][] {
+			{ false, false, false, false },
+			{ false, false, false, true },
+			{ false, true, true, true },
+			{ false, false, false, false },
+	};
 
-    public PieceL(int x, int y) {
-        super(x, y);
-        this.color = Color.ORANGE;
-        this.actualShape = NORTH;
-    }
+	public PieceL(int x, int y) {
+		super(x, y);
+		this.color = Color.ORANGE;
+		this.actualShape = NORTH;
+	}
 
-    public void rotate(Side side) {
-        if (side == Side.RIGHT) {
-            rotateRight();
-        } else {
-            rotateLeft();
-        }
-    }
+	public void rotate() {
 
-    public void rotateLeft() {
-        if (actualShape == NORTH) {
-            actualShape = EAST;
-        } else if (actualShape == EAST) {
-            actualShape = SOUTH;
-        } else if (actualShape == SOUTH) {
-            actualShape = WEST;
-        } else if (actualShape == WEST) {
-            actualShape = NORTH;
-        }
-    }
+	}
 
-    public void rotateRight() {
-        if (actualShape == NORTH) {
-            actualShape = WEST;
-        } else if (actualShape == WEST) {
-            actualShape = SOUTH;
-        } else if (actualShape == SOUTH) {
-            actualShape = EAST;
-        } else if (actualShape == EAST) {
-            actualShape = NORTH;
-        }
-    }
+	@Override
+	protected boolean[][] getNorthShape() {
+		return NORTH;
+	}
+
+	@Override
+	protected boolean[][] getEastShape() {
+		return EAST;
+	}
+
+	@Override
+	protected boolean[][] getSouthShape() {
+		return SOUTH;
+	}
+
+	@Override
+	protected boolean[][] getWestShape() {
+		return WEST;
+	}
+
 }

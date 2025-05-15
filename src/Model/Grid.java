@@ -169,6 +169,10 @@ public class Grid {
         return true;
     }
 
+    boolean canRotate(Piece piece) {
+        boolean[][] newShape = piece.nextDirectionShape(piece.getActualDirection());
+    }
+
     public Piece createPiece() {
 
         int randomPiece = (int) (Math.random() * 7);

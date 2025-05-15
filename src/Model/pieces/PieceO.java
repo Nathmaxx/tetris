@@ -2,8 +2,6 @@ package Model.pieces;
 
 import java.awt.Color;
 
-import Model.Side;
-
 public class PieceO extends Piece {
 
     private final boolean[][] SHAPE = new boolean[][] {
@@ -20,8 +18,23 @@ public class PieceO extends Piece {
     }
 
     @Override
-    public void rotate(Side side) {
-        // O piece does not rotate
+    protected boolean[][] getNorthShape() {
+        return NORTH;
+    }
+
+    @Override
+    protected boolean[][] getEastShape() {
+        return EAST;
+    }
+
+    @Override
+    protected boolean[][] getSouthShape() {
+        return SOUTH;
+    }
+
+    @Override
+    protected boolean[][] getWestShape() {
+        return WEST;
     }
 
 }
