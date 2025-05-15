@@ -19,22 +19,22 @@ public class PieceO extends Piece {
 
     @Override
     protected boolean[][] getNorthShape() {
-        return NORTH;
+        return SHAPE;
     }
 
     @Override
     protected boolean[][] getEastShape() {
-        return EAST;
+        return SHAPE;
     }
 
     @Override
     protected boolean[][] getSouthShape() {
-        return SOUTH;
+        return SHAPE;
     }
 
     @Override
     protected boolean[][] getWestShape() {
-        return WEST;
+        return SHAPE;
     }
 
 }

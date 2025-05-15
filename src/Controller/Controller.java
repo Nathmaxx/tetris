@@ -28,12 +28,14 @@ public class Controller implements KeyListener {
                 }
                 break;
             case KeyEvent.VK_DOWN:
-                
+
                 model.run();
                 break;
             case KeyEvent.VK_UP:
                 System.out.println("Up key pressed");
-                // model.rotatePiece();
+                if (model.getGrid().canRotate(model.getGrid().getCurrentPiece())) {
+                    model.rotate();
+                }
                 break;
         }
     }

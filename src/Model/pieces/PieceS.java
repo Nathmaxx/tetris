@@ -8,24 +8,10 @@ public class PieceS extends Piece {
 			{ false, false, false, false },
 	};
 
-	private final boolean[][] WEST = new boolean[][] {
-			{ false, false, false, false },
+	private final boolean[][] EAST = new boolean[][] {
 			{ false, false, true, false },
 			{ false, false, true, true },
 			{ false, false, false, true },
-	};
-
-	private final boolean[][] SOUTH = new boolean[][] {
-			{ false, false, false, false },
-			{ false, false, false, false },
-			{ false, true, true, false },
-			{ true, true, false, false },
-	};
-
-	private final boolean[][] EAST = new boolean[][] {
-			{ true, false, false, false },
-			{ true, true, false, false },
-			{ false, true, false, false },
 			{ false, false, false, false },
 	};
 
@@ -47,12 +33,12 @@ public class PieceS extends Piece {
 
 	@Override
 	protected boolean[][] getSouthShape() {
-		return SOUTH;
+		return NORTH;
 	}
 
 	@Override
 	protected boolean[][] getWestShape() {
-		return WEST;
+		return EAST;
 	}
 
 }

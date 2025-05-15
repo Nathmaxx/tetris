@@ -95,6 +95,27 @@ public abstract class Piece {
         return returnValue;
     }
 
+    public Direction nextDirection() {
+        Direction nextDir;
+        switch (actualDirection) {
+            case NORTH:
+                nextDir = Direction.EAST;
+                break;
+            case EAST:
+                nextDir = Direction.SOUTH;
+                break;
+            case SOUTH:
+                nextDir = Direction.WEST;
+                break;
+            case WEST:
+                nextDir = Direction.NORTH;
+                break;
+            default:
+                nextDir = Direction.NORTH;
+        }
+        return nextDir;
+    }
+
     public int getX() {
         return this.x;
     }
@@ -117,6 +138,11 @@ public abstract class Piece {
 
     public Direction getActualDirection() {
         return this.actualDirection;
+    }
+
+    public void setNextDirection(Direction direction) {
+        this.actualShape = nextDirectionShape(direction);
+        this.actualDirection = direction;
     }
 
 }

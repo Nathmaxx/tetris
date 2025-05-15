@@ -14,7 +14,7 @@ public class PieceJ extends Piece {
 			{ false, false, true, true },
 			{ false, false, true, false },
 			{ false, false, true, false },
-			{ false, false, true, false },
+			{ false, false, false, false },
 	};
 	private final boolean[][] EAST = new boolean[][] {
 			{ false, false, false, false },

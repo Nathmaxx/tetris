@@ -169,8 +169,27 @@ public class Grid {
         return true;
     }
 
-    boolean canRotate(Piece piece) {
+    public boolean canRotate(Piece piece) {
         boolean[][] newShape = piece.nextDirectionShape(piece.getActualDirection());
+        int x = piece.getX();
+        int y = piece.getY();
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+
+                if (x + col < 0 || x + col >= cols || y + row < 0 || y + row >= rows) {
+                    return false;
+                }
+
+                if (boxes[y + row][x + col].getIsComplete() && newShape[row][col]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void rotatePiece() {
+        this.currentPiece.setNextDirection(currentPiece.nextDirection());
     }
 
     public Piece createPiece() {

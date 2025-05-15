@@ -30,6 +30,14 @@ public class Game extends Observable implements Runnable {
         notifyObservers();
     }
 
+    public void rotate() {
+        grid.rotatePiece();
+        grid.updateGrid();
+        System.out.println(grid.getCurrentPiece().getActualDirection());
+        setChanged();
+        notifyObservers();
+    }
+
     public Grid getGrid() {
         return this.grid;
     }
