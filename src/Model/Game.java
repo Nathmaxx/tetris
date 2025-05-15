@@ -3,10 +3,11 @@ package Model;
 import java.awt.Color;
 import java.util.Observable;
 
+import Model.pieces.Piece;
+
 public class Game extends Observable implements Runnable {
 
     private Grid grid;
-
 
     public Game(Grid grid) {
         this.grid = grid;
@@ -16,19 +17,19 @@ public class Game extends Observable implements Runnable {
     public void moveLeft() {
         grid.moveCurrentPieceLeft();
         grid.updateGrid();
-        
-        setChanged(); 
-        notifyObservers(); 
+
+        setChanged();
+        notifyObservers();
     }
 
     public void moveRight() {
         grid.moveCurrentPieceRight();
         grid.updateGrid();
 
-        setChanged(); 
-        notifyObservers(); 
+        setChanged();
+        notifyObservers();
     }
-    
+
     public Grid getGrid() {
         return this.grid;
     }
@@ -49,18 +50,18 @@ public class Game extends Observable implements Runnable {
             grid.setCurrentPiece(currenPiece);
             grid.updateGrid();
 
-            setChanged(); 
-            notifyObservers(); 
+            setChanged();
+            notifyObservers();
             return;
         }
         if (grid.checkMoveDown()) {
             grid.moveCurrentPieceDown();
         } else {
             grid.placeCurrentPiece();
-    
+
             Piece newPiece = grid.createPiece();
             grid.setCurrentPiece(newPiece);
-    
+
             if (!grid.canPlacePiece(newPiece)) {
                 System.out.println("Game Over!");
             }
@@ -69,10 +70,8 @@ public class Game extends Observable implements Runnable {
         grid.updateGrid();
         // grid.printGrid();
 
-        setChanged(); 
-        notifyObservers(); 
-
-
+        setChanged();
+        notifyObservers();
 
         System.out.println("Game is running");
     }

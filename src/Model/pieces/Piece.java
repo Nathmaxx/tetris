@@ -1,6 +1,8 @@
-package Model;
+package Model.pieces;
 
 import java.awt.Color;
+
+import Model.Side;
 
 public abstract class Piece {
 
@@ -72,8 +74,6 @@ public abstract class Piece {
     public Color getColor() {
         return this.color;
     }
-
-     
 
     public void setX(int x) {
         this.x = x;

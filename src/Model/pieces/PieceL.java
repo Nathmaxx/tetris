@@ -1,6 +1,8 @@
-package Model;
+package Model.pieces;
 
 import java.awt.Color;
+
+import Model.Side;
 
 public class PieceL extends Piece {
 
@@ -31,8 +33,6 @@ public class PieceL extends Piece {
             { false, true, true, true },
             { false, false, false, false },
     };
-
-
 
     public PieceL(int x, int y) {
         super(x, y);

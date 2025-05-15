@@ -11,12 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import Model.Game;
-import Model.PieceL;
+import Model.pieces.PieceL;
 
-public class View implements Observer{
+public class View implements Observer {
     private JPanel gamePanel;
-    
-
 
     public View(Game model) {
 
@@ -24,8 +22,8 @@ public class View implements Observer{
         JFrame frame = new JFrame("TETRIS");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenHeight = screenSize.height- 100; 
-        int frameWidth = screenHeight/2;
+        int screenHeight = screenSize.height - 100;
+        int frameWidth = screenHeight / 2;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(frameWidth, screenHeight);

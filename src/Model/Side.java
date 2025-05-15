@@ -1,5 +1,5 @@
 package Model;
 
-enum Side {
+public enum Side {
     RIGHT, LEFT
 }

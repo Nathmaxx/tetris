@@ -1,6 +1,8 @@
-package Model;
+package Model.pieces;
 
 import java.awt.Color;
+
+import Model.Side;
 
 public class PieceO extends Piece {
 

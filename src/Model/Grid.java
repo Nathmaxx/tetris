@@ -2,6 +2,15 @@ package Model;
 
 import java.awt.Color;
 
+import Model.pieces.Piece;
+import Model.pieces.PieceI;
+import Model.pieces.PieceJ;
+import Model.pieces.PieceL;
+import Model.pieces.PieceO;
+import Model.pieces.PieceS;
+import Model.pieces.PieceT;
+import Model.pieces.PieceZ;
+
 public class Grid {
     private Box[][] boxes;
     private int rows;
@@ -44,14 +53,14 @@ public class Grid {
                 if (boxes[i][j].getColor().equals(pieceColor) && !boxes[i][j].getIsComplete()) {
                     boxes[i][j].setColor(backgroundColor);
                 }
-            } 
+            }
         }
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (shape[i][j]) {
                     int newY = currentPiece.getY() + i;
-                    int newX = currentPiece.getX() + j ;
+                    int newX = currentPiece.getX() + j;
                     if (newY >= 0 && newY < rows && newX >= 0 && newX < cols) {
                         boxes[newY][newX].setColor(pieceColor);
                     }
@@ -122,7 +131,7 @@ public class Grid {
         boolean[][] shape = currentPiece.getShape();
         int pieceRow = currentPiece.getY();
         int pieceCol = currentPiece.getX();
-    
+
         for (int i = 0; i < shape.length; i++) {
             for (int j = 0; j < shape[i].length; j++) {
                 if (shape[i][j]) {
@@ -131,23 +140,23 @@ public class Grid {
                 }
             }
         }
-    
+
         generateNewPiece();
     }
-    
+
     private void generateNewPiece() {
         currentPiece = createPiece();
-    
+
         if (!canPlacePiece(currentPiece)) {
             System.out.println("Game Over!");
             System.exit(0);
-            
+
         }
     }
-    
+
     boolean canPlacePiece(Piece piece) {
         boolean[][] shape = piece.getShape();
-    
+
         for (int i = 0; i < shape.length; i++) {
             for (int j = 0; j < shape[i].length; j++) {
                 if (shape[i][j]) {
@@ -161,7 +170,7 @@ public class Grid {
     }
 
     public Piece createPiece() {
-        
+
         int randomPiece = (int) (Math.random() * 7);
         Piece piece = null;
 
@@ -191,9 +200,6 @@ public class Grid {
         return piece;
     }
 
-
-
-
     public int getRows() {
         return rows;
     }
@@ -214,5 +220,4 @@ public class Grid {
         return currentPiece;
     }
 
-    
 }
