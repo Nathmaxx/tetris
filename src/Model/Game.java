@@ -75,6 +75,8 @@ public class Game extends Observable implements Runnable {
             }
         }
 
+        grid.removeLine();
+
         grid.updateGrid();
         // grid.printGrid();
 

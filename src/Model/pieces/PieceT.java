@@ -10,7 +10,7 @@ public class PieceT extends Piece {
 
 	private final boolean[][] WEST = new boolean[][] {
 			{ false, false, true, false },
-			{ false, false, true, true },
+			{ false, true, true, false },
 			{ false, false, true, false },
 			{ false, false, false, false },
 	};
@@ -25,7 +25,7 @@ public class PieceT extends Piece {
 	private final boolean[][] EAST = new boolean[][] {
 			{ false, false, false, false },
 			{ false, false, true, false },
-			{ false, true, true, false },
+			{ false, false, true, true },
 			{ false, false, true, false },
 
 	};

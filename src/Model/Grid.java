@@ -1,6 +1,10 @@
 package Model;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import Model.pieces.Piece;
 import Model.pieces.PieceI;
@@ -17,6 +21,8 @@ public class Grid {
     private int cols;
     private Piece currentPiece;
     private Color backgroundColor = Color.BLACK;
+    private Random random = new Random();
+    private List<Integer> pieceBag = new ArrayList<>();
 
     public Grid(int rows, int cols) {
         this.rows = rows;
@@ -28,6 +34,43 @@ public class Grid {
                 boxes[i][j] = new Box(i, j, backgroundColor);
                 boxes[i][j].setIsComplete(false);
             }
+        }
+
+        this.random = new Random(System.currentTimeMillis());
+    }
+
+    private void fillBag() {
+        pieceBag.clear();
+        for (int i = 0; i < 7; i++) {
+            pieceBag.add(i);
+        }
+        Collections.shuffle(pieceBag, random);
+    }
+
+    public Piece createPiece() {
+        if (pieceBag.isEmpty()) {
+            fillBag();
+        }
+
+        int pieceType = pieceBag.remove(0);
+
+        switch (pieceType) {
+            case 0:
+                return new PieceI(2, 0);
+            case 1:
+                return new PieceJ(2, 0);
+            case 2:
+                return new PieceL(2, 0);
+            case 3:
+                return new PieceO(2, 0);
+            case 4:
+                return new PieceS(2, 0);
+            case 5:
+                return new PieceT(2, 0);
+            case 6:
+                return new PieceZ(2, 0);
+            default:
+                return new PieceI(2, 0); // Par défaut
         }
     }
 
@@ -188,39 +231,39 @@ public class Grid {
         return true;
     }
 
-    public void rotatePiece() {
-        this.currentPiece.setNextDirection(currentPiece.nextDirection());
+    public void removeLine() {
+        boolean isComplete;
+        for (int row = rows - 1; row >= 0; row--) {
+            isComplete = true;
+
+            // Vérifier si la ligne est complète
+            for (int col = 0; col < cols; col++) {
+                if (!boxes[row][col].getIsComplete()) {
+                    isComplete = false;
+                    break;
+                }
+            }
+
+            if (isComplete) {
+                for (int moveRow = row; moveRow > 0; moveRow--) {
+                    for (int col = 0; col < cols; col++) {
+                        boxes[moveRow][col].setColor(boxes[moveRow - 1][col].getColor());
+                        boxes[moveRow][col].setIsComplete(boxes[moveRow - 1][col].getIsComplete());
+                    }
+                }
+
+                for (int col = 0; col < cols; col++) {
+                    boxes[0][col].setColor(backgroundColor);
+                    boxes[0][col].setIsComplete(false);
+                }
+
+                row++;
+            }
+        }
     }
 
-    public Piece createPiece() {
-
-        int randomPiece = (int) (Math.random() * 7);
-        Piece piece = null;
-
-        switch (randomPiece) {
-            case 0:
-                piece = new PieceI(2, 0);
-                break;
-            case 1:
-                piece = new PieceJ(2, 0);
-                break;
-            case 2:
-                piece = new PieceL(2, 0);
-                break;
-            case 3:
-                piece = new PieceO(2, 0);
-                break;
-            case 4:
-                piece = new PieceS(2, 0);
-                break;
-            case 5:
-                piece = new PieceT(2, 0);
-                break;
-            case 6:
-                piece = new PieceZ(2, 0);
-                break;
-        }
-        return piece;
+    public void rotatePiece() {
+        this.currentPiece.setNextDirection(currentPiece.nextDirection());
     }
 
     public int getRows() {
