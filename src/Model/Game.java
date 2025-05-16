@@ -60,38 +60,36 @@ public class Game extends Observable implements Runnable {
             Piece currenPiece = grid.getCurrentPiece();
             if (currenPiece == null) {
                 currenPiece = grid.createPiece();
+                
                 grid.setCurrentPiece(currenPiece);
+                
+                
+                
                 grid.updateGrid();
 
-                setChanged(); 
-                notifyObservers(); 
+                
+
+                    setChanged(); 
+                    notifyObservers(); 
+                
+                
                 return;
             }
             if (grid.checkMoveDown()) {
                 grid.moveCurrentPieceDown();
+                grid.updateGrid();
+
+                setChanged(); 
+                notifyObservers();
+                return;
             } else {
                 grid.placeCurrentPiece();
-        
-                Piece newPiece = grid.createPiece();
-                grid.setCurrentPiece(newPiece);
-        
-                // if (!grid.canPlacePiece(newPiece)) {
-                //     System.out.println("Game Over!");
-                // }
+                
             }
-
-            grid.updateGrid();
-            // grid.printGrid();
-            System.out.println(isGameOver());
-
-
-            setChanged(); 
-            notifyObservers(); 
+            
         }
-        
+        setChanged(); 
+        notifyObservers();
 
-
-
-        System.out.println("Game is running");
     }
 }
