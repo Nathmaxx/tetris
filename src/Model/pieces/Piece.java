@@ -140,8 +140,23 @@ public abstract class Piece {
         return this.actualDirection;
     }
 
+    private boolean[][] getShapeForDirection(Direction direction) {
+        switch (direction) {
+            case NORTH:
+                return getNorthShape();
+            case EAST:
+                return getEastShape();
+            case SOUTH:
+                return getSouthShape();
+            case WEST:
+                return getWestShape();
+            default:
+                return getNorthShape();
+        }
+    }
+
     public void setNextDirection(Direction direction) {
-        this.actualShape = nextDirectionShape(direction);
+        this.actualShape = getShapeForDirection(direction);
         this.actualDirection = direction;
     }
 
