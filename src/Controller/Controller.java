@@ -28,25 +28,24 @@ public class Controller implements KeyListener {
                 }
                 break;
             case KeyEvent.VK_DOWN:
-
                 model.run();
-                break;
-            case KeyEvent.VK_UP:
-                System.out.println("Up key pressed");
-                if (model.getGrid().canRotate(model.getGrid().getCurrentPiece())) {
-                    model.rotate();
-                }
                 break;
         }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            System.out.println("Up key pressed");
+            if (model.getGrid().canRotate(model.getGrid().getCurrentPiece())) {
+                model.rotate();
+            }
+        }
+
     }
+
 }
