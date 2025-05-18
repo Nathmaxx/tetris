@@ -67,7 +67,7 @@ public class View implements Observer {
             }
             if (game.isRestarted()) {
                 restartGame();
-                return;
+                
             }
 
             // Update the grid if the game is running
