@@ -11,14 +11,18 @@ public class Scheduler extends Thread{
 
     private long pause = 1000;
     public  void run(){
-        while (!((Game) r).isGameOver()) {
-            System.out.println("GAME OVER : " + ((Game) r).isGameOver());
-            r.run();
+        while (true) {
+            if (!((Game) r).isGameOver()) {
+                
+                r.run();
+                
+            }
             try {
                 Thread.sleep(pause);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            System.out.println("GAME OVER : " + ((Game) r).isGameOver());
         }
     }
 

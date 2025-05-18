@@ -8,6 +8,7 @@ import Model.pieces.Piece;
 public class Game extends Observable implements Runnable {
 
     private Grid grid;
+    private boolean isRestarted = false;
 
     public Game(Grid grid) {
         this.grid = grid;
@@ -38,6 +39,15 @@ public class Game extends Observable implements Runnable {
         notifyObservers();
     }
 
+    public void restart() {
+        isRestarted = true;
+        grid.restart();
+        grid.updateGrid();
+        grid.printGrid();
+        setChanged(); 
+        notifyObservers(); 
+    }
+
     public Grid getGrid() {
         return this.grid;
     }
@@ -54,8 +64,15 @@ public class Game extends Observable implements Runnable {
         return grid.getIsGameOver();
     }
 
+    public boolean isRestarted() {
+        return isRestarted;
+    }
+
     @Override
     public void run() {
+        System.out.println("RUN");
+        isRestarted = false;
+
         if (!isGameOver()) {
             Piece currenPiece = grid.getCurrentPiece();
             if (currenPiece == null) {
@@ -69,8 +86,8 @@ public class Game extends Observable implements Runnable {
 
                 
 
-                    setChanged(); 
-                    notifyObservers(); 
+                setChanged(); 
+                notifyObservers(); 
                 
                 
                 return;

@@ -1,15 +1,20 @@
 package Controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import View.View;
+
 import Model.Game;
 
-public class Controller implements KeyListener {
+public class Controller implements KeyListener, ActionListener {
     private Game model;
 
     public Controller(Game model) {
         this.model = model;
+
     }
 
     @Override
@@ -48,4 +53,24 @@ public class Controller implements KeyListener {
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+
+            if (command.equals("Restart")) {
+                System.out.println("Restart button clicked");
+                model.restart();
+                
+            } else if (command.equals("Bouton2")) {
+                System.out.println("Bouton 2 cliqué");
+            }
+        }
+
+
+    public void setModel(Game model) {
+        this.model = model;
+    }
 }
+
+
+

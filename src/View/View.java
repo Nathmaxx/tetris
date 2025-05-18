@@ -5,9 +5,7 @@ import Controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.BorderFactory;
 import javax.swing.*;
-import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import Model.Game;
@@ -16,6 +14,8 @@ import Model.pieces.PieceL;
 public class View implements Observer {
     private JPanel gamePanel;
     private JFrame frame;
+    private Controller controller;
+    private JPanel gameOverPanel;
 
     public View(Game model) {
 
@@ -32,7 +32,7 @@ public class View implements Observer {
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
 
-        Controller controller = new Controller(model);
+        controller = new Controller(model);
         frame.addKeyListener(controller);
 
         gamePanel = new JPanel();
@@ -62,55 +62,93 @@ public class View implements Observer {
             
             Game game = (Game) o;
             if (game.isGameOver()) {
-                System.out.println("Game Over");
-
-                frame.getContentPane().removeAll(); 
-
-                JPanel gameOverPanel = new JPanel();
-                gameOverPanel.setBackground(Color.BLACK);
-                gameOverPanel.setLayout(new GridBagLayout()); // Use GridBagLayout to center components
-
-                JPanel innerPanel = new JPanel();
-                innerPanel.setBackground(Color.BLACK);
-                innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
-
-                JLabel gameOverLabel = new JLabel("GAME OVER", JLabel.CENTER);
-                gameOverLabel.setFont(new Font("Arial", Font.BOLD, 50));
-                gameOverLabel.setForeground(Color.RED);
-                gameOverLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-                JLabel scoreLabel = new JLabel("Score: ", JLabel.CENTER);
-                scoreLabel.setFont(new Font("Arial", Font.BOLD, 30));
-                scoreLabel.setForeground(Color.WHITE);
-                scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-                JButton restartButton = new JButton("Restart");
-                restartButton.setFont(new Font("Arial", Font.BOLD, 40));
-                restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-                restartButton.setForeground(Color.GREEN);
-                restartButton.setBackground(Color.BLACK);
-
-                innerPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
-                innerPanel.add(gameOverLabel);
-                innerPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add spacing
-                innerPanel.add(scoreLabel);
-                innerPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add spacing
-                innerPanel.add(restartButton);
-
-                gameOverPanel.add(innerPanel); 
-
-                frame.getContentPane().add(gameOverPanel, BorderLayout.CENTER);
-                frame.revalidate();
-                frame.repaint();
-
+                showGameOverScreen();
                 return;
             }
-            for (int i = 0; i < game.getRows(); i++) {
-                for (int j = 0; j < game.getCols(); j++) {
-                    Color color = game.getGrid().getBox(i, j).getColor();
-                    gamePanel.getComponent(i * game.getCols() + j).setBackground(color);
-                }
+            if (game.isRestarted()) {
+                restartGame();
+                return;
+            }
+
+            // Update the grid if the game is running
+            updateGamePanel(game);
+        }
+    }
+
+    private void updateGamePanel(Game game) {
+        gamePanel.setVisible(true);
+
+        for (int i = 0; i < game.getRows(); i++) {
+            for (int j = 0; j < game.getCols(); j++) {
+                Color color = game.getGrid().getBox(i, j).getColor();
+                gamePanel.getComponent(i * game.getCols() + j).setBackground(color);
             }
         }
+
+        frame.revalidate();
+        frame.repaint();
+        frame.requestFocusInWindow(); 
+    }
+
+    private void showGameOverScreen() {
+        if (gameOverPanel == null) {
+            gameOverPanel = new JPanel();
+            gameOverPanel.setBackground(Color.BLACK);
+            gameOverPanel.setLayout(new GridBagLayout());
+
+            JPanel innerPanel = new JPanel();
+            innerPanel.setBackground(Color.BLACK);
+            innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
+
+            JLabel gameOverLabel = new JLabel("GAME OVER", JLabel.CENTER);
+            gameOverLabel.setFont(new Font("Arial", Font.BOLD, 50));
+            gameOverLabel.setForeground(Color.RED);
+            gameOverLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel scoreLabel = new JLabel("Score: " , JLabel.CENTER);
+            scoreLabel.setFont(new Font("Arial", Font.BOLD, 30));
+            scoreLabel.setForeground(Color.WHITE);
+            scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JButton restartButton = new JButton("Restart");
+            restartButton.setFont(new Font("Arial", Font.BOLD, 40));
+            restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            restartButton.setForeground(Color.GREEN);
+            restartButton.setBackground(Color.BLACK);
+            restartButton.setActionCommand("Restart");
+            restartButton.addActionListener(controller);
+
+            innerPanel.add(Box.createRigidArea(new Dimension(0, 20))); 
+            innerPanel.add(gameOverLabel);
+            innerPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
+            innerPanel.add(scoreLabel);
+            innerPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
+            innerPanel.add(restartButton);
+
+            gameOverPanel.add(innerPanel);
+        }
+
+        frame.getContentPane().remove(gamePanel); // Hide the game panel
+        frame.getContentPane().add(gameOverPanel, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public void restartGame() {
+
+        // Supprime le panneau "Game Over" s'il existe
+        if (gameOverPanel != null) {
+            frame.getContentPane().remove(gameOverPanel);
+            gameOverPanel = null; 
+        }
+
+        // Réaffiche le panneau de jeu
+        gamePanel.setVisible(true);
+        frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
+
+        // Met à jour la fenêtre
+        frame.revalidate();
+        frame.repaint();
+        frame.requestFocusInWindow();
     }
 }

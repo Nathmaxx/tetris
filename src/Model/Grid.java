@@ -117,7 +117,7 @@ public class Grid {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if (!boxes[i][j].getIsComplete()) {
-                    System.out.print(" ");
+                    System.out.print("X");
                 } else {
                     System.out.print("1 ");
                 }
@@ -266,6 +266,20 @@ public class Grid {
     public void rotatePiece() {
         this.currentPiece.setNextDirection(currentPiece.nextDirection());
     }
+
+    public void restart() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                boxes[i][j].setColor(backgroundColor);
+                boxes[i][j].setIsComplete(false);
+            }
+        }
+        setIsGameOver(false);
+        generateNewPiece();
+    }
+
+
+
 
     public int getRows() {
         return rows;
