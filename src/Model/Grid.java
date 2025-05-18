@@ -24,6 +24,9 @@ public class Grid {
     private Random random = new Random();
     private List<Integer> pieceBag = new ArrayList<>();
     private boolean isGameOver = false;
+    private Piece nexPiece;
+    private Piece nextPiece2;
+    private Piece nextPiece3;
 
     public Grid(int rows, int cols) {
         this.rows = rows;
@@ -184,13 +187,14 @@ public class Grid {
                 }
             }
         }
-
+        currentPiece = nexPiece;
+        nexPiece = nextPiece2;
+        nextPiece2 = nextPiece3;
+        nextPiece3 = createPiece();
         generateNewPiece();
     }
 
     private void generateNewPiece() {
-        currentPiece = createPiece();
-        setCurrentPiece(currentPiece);
         if (!canPlacePiece(currentPiece)) {
          
             System.out.println("Game Over!");
@@ -278,6 +282,19 @@ public class Grid {
         generateNewPiece();
     }
 
+    public void printPiece(Piece piece) {
+        boolean[][] shape = piece.getShape();
+        for (int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape[i].length; j++) {
+                if (shape[i][j]) {
+                    System.out.print("X ");
+                } else {
+                    System.out.print(". ");
+                }
+            }
+            System.out.println();
+        }
+    }
 
     public Color getBackgroundColor() {
         return backgroundColor;
@@ -310,5 +327,26 @@ public class Grid {
     public boolean getIsGameOver() {
         return isGameOver;
     }
+    public Piece getNextPiece(int index) {
+        switch (index) {
+            case 0:
+                return nexPiece;
+            case 1:
+                return nextPiece2;
+            case 2:
+                return nextPiece3;
+            default:
+                return null;
+        }
+    }
+    public void setNextPiece(Piece piece) {
+        this.nexPiece = piece;
+    }
+    public void setNextPiece2(Piece piece) {
+        this.nextPiece2 = piece;
+    }
+    public void setNextPiece3(Piece piece) {
+        this.nextPiece3 = piece;
+    }    
     
 }

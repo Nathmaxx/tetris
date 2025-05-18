@@ -75,13 +75,24 @@ public class Game extends Observable implements Runnable {
 
         if (!isGameOver()) {
             Piece currenPiece = grid.getCurrentPiece();
+            Piece nextPiece = grid.getNextPiece(0);
+            Piece nextPiece2 = grid.getNextPiece(1);
+            Piece nextPiece3 = grid.getNextPiece(2);
+
             if (currenPiece == null) {
                 currenPiece = grid.createPiece();
-                
                 grid.setCurrentPiece(currenPiece);
-                
-                
-                
+
+                nextPiece = grid.createPiece();
+                grid.setNextPiece(nextPiece);
+
+                nextPiece2 = grid.createPiece();
+                grid.setNextPiece2(nextPiece2);
+
+                nextPiece3 = grid.createPiece();
+                grid.setNextPiece3(nextPiece3);
+                             
+                                
                 grid.updateGrid();
 
                 
@@ -106,10 +117,19 @@ public class Game extends Observable implements Runnable {
                 grid.updateGrid();
                 
             }
+            System.out.println("-------------------");
+            grid.printPiece(nextPiece);
+            System.out.println("-------------------");
+            grid.printPiece(nextPiece2);
+            System.out.println("-------------------");
+            grid.printPiece(nextPiece3);
             
         }
+        
         setChanged(); 
         notifyObservers();
+
+        
 
     }
 }

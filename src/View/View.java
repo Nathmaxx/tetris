@@ -13,6 +13,7 @@ import Model.pieces.PieceL;
 
 public class View implements Observer {
     private JPanel gamePanel;
+    private JPanel nextPiecesPanel;
     private JFrame frame;
     private Controller controller;
     private JPanel gameOverPanel;
@@ -55,6 +56,31 @@ public class View implements Observer {
         gamePanel.setBackground(model.getGrid().getBackgroundColor().brighter());
         gamePanel.setBorder(BorderFactory.createEmptyBorder(80, 10, 10, 10));
         frame.add(gamePanel, BorderLayout.CENTER);
+
+        // Initialize next pieces panel
+        nextPiecesPanel = new JPanel();
+        nextPiecesPanel.setLayout(new GridLayout(3, 1, 10, 10)); // 3 rows for 3 grids
+        nextPiecesPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        nextPiecesPanel.setBackground(Color.DARK_GRAY);
+
+        for (int k = 0; k < 3; k++) {
+            JPanel gridPanel = new JPanel();
+            gridPanel.setLayout(new GridLayout(4, 4)); // 4x4 grid for each piece
+            gridPanel.setBackground(Color.BLACK);
+            gridPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    JPanel cell = new JPanel();
+                    cell.setBackground(Color.BLACK); // Default background
+                    gridPanel.add(cell);
+                }
+            }
+
+            nextPiecesPanel.add(gridPanel);
+        }
+
+        frame.add(nextPiecesPanel, BorderLayout.EAST);
         frame.setVisible(true);     // Ensure this is called after the above
     }
 
@@ -73,8 +99,9 @@ public class View implements Observer {
                 
             }
 
-            // Update the grid if the game is running
+
             updateGamePanel(game);
+            updateNextPiecesPanel(game);
         }
     }
 
@@ -91,6 +118,33 @@ public class View implements Observer {
         frame.revalidate();
         frame.repaint();
         frame.requestFocusInWindow(); 
+    }
+
+    private void updateNextPiecesPanel(Game game) {
+        Component[] components = nextPiecesPanel.getComponents();
+
+        // Parcourt chaque composant du panneau des prochaines pièces
+        for (int k = 0; k < components.length; k++) {
+            if (components[k] instanceof JPanel) {
+                JPanel gridPanel = (JPanel) components[k];
+                boolean[][] shape = game.getGrid().getNextPiece(k).getShape(); // Supposé retourner la k-ième prochaine pièce
+                Color pieceColor = game.getGrid().getNextPiece(k).getColor();
+
+                // Met à jour les cellules de la grille 4x4
+                for (int i = 0; i < 4; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        int index = i * 4 + j;
+                        JPanel cell = (JPanel) gridPanel.getComponent(index);
+
+                        if (i < shape.length && j < shape[i].length && shape[i][j]) {
+                            cell.setBackground(pieceColor); // Définit la couleur de la pièce
+                        } else {
+                            cell.setBackground(Color.BLACK); // Réinitialise l'arrière-plan
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void showGameOverScreen() {

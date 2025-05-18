@@ -2,10 +2,8 @@ package Model;
 
 public class Scheduler extends Thread{
     private Runnable r;
-    private boolean isRunning ;
     public  Scheduler(Runnable r) {
         this.r = r;
-        this.isRunning = true;
 
     }
 
@@ -33,7 +31,5 @@ public class Scheduler extends Thread{
         return pause;
     }
 
-    public void stopScheduler() {
-        this.isRunning = false;
-    }
+
 }
