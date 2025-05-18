@@ -20,7 +20,7 @@ public class Grid {
     private int rows;
     private int cols;
     private Piece currentPiece;
-    private Color backgroundColor = Color.BLACK;
+    private Color backgroundColor = new Color(47,0,100);
     private Random random = new Random();
     private List<Integer> pieceBag = new ArrayList<>();
     private boolean isGameOver = false;
@@ -279,7 +279,9 @@ public class Grid {
     }
 
 
-
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
 
     public int getRows() {
         return rows;

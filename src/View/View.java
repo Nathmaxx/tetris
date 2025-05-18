@@ -37,20 +37,23 @@ public class View implements Observer {
 
         gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(model.getRows(), model.getCols()));
-        Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-
+        Border border = BorderFactory.createLineBorder(model.getGrid().getBackgroundColor().darker() , 1);
+        
         for (int i = 0; i < model.getRows(); i++) { //on commence à 2 pour permettre a la piece de decendre
             for (int j = 0; j < model.getCols(); j++) {
                 JPanel boxPanel = new JPanel();
-                boxPanel.setBorder(border);
-                boxPanel.setBackground(model.getGrid().getBox(i, j).getColor());
+                Color colorCase = model.getGrid().getBox(i, j).getColor();
+                boxPanel.setBackground(colorCase);
                 gamePanel.add(boxPanel);
+                boxPanel.setBorder(border);
+
+               
             }
         }
 
-        gamePanel.setSize(new Dimension(800, 600));
-        gamePanel.setBackground(Color.LIGHT_GRAY);
-        gamePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        gamePanel.setSize(new Dimension(8000, 600));
+        gamePanel.setBackground(model.getGrid().getBackgroundColor().brighter());
+        gamePanel.setBorder(BorderFactory.createEmptyBorder(80, 10, 10, 10));
         frame.add(gamePanel, BorderLayout.CENTER);
         frame.setVisible(true);     // Ensure this is called after the above
     }
