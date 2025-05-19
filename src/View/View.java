@@ -26,8 +26,7 @@ public class View implements Observer {
         frame = new JFrame("TETRIS");
         backgroundColor = model.getGrid().getBackgroundColor(); // Couleur de fond
         // Récupère les dimensions de l'écran
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenHeight = 1500; 
+        int screenHeight = 1400; 
         int frameWidth = 1100; 
 
         // Configure la fenêtre principale
@@ -35,7 +34,7 @@ public class View implements Observer {
         frame.setSize(frameWidth, screenHeight); // Taille de la fenêtre
         frame.setLocationRelativeTo(null); // Centre la fenêtre
         frame.setLayout(new BorderLayout());
-        // frame.setResizable(false);
+        frame.setResizable(false);
 
         controller = new Controller(model);
         frame.addKeyListener(controller);
@@ -45,7 +44,7 @@ public class View implements Observer {
         // Initialisation du panneau de jeu
         gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(model.getRows(), model.getCols()));
-        gamePanel.setPreferredSize(new Dimension(750, 1500));
+        gamePanel.setPreferredSize(new Dimension(screenHeight/2, screenHeight));
         gamePanel.setBackground(model.getGrid().getBackgroundColor().brighter());
         gamePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -69,7 +68,7 @@ public class View implements Observer {
         nextPiecesPanel.setLayout(new GridLayout(3, 1, 20, 20)); // 3 grilles avec espacement
         nextPiecesPanel.setBorder(BorderFactory.createEmptyBorder(250, 40, 250, 40)); // Padding autour du panneau
         nextPiecesPanel.setBackground(backgroundColor.brighter());
-        nextPiecesPanel.setPreferredSize(new Dimension(350, 1500)); 
+        nextPiecesPanel.setPreferredSize(new Dimension(350, screenHeight)); 
         
         for (int k = 0; k < 3; k++) {
             JPanel gridPanel = new JPanel();
