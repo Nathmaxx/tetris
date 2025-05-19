@@ -25,6 +25,7 @@ public class View implements Observer {
         model.addObserver(this);
         frame = new JFrame("TETRIS");
         backgroundColor = model.getGrid().getBackgroundColor(); // Couleur de fond
+
         // Récupère les dimensions de l'écran
         int screenHeight = 800;
         int frameWidth = 600;
@@ -70,14 +71,15 @@ public class View implements Observer {
 
         for (int k = 0; k < 3; k++) {
             JPanel gridPanel = new JPanel();
-            gridPanel.setLayout(new GridLayout(4, 4, 5, 5)); // Grille 4x4 avec espacement
+            gridPanel.setLayout(new GridLayout(4, 4, 1, 1)); // Grille 4x4 avec espacement
             gridPanel.setBackground(backgroundColor.darker());
-            gridPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2)); // Bordure blanche
+            gridPanel.setBorder(BorderFactory.createLineBorder(backgroundColor.darker(), 4)); // Bordure blanche
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     JPanel cell = new JPanel();
-                    cell.setBackground(Color.BLACK); // Couleur par défaut
+                    cell.setBorder(border);
+                    
                     gridPanel.add(cell);
                 }
             }
@@ -129,8 +131,8 @@ public class View implements Observer {
         for (int k = 0; k < components.length; k++) {
             if (components[k] instanceof JPanel) {
                 JPanel gridPanel = (JPanel) components[k];
-                boolean[][] shape = game.getGrid().getNextPiece(k).getShape(); // Supposé retourner la k-ième prochaine
-                                                                               // pièce
+                boolean[][] shape = game.getGrid().getNextPiece(k).getShape(); 
+                                                                               
                 Color pieceColor = game.getGrid().getNextPiece(k).getColor();
 
                 // Met à jour les cellules de la grille 4x4
