@@ -17,9 +17,10 @@ public class View implements Observer {
     private JFrame frame;
     private Controller controller;
     private JPanel gameOverPanel;
+    private Game model;
 
     public View(Game model) {
-
+        this.model = model;
         model.addObserver(this); 
          frame = new JFrame("TETRIS");
         //  frame.setUndecorated(true); // Make the frame undecorated
@@ -62,20 +63,18 @@ public class View implements Observer {
         nextPiecesPanel = new JPanel();
         nextPiecesPanel.setLayout(new GridLayout(3, 1, 20, 20)); // 3 rows for 3 grids, with larger spacing
         nextPiecesPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Add padding around the panel
-        nextPiecesPanel.setBackground(Color.DARK_GRAY);
+        nextPiecesPanel.setBackground(model.getGrid().getBackgroundColor().brighter());
 
         for (int k = 0; k < 3; k++) {
             JPanel gridPanel = new JPanel();
-            gridPanel.setLayout(new GridLayout(4, 4, 5, 5)); // 4x4 grid for each piece, with spacing between cells
-            gridPanel.setBackground(Color.BLACK);
+            gridPanel.setLayout(new GridLayout(4, 4, 2, 2)); // 4x4 grid for each piece, with spacing between cells
+            gridPanel.setBackground(model.getGrid().getBackgroundColor().darker());
             gridPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2)); // Thicker border for better visibility
             gridPanel.setPreferredSize(new Dimension(200, 200)); // Set a larger size for each grid
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     JPanel cell = new JPanel();
-                    cell.setBackground(Color.BLACK); // Default background
-                    cell.setPreferredSize(new Dimension(50, 50)); // Set a larger size for each cell
                     gridPanel.add(cell);
                 }
             }
@@ -142,7 +141,7 @@ public class View implements Observer {
                         if (i < shape.length && j < shape[i].length && shape[i][j]) {
                             cell.setBackground(pieceColor); // Définit la couleur de la pièce
                         } else {
-                            cell.setBackground(Color.BLACK); // Réinitialise l'arrière-plan
+                            cell.setBackground(model.getGrid().getBackgroundColor()); // Réinitialise l'arrière-plan
                         }
                     }
                 }
