@@ -27,7 +27,7 @@ public class View implements Observer {
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenHeight = screenSize.height - 100;
-        int frameWidth = screenHeight;
+        int frameWidth = screenHeight-500;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(frameWidth, screenHeight);
@@ -59,18 +59,17 @@ public class View implements Observer {
         gamePanel.setBorder(BorderFactory.createEmptyBorder(80, 10, 10, 10));
         frame.add(gamePanel, BorderLayout.CENTER);
 
-        // Initialize next pieces panel
         nextPiecesPanel = new JPanel();
         nextPiecesPanel.setLayout(new GridLayout(3, 1, 20, 20)); // 3 rows for 3 grids, with larger spacing
-        nextPiecesPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Add padding around the panel
+        nextPiecesPanel.setBorder(BorderFactory.createEmptyBorder(250, 50 ,250, 50)); // Add padding around the panel
         nextPiecesPanel.setBackground(model.getGrid().getBackgroundColor().brighter());
+        nextPiecesPanel.setPreferredSize(new Dimension(400,screenHeight));
 
         for (int k = 0; k < 3; k++) {
             JPanel gridPanel = new JPanel();
             gridPanel.setLayout(new GridLayout(4, 4, 2, 2)); // 4x4 grid for each piece, with spacing between cells
             gridPanel.setBackground(model.getGrid().getBackgroundColor().darker());
             gridPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2)); // Thicker border for better visibility
-            gridPanel.setPreferredSize(new Dimension(200, 200)); // Set a larger size for each grid
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
@@ -83,7 +82,7 @@ public class View implements Observer {
         }
 
         frame.add(nextPiecesPanel, BorderLayout.EAST);
-        frame.setVisible(true);     // Ensure this is called after the above
+        frame.setVisible(true);     
     }
 
     @Override
@@ -125,7 +124,6 @@ public class View implements Observer {
     private void updateNextPiecesPanel(Game game) {
         Component[] components = nextPiecesPanel.getComponents();
 
-        // Parcourt chaque composant du panneau des prochaines pièces
         for (int k = 0; k < components.length; k++) {
             if (components[k] instanceof JPanel) {
                 JPanel gridPanel = (JPanel) components[k];
