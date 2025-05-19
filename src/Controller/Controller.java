@@ -61,9 +61,7 @@ public class Controller implements KeyListener, ActionListener {
                 System.out.println("Restart button clicked");
                 model.restart();
                 
-            } else if (command.equals("Bouton2")) {
-                System.out.println("Bouton 2 cliqué");
-            }
+            } 
         }
 
 

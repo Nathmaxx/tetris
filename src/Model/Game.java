@@ -40,6 +40,7 @@ public class Game extends Observable implements Runnable {
 
     public void restart() {
         isRestarted = true;
+        Score.resetScore();
         grid.restart();
         grid.updateGrid();
         grid.printGrid();
@@ -65,6 +66,10 @@ public class Game extends Observable implements Runnable {
 
     public boolean isRestarted() {
         return isRestarted;
+    }
+
+    public int getScore() {
+        return Score.getScore();
     }
 
     @Override
