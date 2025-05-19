@@ -18,61 +18,69 @@ public class View implements Observer {
     private Controller controller;
     private JPanel gameOverPanel;
     private Game model;
+    private Color backgroundColor ;
 
     public View(Game model) {
         this.model = model;
         model.addObserver(this); 
-         frame = new JFrame("TETRIS");
-        //  frame.setUndecorated(true); // Make the frame undecorated
-
+        frame = new JFrame("TETRIS");
+        backgroundColor = model.getGrid().getBackgroundColor(); // Couleur de fond
+        // Récupère les dimensions de l'écran
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenHeight = screenSize.height-100;
-        int frameWidth = screenSize.width / 3; 
+        int screenHeight = 1500; 
+        int frameWidth = 1100; 
 
+        // Configure la fenêtre principale
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(frameWidth, screenHeight);
+        frame.setSize(frameWidth, screenHeight); // Taille de la fenêtre
+        frame.setLocationRelativeTo(null); // Centre la fenêtre
         frame.setLayout(new BorderLayout());
         // frame.setResizable(false);
 
         controller = new Controller(model);
         frame.addKeyListener(controller);
 
+
+
+        // Initialisation du panneau de jeu
         gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(model.getRows(), model.getCols()));
+        gamePanel.setPreferredSize(new Dimension(750, 1500));
+        gamePanel.setBackground(model.getGrid().getBackgroundColor().brighter());
+        gamePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        Border border = BorderFactory.createLineBorder(model.getGrid().getBackgroundColor().darker() , 1);
-        
-        for (int i = 0; i < model.getRows(); i++) { //on commence à 2 pour permettre a la piece de decendre
+        Border border = BorderFactory.createLineBorder(backgroundColor.darker(), 1);
+
+        for (int i = 0; i < model.getRows(); i++) {
             for (int j = 0; j < model.getCols(); j++) {
                 JPanel boxPanel = new JPanel();
                 Color colorCase = model.getGrid().getBox(i, j).getColor();
                 boxPanel.setBackground(colorCase);
-                gamePanel.add(boxPanel);
+                boxPanel.setPreferredSize(new Dimension(50, 50)); // Taille des cellules
                 boxPanel.setBorder(border);
-
-               
+                gamePanel.add(boxPanel);
             }
         }
 
-        gamePanel.setBackground(model.getGrid().getBackgroundColor().brighter());
-        gamePanel.setBorder(BorderFactory.createEmptyBorder(80, 10, 10, 10));
         frame.add(gamePanel, BorderLayout.CENTER);
 
+        // Initialisation du panneau des prochaines pièces
         nextPiecesPanel = new JPanel();
-        nextPiecesPanel.setLayout(new GridLayout(3, 1, 20, 20)); // 3 rows for 3 grids, with larger spacing
-        nextPiecesPanel.setBorder(BorderFactory.createEmptyBorder(250, 50 ,250, 50)); // Add padding around the panel
-        nextPiecesPanel.setBackground(model.getGrid().getBackgroundColor().brighter());
-        nextPiecesPanel.setPreferredSize(new Dimension(400,screenHeight));
-
+        nextPiecesPanel.setLayout(new GridLayout(3, 1, 20, 20)); // 3 grilles avec espacement
+        nextPiecesPanel.setBorder(BorderFactory.createEmptyBorder(250, 40, 250, 40)); // Padding autour du panneau
+        nextPiecesPanel.setBackground(backgroundColor.brighter());
+        nextPiecesPanel.setPreferredSize(new Dimension(350, 1500)); 
+        
         for (int k = 0; k < 3; k++) {
             JPanel gridPanel = new JPanel();
-            gridPanel.setLayout(new GridLayout(4, 4, 2, 2)); // 4x4 grid for each piece, with spacing between cells
-            gridPanel.setBackground(model.getGrid().getBackgroundColor().darker());
-            gridPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2)); // Thicker border for better visibility
+            gridPanel.setLayout(new GridLayout(4, 4, 5, 5)); // Grille 4x4 avec espacement
+            gridPanel.setBackground(backgroundColor.darker());
+            gridPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2)); // Bordure blanche
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     JPanel cell = new JPanel();
+                    cell.setBackground(Color.BLACK); // Couleur par défaut
                     gridPanel.add(cell);
                 }
             }
@@ -81,7 +89,7 @@ public class View implements Observer {
         }
 
         frame.add(nextPiecesPanel, BorderLayout.EAST);
-        frame.setVisible(true);     
+        frame.setVisible(true); // Affiche la fenêtre
     }
 
     @Override
@@ -138,7 +146,7 @@ public class View implements Observer {
                         if (i < shape.length && j < shape[i].length && shape[i][j]) {
                             cell.setBackground(pieceColor); // Définit la couleur de la pièce
                         } else {
-                            cell.setBackground(model.getGrid().getBackgroundColor()); // Réinitialise l'arrière-plan
+                            cell.setBackground(backgroundColor); // Réinitialise l'arrière-plan
                         }
                     }
                 }
