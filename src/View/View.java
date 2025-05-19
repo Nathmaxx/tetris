@@ -26,8 +26,8 @@ public class View implements Observer {
         //  frame.setUndecorated(true); // Make the frame undecorated
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenHeight = screenSize.height - 100;
-        int frameWidth = screenHeight-500;
+        int screenHeight = 1900;
+        int frameWidth = 1200;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(frameWidth, screenHeight);
