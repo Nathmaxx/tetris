@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.Color;
 import java.util.Observable;
 
 import Model.pieces.Piece;
@@ -18,17 +17,17 @@ public class Game extends Observable implements Runnable {
     public void moveLeft() {
         grid.moveCurrentPieceLeft();
         grid.updateGrid();
-        
-        setChanged(); 
-        notifyObservers(); 
+
+        setChanged();
+        notifyObservers();
     }
 
     public void moveRight() {
         grid.moveCurrentPieceRight();
         grid.updateGrid();
 
-        setChanged(); 
-        notifyObservers(); 
+        setChanged();
+        notifyObservers();
     }
 
     public void rotate() {
@@ -44,8 +43,8 @@ public class Game extends Observable implements Runnable {
         grid.restart();
         grid.updateGrid();
         grid.printGrid();
-        setChanged(); 
-        notifyObservers(); 
+        setChanged();
+        notifyObservers();
     }
 
     public Grid getGrid() {
@@ -74,14 +73,14 @@ public class Game extends Observable implements Runnable {
         isRestarted = false;
 
         if (!isGameOver()) {
-            Piece currenPiece = grid.getCurrentPiece();
+            Piece currentPiece = grid.getCurrentPiece();
             Piece nextPiece = grid.getNextPiece(0);
             Piece nextPiece2 = grid.getNextPiece(1);
             Piece nextPiece3 = grid.getNextPiece(2);
 
-            if (currenPiece == null) {
-                currenPiece = grid.createPiece();
-                grid.setCurrentPiece(currenPiece);
+            if (currentPiece == null) {
+                currentPiece = grid.createPiece();
+                grid.setCurrentPiece(currentPiece);
 
                 nextPiece = grid.createPiece();
                 grid.setNextPiece(nextPiece);
@@ -91,45 +90,33 @@ public class Game extends Observable implements Runnable {
 
                 nextPiece3 = grid.createPiece();
                 grid.setNextPiece3(nextPiece3);
-                             
-                                
+
                 grid.updateGrid();
 
-                
+                setChanged();
+                notifyObservers();
 
-                setChanged(); 
-                notifyObservers(); 
-                
-                
                 return;
             }
+
             if (grid.checkMoveDown()) {
                 grid.moveCurrentPieceDown();
                 grid.updateGrid();
-            
-
-                setChanged(); 
+                Score.addPoints(1);
+                System.out.println(Score.getScore());
+                setChanged();
                 notifyObservers();
                 return;
             } else {
                 grid.placeCurrentPiece();
                 grid.removeLine();
                 grid.updateGrid();
-                
-            }
-            System.out.println("-------------------");
-            grid.printPiece(nextPiece);
-            System.out.println("-------------------");
-            grid.printPiece(nextPiece2);
-            System.out.println("-------------------");
-            grid.printPiece(nextPiece3);
-            
-        }
-        
-        setChanged(); 
-        notifyObservers();
 
-        
+            }
+        }
+
+        setChanged();
+        notifyObservers();
 
     }
 }

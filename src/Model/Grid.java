@@ -20,7 +20,7 @@ public class Grid {
     private int rows;
     private int cols;
     private Piece currentPiece;
-    private Color backgroundColor = new Color(47,0,100);
+    private Color backgroundColor = new Color(47, 0, 100);
     private Random random = new Random();
     private List<Integer> pieceBag = new ArrayList<>();
     private boolean isGameOver = false;
@@ -196,7 +196,7 @@ public class Grid {
 
     private void generateNewPiece() {
         if (!canPlacePiece(currentPiece)) {
-         
+
             System.out.println("Game Over!");
             setIsGameOver(true);
         }
@@ -221,15 +221,20 @@ public class Grid {
         boolean[][] newShape = piece.nextDirectionShape(piece.getActualDirection());
         int x = piece.getX();
         int y = piece.getY();
+
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
+                if (newShape[row][col]) {
+                    int newX = x + col;
+                    int newY = y + row;
 
-                if (x + col < 0 || x + col >= cols || y + row < 0 || y + row >= rows) {
-                    return false;
-                }
+                    if (newX < 0 || newX >= cols || newY < 0 || newY >= rows) {
+                        return false;
+                    }
 
-                if (boxes[y + row][x + col].getIsComplete() && newShape[row][col]) {
-                    return false;
+                    if (boxes[newY][newX].getIsComplete()) {
+                        return false;
+                    }
                 }
             }
         }
@@ -241,7 +246,6 @@ public class Grid {
         for (int row = rows - 1; row >= 0; row--) {
             isComplete = true;
 
-            // Vérifier si la ligne est complète
             for (int col = 0; col < cols; col++) {
                 if (!boxes[row][col].getIsComplete()) {
                     isComplete = false;
@@ -250,6 +254,7 @@ public class Grid {
             }
 
             if (isComplete) {
+                Score.addPoints(100);
                 for (int moveRow = row; moveRow > 0; moveRow--) {
                     for (int col = 0; col < cols; col++) {
                         boxes[moveRow][col].setColor(boxes[moveRow - 1][col].getColor());
@@ -327,6 +332,7 @@ public class Grid {
     public boolean getIsGameOver() {
         return isGameOver;
     }
+
     public Piece getNextPiece(int index) {
         switch (index) {
             case 0:
@@ -339,14 +345,17 @@ public class Grid {
                 return null;
         }
     }
+
     public void setNextPiece(Piece piece) {
         this.nexPiece = piece;
     }
+
     public void setNextPiece2(Piece piece) {
         this.nextPiece2 = piece;
     }
+
     public void setNextPiece3(Piece piece) {
         this.nextPiece3 = piece;
-    }    
-    
+    }
+
 }
