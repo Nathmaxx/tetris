@@ -8,6 +8,7 @@ public class Game extends Observable implements Runnable {
 
     private Grid grid;
     private boolean isRestarted = false;
+    private boolean isPaused = false;
 
     public Game(Grid grid) {
         this.grid = grid;
@@ -48,6 +49,18 @@ public class Game extends Observable implements Runnable {
         notifyObservers();
     }
 
+    public void pause() {
+        isPaused = true;
+        setChanged();
+        notifyObservers();
+    }
+
+    public void resume() {
+        isPaused = false;
+        setChanged();
+        notifyObservers();
+    }
+
     public Grid getGrid() {
         return this.grid;
     }
@@ -66,6 +79,10 @@ public class Game extends Observable implements Runnable {
 
     public boolean isRestarted() {
         return isRestarted;
+    }
+
+    public boolean isPaused() {
+        return isPaused;
     }
 
     public int getScore() {

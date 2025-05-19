@@ -12,6 +12,7 @@ public class View implements Observer {
     private GamePanel gamePanel;
     private NextPiecesPanel nextPiecesPanel;
     private GameOverPanel gameOverPanel;
+    private PausePanel pausePanel;
     private Game model;
     private Controller controller;
 
@@ -26,11 +27,11 @@ public class View implements Observer {
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
 
-        controller = new Controller(model);
+        controller = new Controller(model,this);
         frame.addKeyListener(controller);
 
         gamePanel = new GamePanel(model);
-        nextPiecesPanel = new NextPiecesPanel(model);
+        nextPiecesPanel = new NextPiecesPanel(model, controller);
 
         frame.add(gamePanel, BorderLayout.CENTER);
         frame.add(nextPiecesPanel, BorderLayout.EAST);
@@ -49,6 +50,13 @@ public class View implements Observer {
             if (game.isRestarted()) {
                 restartGame();
             }
+            if (game.isPaused()) {
+                showPauseScreen();
+                return;
+            }else{
+                hidePauseScreen();
+            }
+            
 
             gamePanel.update(game);
             nextPiecesPanel.update(game);
@@ -70,6 +78,31 @@ public class View implements Observer {
         if (gameOverPanel != null) {
             frame.getContentPane().remove(gameOverPanel);
             gameOverPanel = null;
+        }
+
+        gamePanel.setVisible(true);
+        frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+        frame.requestFocusInWindow();
+    }
+
+    public void showPauseScreen() {
+        if (pausePanel == null) {
+            pausePanel = new PausePanel(controller);
+        }
+
+        frame.getContentPane().remove(gamePanel);
+        frame.getContentPane().add(pausePanel, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+        
+    }
+
+    private void hidePauseScreen() {
+        if (pausePanel != null) {
+            frame.getContentPane().remove(pausePanel);
+            pausePanel = null;
         }
 
         gamePanel.setVisible(true);

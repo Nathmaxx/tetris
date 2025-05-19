@@ -10,7 +10,7 @@ public class Scheduler extends Thread{
     private long pause = 1000;
     public  void run(){
         while (true) {
-            if (!((Game) r).isGameOver()) {
+            if (!((Game) r).isGameOver() && !((Game) r).isPaused()) {
                 
                 r.run();
                 

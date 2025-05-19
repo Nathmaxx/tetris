@@ -11,9 +11,11 @@ import Model.Game;
 
 public class Controller implements KeyListener, ActionListener {
     private Game model;
+    private View view;
 
-    public Controller(Game model) {
+    public Controller(Game model, View view) {
         this.model = model;
+        this.view = view;
 
     }
 
@@ -50,7 +52,13 @@ public class Controller implements KeyListener, ActionListener {
                 model.rotate();
             }
         }
-
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            if (model.isPaused()) {
+                model.resume();
+            } else {
+                model.pause();
+            }
+        }
     }
 
     @Override
@@ -58,10 +66,14 @@ public class Controller implements KeyListener, ActionListener {
             String command = e.getActionCommand();
 
             if (command.equals("Restart")) {
-                System.out.println("Restart button clicked");
                 model.restart();
                 
-            } 
+            } if (command.equals("Pause")) {
+                model.pause();
+            }
+            if (command.equals("Resume")) {
+                model.resume();
+            }
         }
 
 

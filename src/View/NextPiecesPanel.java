@@ -3,21 +3,21 @@ package View;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.event.ActionListener;
+import Controller.Controller;
+
 import Model.Game;
 
 public class NextPiecesPanel extends JPanel {
-    private Game model;
     private JLabel scoreLabel;
-    private Color backgroundColor ;
+    private Color backgroundColor;
+    private JButton pauseButton;
 
-    public NextPiecesPanel(Game model) {
-        this.model = model;
+    public NextPiecesPanel(Game model, Controller controller) {
         this.backgroundColor = model.getGrid().getBackgroundColor();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(backgroundColor.brighter());
         setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-
-        
 
         // Score label
         scoreLabel = new JLabel("Score: 0");
@@ -26,7 +26,23 @@ public class NextPiecesPanel extends JPanel {
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(Box.createVerticalStrut(20));
         add(scoreLabel);
-        add(Box.createVerticalStrut(20));
+        add(Box.createVerticalStrut(10));
+
+        // Pause button
+        pauseButton = new JButton("Pause");
+        pauseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        pauseButton.addActionListener(controller);
+        pauseButton.setBackground(backgroundColor);
+        pauseButton.setForeground(Color.WHITE);
+        pauseButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2)); // Exemple : bordure rouge
+        pauseButton.setFont(new Font("Arial", Font.BOLD, 15)); // Police plus grande
+        pauseButton.setPreferredSize(new Dimension(140, 40)); // Taille plus grande
+        pauseButton.setMaximumSize(new Dimension(80, 40));   // Taille max pour éviter l'étirement
+        
+        pauseButton.setBorder(BorderFactory.createLineBorder(backgroundColor, 0));
+
+        add(pauseButton);
+        add(Box.createVerticalStrut(30));
 
         // Add 3 next piece grids
         for (int k = 0; k < 3; k++) {
