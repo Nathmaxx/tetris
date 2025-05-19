@@ -26,18 +26,19 @@ public class View implements Observer {
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenHeight = screenSize.height - 100;
-        int frameWidth = screenHeight / 2;
+        int frameWidth = screenHeight;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(frameWidth, screenHeight);
         frame.setLayout(new BorderLayout());
-        frame.setResizable(false);
+        // frame.setResizable(false);
 
         controller = new Controller(model);
         frame.addKeyListener(controller);
 
         gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(model.getRows(), model.getCols()));
+
         Border border = BorderFactory.createLineBorder(model.getGrid().getBackgroundColor().darker() , 1);
         
         for (int i = 0; i < model.getRows(); i++) { //on commence à 2 pour permettre a la piece de decendre
@@ -52,27 +53,29 @@ public class View implements Observer {
             }
         }
 
-        gamePanel.setSize(new Dimension(8000, 600));
+        gamePanel.setPreferredSize(new Dimension(screenHeight, screenHeight/2));
         gamePanel.setBackground(model.getGrid().getBackgroundColor().brighter());
         gamePanel.setBorder(BorderFactory.createEmptyBorder(80, 10, 10, 10));
         frame.add(gamePanel, BorderLayout.CENTER);
 
         // Initialize next pieces panel
         nextPiecesPanel = new JPanel();
-        nextPiecesPanel.setLayout(new GridLayout(3, 1, 10, 10)); // 3 rows for 3 grids
-        nextPiecesPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        nextPiecesPanel.setLayout(new GridLayout(3, 1, 20, 20)); // 3 rows for 3 grids, with larger spacing
+        nextPiecesPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Add padding around the panel
         nextPiecesPanel.setBackground(Color.DARK_GRAY);
 
         for (int k = 0; k < 3; k++) {
             JPanel gridPanel = new JPanel();
-            gridPanel.setLayout(new GridLayout(4, 4)); // 4x4 grid for each piece
+            gridPanel.setLayout(new GridLayout(4, 4, 5, 5)); // 4x4 grid for each piece, with spacing between cells
             gridPanel.setBackground(Color.BLACK);
-            gridPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+            gridPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2)); // Thicker border for better visibility
+            gridPanel.setPreferredSize(new Dimension(200, 200)); // Set a larger size for each grid
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     JPanel cell = new JPanel();
                     cell.setBackground(Color.BLACK); // Default background
+                    cell.setPreferredSize(new Dimension(50, 50)); // Set a larger size for each cell
                     gridPanel.add(cell);
                 }
             }
