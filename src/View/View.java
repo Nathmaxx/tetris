@@ -26,7 +26,7 @@ public class View implements Observer {
         //  frame.setUndecorated(true); // Make the frame undecorated
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenHeight = screenSize.height;
+        int screenHeight = screenSize.height-100;
         int frameWidth = screenSize.width / 3; 
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,7 +54,6 @@ public class View implements Observer {
             }
         }
 
-        gamePanel.setPreferredSize(new Dimension(screenHeight, screenHeight/2));
         gamePanel.setBackground(model.getGrid().getBackgroundColor().brighter());
         gamePanel.setBorder(BorderFactory.createEmptyBorder(80, 10, 10, 10));
         frame.add(gamePanel, BorderLayout.CENTER);
