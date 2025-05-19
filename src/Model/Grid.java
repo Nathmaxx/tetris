@@ -243,6 +243,7 @@ public class Grid {
 
     public void removeLine() {
         boolean isComplete;
+        int numberCompleteRows = 0;
         for (int row = rows - 1; row >= 0; row--) {
             isComplete = true;
 
@@ -254,7 +255,7 @@ public class Grid {
             }
 
             if (isComplete) {
-                Score.addPoints(100);
+                numberCompleteRows += 1;
                 for (int moveRow = row; moveRow > 0; moveRow--) {
                     for (int col = 0; col < cols; col++) {
                         boxes[moveRow][col].setColor(boxes[moveRow - 1][col].getColor());
@@ -269,6 +270,17 @@ public class Grid {
 
                 row++;
             }
+        }
+
+        if (numberCompleteRows == 1) {
+            Score.addPoints(100);
+        } else if (numberCompleteRows == 2) {
+            Score.addPoints(300);
+        } else if (numberCompleteRows == 3) {
+            Score.addPoints(500);
+        } else {
+            int points = (int) Math.floor(Math.pow(numberCompleteRows * 200, 1.10));
+            Score.addPoints(points);
         }
     }
 
