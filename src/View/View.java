@@ -26,13 +26,13 @@ public class View implements Observer {
         //  frame.setUndecorated(true); // Make the frame undecorated
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenHeight = 1600;
-        int frameWidth = 1200;
+        int screenHeight = screenSize.height;
+        int frameWidth = screenSize.width / 3; 
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(frameWidth, screenHeight);
         frame.setLayout(new BorderLayout());
-        frame.setResizable(false);
+        // frame.setResizable(false);
 
         controller = new Controller(model);
         frame.addKeyListener(controller);
