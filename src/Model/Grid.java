@@ -79,6 +79,7 @@ public class Grid {
     }
 
     public void moveCurrentPieceDown() {
+        Score.addPoints(1);
         currentPiece.setY(currentPiece.getY() + 1);
     }
 
@@ -187,20 +188,21 @@ public class Grid {
                 }
             }
         }
+
+        // Update the current piece and next pieces correctly
         currentPiece = nexPiece;
         nexPiece = nextPiece2;
         nextPiece2 = nextPiece3;
         nextPiece3 = createPiece();
-        generateNewPiece();
-    }
 
-    private void generateNewPiece() {
+        // Ensure the new current piece can be placed
         if (!canPlacePiece(currentPiece)) {
-
             System.out.println("Game Over!");
             setIsGameOver(true);
         }
     }
+
+
 
     boolean canPlacePiece(Piece piece) {
         boolean[][] shape = piece.getShape();
@@ -296,7 +298,6 @@ public class Grid {
             }
         }
         setIsGameOver(false);
-        generateNewPiece();
     }
 
     public void printPiece(Piece piece) {

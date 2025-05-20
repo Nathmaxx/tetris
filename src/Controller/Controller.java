@@ -37,6 +37,7 @@ public class Controller implements KeyListener, ActionListener {
             case KeyEvent.VK_DOWN:
                 model.run();
                 break;
+            
         }
     }
 
@@ -58,6 +59,10 @@ public class Controller implements KeyListener, ActionListener {
             } else {
                 model.pause();
             }
+        }
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            System.out.println("Space key pressed");
+            model.placePieceAtBottom();
         }
     }
 
