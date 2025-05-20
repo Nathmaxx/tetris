@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
 import Controller.Controller;
+import Controller.MusicPlayer;
 import Model.Game;
 
 public class View implements Observer {
@@ -15,10 +16,13 @@ public class View implements Observer {
     private PausePanel pausePanel;
     private Game model;
     private Controller controller;
+    private MusicPlayer musicPlayer = new MusicPlayer();
+
 
     public View(Game model) {
         this.model = model;
         model.addObserver(this);
+        musicPlayer.play("src/resources/Tetris.wav",true);
 
         frame = new JFrame("TETRIS");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,6 +33,7 @@ public class View implements Observer {
 
         controller = new Controller(model, this);
         frame.addKeyListener(controller);
+        
 
         gamePanel = new GamePanel(model);
         nextPiecesPanel = new NextPiecesPanel(model, controller);

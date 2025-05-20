@@ -88,6 +88,19 @@ public class Game extends Observable implements Runnable {
         return Score.getScore();
     }
 
+    public void placePieceAtBottom() {
+        while (grid.checkMoveDown()) {
+            grid.moveCurrentPieceDown();
+        }
+        grid.updateGrid();
+
+        grid.placeCurrentPiece();
+        grid.removeLine();
+        grid.updateGrid();
+        setChanged();
+        notifyObservers();
+    }
+
     @Override
     public void run() {
         isRestarted = false;
@@ -122,7 +135,7 @@ public class Game extends Observable implements Runnable {
             if (grid.checkMoveDown()) {
                 grid.moveCurrentPieceDown();
                 grid.updateGrid();
-                Score.addPoints(1);
+                System.out.println(Score.getScore());
                 setChanged();
                 notifyObservers();
                 return;
