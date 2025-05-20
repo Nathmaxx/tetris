@@ -13,9 +13,9 @@ public class Controller implements KeyListener, ActionListener {
     private Game model;
     private View view;
 
-    public Controller(Game model, View view) {
+    public Controller(Game model) {
         this.model = model;
-        this.view = view;
+
 
     }
 
@@ -71,13 +71,6 @@ public class Controller implements KeyListener, ActionListener {
     String command = e.getActionCommand();
 
     switch (command) {
-        case "StartGame":
-            view.startGame();
-            model.startGame();
-            break;
-        case "Multiplayer":
-            view.showMultiplayerMessage();
-            break;
         case "Restart":
             model.restart();
             break;

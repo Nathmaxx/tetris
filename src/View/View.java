@@ -5,8 +5,11 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
 import Controller.Controller;
+import Controller.ControllerMenu;
 import Controller.MusicPlayer;
 import Model.Game;
+import Model.Grid;
+import Model.Scheduler;
 
 public class View implements Observer {
     private JFrame frame;
@@ -17,11 +20,10 @@ public class View implements Observer {
     private PausePanel pausePanel;
     private Game model;
     private Controller controller;
+    private ControllerMenu controllerMenu;
     private MusicPlayer musicPlayer = new MusicPlayer();
 
-    public View(Game model) {
-        this.model = model;
-        model.addObserver(this);
+    public View() {
         musicPlayer.play("src/resources/Tetris.wav", true);
 
         frame = new JFrame("TETRIS");
@@ -31,11 +33,10 @@ public class View implements Observer {
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
 
-        controller = new Controller(model, this);
-        frame.addKeyListener(controller);
+        controllerMenu = new ControllerMenu( this);
 
-        mainMenuPanel = new MainMenuPanel(controller);
-        model.setPause(true);
+        mainMenuPanel = new MainMenuPanel(controllerMenu);
+        
         frame.add(mainMenuPanel, BorderLayout.CENTER);
 
         frame.setVisible(true);
@@ -43,9 +44,16 @@ public class View implements Observer {
 
     public void startGame() {
         frame.remove(mainMenuPanel);
+        model = new Game(new Grid(20, 10));
+        model.addObserver(this);
 
+        Scheduler scheduler = new Scheduler(model);
+        scheduler.start();
+
+        controller = new Controller(model);
         this.gamePanel = new GamePanel(model);
         nextPiecesPanel = new NextPiecesPanel(model, controller);
+        frame.addKeyListener(controller);
 
         frame.add(gamePanel, BorderLayout.CENTER);
         frame.add(nextPiecesPanel, BorderLayout.EAST);
@@ -152,7 +160,7 @@ public class View implements Observer {
             pausePanel = null;
         }
 
-        mainMenuPanel = new MainMenuPanel(controller);
+        mainMenuPanel = new MainMenuPanel(controllerMenu);
         frame.add(mainMenuPanel, BorderLayout.CENTER);
 
         frame.revalidate();
