@@ -134,7 +134,6 @@ public class Game extends Observable implements Runnable {
             if (grid.checkMoveDown()) {
                 grid.moveCurrentPieceDown();
                 grid.updateGrid();
-                System.out.println(Score.getScore());
                 setChanged();
                 notifyObservers();
                 return;
