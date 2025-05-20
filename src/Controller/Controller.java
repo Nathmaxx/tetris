@@ -11,25 +11,20 @@ import Model.Game;
 
 public class Controller implements KeyListener, ActionListener {
     private Game model;
-    private View view;
 
     public Controller(Game model, View view) {
         this.model = model;
-        this.view = view;
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                System.out.println("Left key pressed");
                 if (model.getGrid().checkMoveLeft()) {
                     model.moveLeft();
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                System.out.println("Right key pressed");
                 if (model.getGrid().checkMoveRight()) {
                     model.moveRight();
                 }
@@ -47,12 +42,11 @@ public class Controller implements KeyListener, ActionListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            System.out.println("Up key pressed");
             if (model.getGrid().canRotate(model.getGrid().getCurrentPiece())) {
                 model.rotate();
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE){
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             if (model.isPaused()) {
                 model.resume();
             } else {
@@ -63,24 +57,21 @@ public class Controller implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-            String command = e.getActionCommand();
+        String command = e.getActionCommand();
 
-            if (command.equals("Restart")) {
-                model.restart();
-                
-            } if (command.equals("Pause")) {
-                model.pause();
-            }
-            if (command.equals("Resume")) {
-                model.resume();
-            }
+        if (command.equals("Restart")) {
+            model.restart();
+
         }
-
+        if (command.equals("Pause")) {
+            model.pause();
+        }
+        if (command.equals("Resume")) {
+            model.resume();
+        }
+    }
 
     public void setModel(Game model) {
         this.model = model;
     }
 }
-
-
-

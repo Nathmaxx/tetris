@@ -34,7 +34,6 @@ public class Game extends Observable implements Runnable {
     public void rotate() {
         grid.rotatePiece();
         grid.updateGrid();
-        System.out.println(grid.getCurrentPiece().getActualDirection());
         setChanged();
         notifyObservers();
     }
@@ -91,7 +90,6 @@ public class Game extends Observable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("RUN");
         isRestarted = false;
 
         if (!isGameOver()) {
@@ -125,7 +123,6 @@ public class Game extends Observable implements Runnable {
                 grid.moveCurrentPieceDown();
                 grid.updateGrid();
                 Score.addPoints(1);
-                System.out.println(Score.getScore());
                 setChanged();
                 notifyObservers();
                 return;
