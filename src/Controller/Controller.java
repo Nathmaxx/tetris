@@ -32,7 +32,7 @@ public class Controller implements KeyListener, ActionListener {
             case KeyEvent.VK_DOWN:
                 model.run();
                 break;
-            
+
         }
     }
 
@@ -64,15 +64,23 @@ public class Controller implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
-        if (command.equals("Restart")) {
-            model.restart();
-
-        }
-        if (command.equals("Pause")) {
-            model.pause();
-        }
-        if (command.equals("Resume")) {
-            model.resume();
+        switch (command) {
+            case "StartGame":
+                view.startGame();
+                model.restart();
+                break;
+            case "Multiplayer":
+                view.showMultiplayerMessage();
+                break;
+            case "Restart":
+                model.restart();
+                break;
+            case "Pause":
+                model.pause();
+                break;
+            case "Resume":
+                model.resume();
+                break;
         }
     }
 

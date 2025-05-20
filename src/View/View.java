@@ -10,6 +10,7 @@ import Model.Game;
 
 public class View implements Observer {
     private JFrame frame;
+    private MainMenuPanel mainMenuPanel;
     private GamePanel gamePanel;
     private NextPiecesPanel nextPiecesPanel;
     private GameOverPanel gameOverPanel;
@@ -18,11 +19,10 @@ public class View implements Observer {
     private Controller controller;
     private MusicPlayer musicPlayer = new MusicPlayer();
 
-
     public View(Game model) {
         this.model = model;
         model.addObserver(this);
-        musicPlayer.play("src/resources/Tetris.wav",true);
+        musicPlayer.play("src/resources/Tetris.wav", true);
 
         frame = new JFrame("TETRIS");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,37 +33,55 @@ public class View implements Observer {
 
         controller = new Controller(model, this);
         frame.addKeyListener(controller);
-        
 
-        gamePanel = new GamePanel(model);
+        mainMenuPanel = new MainMenuPanel(controller);
+        frame.add(mainMenuPanel, BorderLayout.CENTER);
+
+        frame.setVisible(true);
+    }
+
+    public void startGame() {
+        frame.remove(mainMenuPanel);
+
+        this.gamePanel = new GamePanel(model);
         nextPiecesPanel = new NextPiecesPanel(model, controller);
 
         frame.add(gamePanel, BorderLayout.CENTER);
         frame.add(nextPiecesPanel, BorderLayout.EAST);
 
-        frame.setVisible(true);
+        frame.revalidate();
+        frame.repaint();
+        frame.requestFocusInWindow();
+    }
+
+    public void showMultiplayerMessage() {
+        JOptionPane.showMessageDialog(frame, "Multiplayer mode is not implemented yet.", "Multiplayer",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof Game) {
             Game game = (Game) o;
-            if (game.isGameOver()) {
-                showGameOverScreen();
-                return;
-            }
-            if (game.isRestarted()) {
-                restartGame();
-            }
-            if (game.isPaused()) {
-                showPauseScreen();
-                return;
-            } else {
-                hidePauseScreen();
-            }
+            if (gamePanel != null) {
 
-            gamePanel.update(game);
-            nextPiecesPanel.update(game);
+                if (game.isGameOver()) {
+                    showGameOverScreen();
+                    return;
+                }
+                if (game.isRestarted()) {
+                    restartGame();
+                }
+                if (game.isPaused()) {
+                    showPauseScreen();
+                    return;
+                } else {
+                    hidePauseScreen();
+                }
+
+                gamePanel.update(game);
+                nextPiecesPanel.update(game);
+            }
         }
     }
 
