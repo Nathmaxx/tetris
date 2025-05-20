@@ -3,6 +3,8 @@ package Model.Network;
 import java.io.*;
 import java.net.*;
 
+import Model.Score;
+
 public class Client {
     private static final int SERVER_PORT = 12345;
 
@@ -19,7 +21,6 @@ public class Client {
             connected = true;
             System.out.println("Connecté au serveur !");
 
-            // Lancer un thread pour recevoir les messages
             new Thread(this::receiveMessages).start();
         } catch (IOException e) {
             System.out.println("Impossible de se connecter au serveur");
@@ -27,9 +28,9 @@ public class Client {
         }
     }
 
-    public void sendMessage(String message) {
+    public void sendScore() {
         if (out != null) {
-            out.println(message);
+            out.println("SCORE:" + Score.getScore());
         }
     }
 

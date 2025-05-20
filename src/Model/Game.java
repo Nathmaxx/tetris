@@ -12,7 +12,6 @@ public class Game extends Observable implements Runnable {
 
     public Game(Grid grid) {
         this.grid = grid;
-
     }
 
     public void moveLeft() {
