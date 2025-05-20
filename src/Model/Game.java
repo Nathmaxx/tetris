@@ -35,12 +35,24 @@ public class Game extends Observable implements Runnable {
         grid.rotatePiece();
         grid.updateGrid();
         System.out.println(grid.getCurrentPiece().getActualDirection());
+        setChanged();    
+        notifyObservers();
+    }
+
+    public void startGame() {
+        isRestarted = false;
+        isPaused = false;
+        Score.resetScore();
+        grid.restart();
+        grid.updateGrid();
+        grid.printGrid();
         setChanged();
         notifyObservers();
     }
 
     public void restart() {
         isRestarted = true;
+        isPaused = false;
         Score.resetScore();
         grid.restart();
         grid.updateGrid();
@@ -87,6 +99,10 @@ public class Game extends Observable implements Runnable {
 
     public int getScore() {
         return Score.getScore();
+    }
+
+    public void setPause(boolean pause) {
+        this.isPaused = pause;
     }
 
     public void placePieceAtBottom() {

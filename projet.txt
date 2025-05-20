@@ -40,8 +40,8 @@ Grille.addPiece :
 
 TASK : 
 - Bouton quit 
-- Menu -> Réseaux + Normal (difficulté)
-- vitesse qui augmente au fil du temps 
+- Menu -> Réseaux + Normal (difficulté) / 
+- vitesse qui augmente au fil du temps  
 - améliorer les différents écrans 
 - Best score -> (Bonus enregistrement de partie)
-- musique 
+- musique /

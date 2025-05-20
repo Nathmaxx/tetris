@@ -8,7 +8,6 @@ import java.awt.GridBagLayout;
 
 import javax.swing.*;
 
-
 import Controller.Controller;
 
 public class PausePanel extends JPanel {
@@ -36,10 +35,20 @@ public class PausePanel extends JPanel {
         resumeButton.setActionCommand("Resume");
         resumeButton.addActionListener(controller);
 
+        JButton quitButton = new JButton("Quit");
+        quitButton.setFont(new Font("Arial", Font.BOLD, 40));
+        quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        quitButton.setActionCommand("Menu");
+        quitButton.setForeground(Color.RED);
+        quitButton.setBackground(Color.BLACK);
+        quitButton.addActionListener(controller);
+
         innerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         innerPanel.add(pauseLabel);
         innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         innerPanel.add(resumeButton);
+        innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        innerPanel.add(quitButton);
 
         add(innerPanel);
     }

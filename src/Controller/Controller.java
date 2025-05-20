@@ -73,7 +73,7 @@ public class Controller implements KeyListener, ActionListener {
     switch (command) {
         case "StartGame":
             view.startGame();
-            model.restart();
+            model.startGame();
             break;
         case "Multiplayer":
             view.showMultiplayerMessage();
@@ -87,6 +87,10 @@ public class Controller implements KeyListener, ActionListener {
         case "Resume":
             model.resume();
             break;
+        case "Menu": 
+            view.showMainMenu();
+            break;
+
     }
 }
 

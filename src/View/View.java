@@ -35,6 +35,7 @@ public class View implements Observer {
         frame.addKeyListener(controller);
 
         mainMenuPanel = new MainMenuPanel(controller);
+        model.setPause(true);
         frame.add(mainMenuPanel, BorderLayout.CENTER);
 
         frame.setVisible(true);
@@ -117,19 +118,44 @@ public class View implements Observer {
         frame.getContentPane().add(pausePanel, BorderLayout.CENTER);
         frame.revalidate();
         frame.repaint();
-        
     }
 
     private void hidePauseScreen() {
         if (pausePanel != null) {
             frame.getContentPane().remove(pausePanel);
+            pausePanel = null; // Ensure the reference is cleared
+        }
+
+        if (gamePanel != null) {
+            frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
+            frame.revalidate();
+            frame.repaint();
+            frame.requestFocusInWindow();
+        }
+    }
+
+    public void showMainMenu() {
+        if (gameOverPanel != null) {
+            frame.getContentPane().remove(gameOverPanel);
+            gameOverPanel = null;
+        }
+        if (gamePanel != null) {
+            frame.getContentPane().remove(gamePanel);
+            gamePanel = null;
+        }
+        if (nextPiecesPanel != null) {
+            frame.getContentPane().remove(nextPiecesPanel);
+            nextPiecesPanel = null;
+        }
+        if (pausePanel != null) {
+            frame.getContentPane().remove(pausePanel);
             pausePanel = null;
         }
 
-        gamePanel.setVisible(true);
-        frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
+        mainMenuPanel = new MainMenuPanel(controller);
+        frame.add(mainMenuPanel, BorderLayout.CENTER);
+
         frame.revalidate();
         frame.repaint();
-        frame.requestFocusInWindow();
     }
 }

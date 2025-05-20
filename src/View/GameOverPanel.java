@@ -6,6 +6,7 @@ import Controller.Controller;
 
 public class GameOverPanel extends JPanel {
     private Controller controller;
+    private JButton menuButton;
 
     public GameOverPanel(Controller controller, int score) {
         this.controller = controller;
@@ -34,12 +35,22 @@ public class GameOverPanel extends JPanel {
         restartButton.setActionCommand("Restart");
         restartButton.addActionListener(controller);
 
+        menuButton = new JButton("Menu");
+        menuButton.setFont(new Font("Arial", Font.BOLD, 40));
+        menuButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        menuButton.setForeground(Color.GREEN);
+        menuButton.setBackground(Color.BLACK);
+        menuButton.setActionCommand("Menu");
+        menuButton.addActionListener(controller);
+
         innerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         innerPanel.add(gameOverLabel);
         innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         innerPanel.add(scoreLabel);
         innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         innerPanel.add(restartButton);
+        innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        innerPanel.add(menuButton);
 
         add(innerPanel);
     }
