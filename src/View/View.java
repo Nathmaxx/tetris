@@ -151,7 +151,7 @@ public class View implements Observer {
             frame.getContentPane().remove(pausePanel);
             pausePanel = null;
         }
-
+        model.setPause(true);
         mainMenuPanel = new MainMenuPanel(controller);
         frame.add(mainMenuPanel, BorderLayout.CENTER);
 

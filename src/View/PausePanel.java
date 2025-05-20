@@ -38,10 +38,11 @@ public class PausePanel extends JPanel {
         JButton quitButton = new JButton("Quit");
         quitButton.setFont(new Font("Arial", Font.BOLD, 40));
         quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        quitButton.setActionCommand("Menu");
+        quitButton.setActionCommand("QuitToMenu"); // Use "Menu" action to navigate to the main menu
         quitButton.setForeground(Color.RED);
         quitButton.setBackground(Color.BLACK);
         quitButton.addActionListener(controller);
+  
 
         innerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         innerPanel.add(pauseLabel);

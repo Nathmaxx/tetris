@@ -90,6 +90,11 @@ public class Controller implements KeyListener, ActionListener {
         case "Menu": 
             view.showMainMenu();
             break;
+        case "QuitToMenu":
+            model.getGrid().restart(); // Réinitialise le jeu
+            System.out.println("Quit to menu");
+            view.showMainMenu(); // Retourne au menu principal
+            break;
 
     }
 }
