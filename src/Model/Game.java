@@ -103,8 +103,6 @@ public class Game extends Observable implements Runnable {
     @Override
     public void run() {
         isRestarted = false;
-        System.out.println( " pause : " + isPaused);
-        System.out.println(" game over : " + isGameOver());
         if (!isGameOver()) {
             Piece currentPiece = grid.getCurrentPiece();
             Piece nextPiece = grid.getNextPiece(0);

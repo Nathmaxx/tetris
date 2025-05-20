@@ -12,7 +12,12 @@ public class NetworkGame extends Game {
     }
 
     public void connectClient(String adress) {
-        this.client.connect(adress);
+        this.client.connect();
     }
 
+    public void createServer() {
+
+    }
+
+    // 10.42.179.250
 }

@@ -6,17 +6,20 @@ import java.util.Observer;
 import javax.swing.*;
 import Controller.Controller;
 import Controller.MusicPlayer;
+import Controller.NetworkController;
 import Model.Game;
 
 public class View implements Observer {
     private JFrame frame;
     private MainMenuPanel mainMenuPanel;
     private GamePanel gamePanel;
+    private GameMultiplayerPanel gameMultiplayerPanel;
     private NextPiecesPanel nextPiecesPanel;
     private GameOverPanel gameOverPanel;
     private PausePanel pausePanel;
     private Game model;
     private Controller controller;
+    private NetworkController networkController;
     private MusicPlayer musicPlayer = new MusicPlayer();
 
     public View(Game model) {
@@ -54,9 +57,15 @@ public class View implements Observer {
         frame.requestFocusInWindow();
     }
 
-    public void showMultiplayerMessage() {
-        JOptionPane.showMessageDialog(frame, "Multiplayer mode is not implemented yet.", "Multiplayer",
-                JOptionPane.INFORMATION_MESSAGE);
+    public void startMultiplayerGame() {
+        frame.remove(mainMenuPanel);
+
+        this.gameMultiplayerPanel = new GameMultiplayerPanel(networkController);
+
+        frame.add(gameMultiplayerPanel, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+        frame.requestFocusInWindow();
     }
 
     @Override

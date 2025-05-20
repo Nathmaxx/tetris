@@ -11,9 +11,11 @@ import Model.Game;
 
 public class Controller implements KeyListener, ActionListener {
     private Game model;
+    private View view;
 
     public Controller(Game model, View view) {
         this.model = model;
+        this.view = view;
     }
 
     @Override
@@ -55,7 +57,6 @@ public class Controller implements KeyListener, ActionListener {
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            System.out.println("Space key pressed");
             model.placePieceAtBottom();
         }
     }
@@ -70,7 +71,7 @@ public class Controller implements KeyListener, ActionListener {
                 model.restart();
                 break;
             case "Multiplayer":
-                view.showMultiplayerMessage();
+                view.startMultiplayerGame();
                 break;
             case "Restart":
                 model.restart();

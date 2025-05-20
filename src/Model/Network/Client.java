@@ -12,8 +12,9 @@ public class Client {
     private PrintWriter out;
     private BufferedReader in;
     private boolean connected = false;
+    private String serverAddress = "10.42.179.250";
 
-    public void connect(String serverAddress) {
+    public void connect() {
         try {
             socket = new Socket(serverAddress, SERVER_PORT);
             out = new PrintWriter(socket.getOutputStream(), true);
