@@ -2,8 +2,6 @@ package View;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.event.ActionListener;
 import Controller.Controller;
 
 import Model.Game;
@@ -37,8 +35,8 @@ public class NextPiecesPanel extends JPanel {
         pauseButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2)); // Exemple : bordure rouge
         pauseButton.setFont(new Font("Arial", Font.BOLD, 15)); // Police plus grande
         pauseButton.setPreferredSize(new Dimension(140, 40)); // Taille plus grande
-        pauseButton.setMaximumSize(new Dimension(80, 40));   // Taille max pour éviter l'étirement
-        
+        pauseButton.setMaximumSize(new Dimension(80, 40)); // Taille max pour éviter l'étirement
+
         pauseButton.setBorder(BorderFactory.createLineBorder(backgroundColor, 0));
 
         add(pauseButton);

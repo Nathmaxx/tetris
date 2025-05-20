@@ -27,7 +27,7 @@ public class View implements Observer {
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
 
-        controller = new Controller(model,this);
+        controller = new Controller(model, this);
         frame.addKeyListener(controller);
 
         gamePanel = new GamePanel(model);
@@ -53,10 +53,9 @@ public class View implements Observer {
             if (game.isPaused()) {
                 showPauseScreen();
                 return;
-            }else{
+            } else {
                 hidePauseScreen();
             }
-            
 
             gamePanel.update(game);
             nextPiecesPanel.update(game);
@@ -96,7 +95,7 @@ public class View implements Observer {
         frame.getContentPane().add(pausePanel, BorderLayout.CENTER);
         frame.revalidate();
         frame.repaint();
-        
+
     }
 
     private void hidePauseScreen() {
@@ -111,4 +110,5 @@ public class View implements Observer {
         frame.repaint();
         frame.requestFocusInWindow();
     }
+
 }

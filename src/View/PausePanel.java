@@ -8,14 +8,11 @@ import java.awt.GridBagLayout;
 
 import javax.swing.*;
 
-
 import Controller.Controller;
 
 public class PausePanel extends JPanel {
-    private Controller controller;
 
     public PausePanel(Controller controller) {
-        this.controller = controller;
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
 
