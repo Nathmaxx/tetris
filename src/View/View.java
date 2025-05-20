@@ -22,6 +22,7 @@ public class View implements Observer {
     private Controller controller;
     private ControllerMenu controllerMenu;
     private MusicPlayer musicPlayer = new MusicPlayer();
+    private Scheduler scheduler;
 
     public View() {
         musicPlayer.play("src/resources/Tetris.wav", true);
@@ -43,14 +44,16 @@ public class View implements Observer {
     }
 
     public void startGame() {
+        stopScheduler(); // Ensure any existing scheduler is stopped
+
         frame.remove(mainMenuPanel);
-        model = new Game(new Grid(20, 10));
+        this.model = new Game(new Grid(20, 10));
         model.addObserver(this);
 
-        Scheduler scheduler = new Scheduler(model);
+        scheduler = new Scheduler(model);
         scheduler.start();
 
-        controller = new Controller(model);
+        controller = new Controller(model,this);
         this.gamePanel = new GamePanel(model);
         nextPiecesPanel = new NextPiecesPanel(model, controller);
         frame.addKeyListener(controller);
@@ -71,32 +74,38 @@ public class View implements Observer {
     public void update(Observable o, Object arg) {
         if (o instanceof Game) {
             Game game = (Game) o;
-            if (gamePanel != null) {
-                
-                if (game.isGameOver()) {
-                    showGameOverScreen();
-                    return;
-                }
-                if (game.isRestarted()) {
-                    restartGame();
-                }
-                if (game.isPaused()) {  
-                    showPauseScreen();
-                    return;
-                } else {
-                    hidePauseScreen();
-                }
-    
-                gamePanel.update(game);
-                nextPiecesPanel.update(game);
+
+            if (gamePanel == null || nextPiecesPanel == null) {
+                // Components are not initialized yet, skip the update
+                return;
             }
+
+            if (game.isGameOver()) {
+                showGameOverScreen();
+                return;
+            }
+            if (game.isRestarted()) {
+                restartGame();
+                return;
+            }
+            if (game.isPaused()) {
+                showPauseScreen();
+                return;
+            } else {
+                hidePauseScreen();
+            }
+
+            gamePanel.update(game);
+            nextPiecesPanel.update(game); // Ensure the score and next pieces are updated
         }
     }
 
     private void showGameOverScreen() {
+        stopScheduler(); 
         if (gameOverPanel == null) {
             gameOverPanel = new GameOverPanel(controller, model.getScore());
         }
+
 
         frame.getContentPane().remove(gamePanel);
         frame.getContentPane().add(gameOverPanel, BorderLayout.CENTER);
@@ -105,10 +114,20 @@ public class View implements Observer {
     }
 
     public void restartGame() {
+        stopScheduler(); // Stop any existing scheduler
+
         if (gameOverPanel != null) {
             frame.getContentPane().remove(gameOverPanel);
             gameOverPanel = null;
         }
+        
+        model = new Game(new Grid(20, 10));
+        model.addObserver(this);
+        scheduler = new Scheduler(model);
+        scheduler.start();
+
+
+        
 
         gamePanel.setVisible(true);
         frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
@@ -143,6 +162,8 @@ public class View implements Observer {
     }
 
     public void showMainMenu() {
+        stopScheduler(); // Stop the scheduler thread when returning to the menu
+
         if (gameOverPanel != null) {
             frame.getContentPane().remove(gameOverPanel);
             gameOverPanel = null;
@@ -165,5 +186,17 @@ public class View implements Observer {
 
         frame.revalidate();
         frame.repaint();
+    }
+
+    private void stopScheduler() {
+        if (scheduler != null) {
+            scheduler.interrupt(); // Interrupt the scheduler thread
+            try {
+                scheduler.join(); // Wait for the thread to terminate
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt(); // Restore the interrupt status
+            }
+            scheduler = null; // Clear the reference
+        }
     }
 }

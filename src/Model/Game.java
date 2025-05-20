@@ -12,31 +12,36 @@ public class Game extends Observable implements Runnable {
 
     public Game(Grid grid) {
         this.grid = grid;
-
     }
 
     public void moveLeft() {
-        grid.moveCurrentPieceLeft();
-        grid.updateGrid();
+        if (!isPaused) {
+            grid.moveCurrentPieceLeft();
+            grid.updateGrid();
 
-        setChanged();
-        notifyObservers();
+            setChanged();
+            notifyObservers();
+        }
     }
 
     public void moveRight() {
-        grid.moveCurrentPieceRight();
-        grid.updateGrid();
+        if (!isPaused) {
+            grid.moveCurrentPieceRight();
+            grid.updateGrid();
 
-        setChanged();
-        notifyObservers();
+            setChanged();
+            notifyObservers();
+        }
     }
 
     public void rotate() {
-        grid.rotatePiece();
-        grid.updateGrid();
-        System.out.println(grid.getCurrentPiece().getActualDirection());
-        setChanged();    
-        notifyObservers();
+        if (!isPaused) {
+            grid.rotatePiece();
+            grid.updateGrid();
+            System.out.println(grid.getCurrentPiece().getActualDirection());
+            setChanged();
+            notifyObservers();
+        }
     }
 
     public void startGame() {
@@ -57,6 +62,8 @@ public class Game extends Observable implements Runnable {
         grid.restart();
         grid.updateGrid();
         grid.printGrid();
+
+        // Delay notifying observers until the game state is fully reset
         setChanged();
         notifyObservers();
     }
@@ -106,25 +113,27 @@ public class Game extends Observable implements Runnable {
     }
 
     public void placePieceAtBottom() {
-        while (grid.checkMoveDown()) {
-            grid.moveCurrentPieceDown();
-        }
-        grid.updateGrid();
+        if (!isPaused) {
+            while (grid.checkMoveDown()) {
+                grid.moveCurrentPieceDown();
+                Score.addPoints(1); // Add points for each step down
+            }
+            grid.updateGrid();
 
-        grid.placeCurrentPiece();
-        grid.removeLine();
-        grid.updateGrid();
-        setChanged();
-        notifyObservers();
+            grid.placeCurrentPiece();
+            grid.removeLine();
+            grid.updateGrid();
+            setChanged();
+            notifyObservers();
+        }
     }
 
     @Override
     public void run() {
         System.out.println("RUN");
         isRestarted = false;
-        System.out.println( " pause : " + isPaused);
-        System.out.println(" game over : " + isGameOver());
-        if (!isGameOver()) {
+
+        if (!isGameOver() && !isPaused) {
             Piece currentPiece = grid.getCurrentPiece();
             Piece nextPiece = grid.getNextPiece(0);
             Piece nextPiece2 = grid.getNextPiece(1);
@@ -154,6 +163,7 @@ public class Game extends Observable implements Runnable {
             if (grid.checkMoveDown()) {
                 grid.moveCurrentPieceDown();
                 grid.updateGrid();
+                Score.addPoints(1); // Add points for each automatic step down
                 System.out.println(Score.getScore());
                 setChanged();
                 notifyObservers();
@@ -162,12 +172,10 @@ public class Game extends Observable implements Runnable {
                 grid.placeCurrentPiece();
                 grid.removeLine();
                 grid.updateGrid();
-
             }
         }
 
         setChanged();
         notifyObservers();
-
     }
 }

@@ -13,7 +13,8 @@ public class Controller implements KeyListener, ActionListener {
     private Game model;
     private View view;
 
-    public Controller(Game model) {
+    public Controller(Game model, View view) {
+        this.view = view;
         this.model = model;
 
 
