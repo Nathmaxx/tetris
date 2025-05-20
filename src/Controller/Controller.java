@@ -24,13 +24,11 @@ public class Controller implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                System.out.println("Left key pressed");
                 if (model.getGrid().checkMoveLeft()) {
                     model.moveLeft();
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                System.out.println("Right key pressed");
                 if (model.getGrid().checkMoveRight()) {
                     model.moveRight();
                 }
@@ -49,7 +47,6 @@ public class Controller implements KeyListener, ActionListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            System.out.println("Up key pressed");
             if (model.getGrid().canRotate(model.getGrid().getCurrentPiece())) {
                 model.rotate();
             }
@@ -62,7 +59,6 @@ public class Controller implements KeyListener, ActionListener {
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            System.out.println("Space key pressed");
             model.placePieceAtBottom();
         }
     }
@@ -72,9 +68,7 @@ public class Controller implements KeyListener, ActionListener {
     String command = e.getActionCommand();
 
     switch (command) {
-        case "Restart":
-            model.restart();
-            break;
+
         case "Pause":
             model.pause();
             break;

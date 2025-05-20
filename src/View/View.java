@@ -45,6 +45,7 @@ public class View implements Observer {
 
     public void startGame() {
         stopScheduler(); // Ensure any existing scheduler is stopped
+        System.out.println("Starting game...");
 
         frame.remove(mainMenuPanel);
         this.model = new Game(new Grid(20, 10));
@@ -84,10 +85,7 @@ public class View implements Observer {
                 showGameOverScreen();
                 return;
             }
-            if (game.isRestarted()) {
-                restartGame();
-                return;
-            }
+          
             if (game.isPaused()) {
                 showPauseScreen();
                 return;
@@ -113,28 +111,7 @@ public class View implements Observer {
         frame.repaint();
     }
 
-    public void restartGame() {
-        stopScheduler(); // Stop any existing scheduler
-
-        if (gameOverPanel != null) {
-            frame.getContentPane().remove(gameOverPanel);
-            gameOverPanel = null;
-        }
-        
-        model = new Game(new Grid(20, 10));
-        model.addObserver(this);
-        scheduler = new Scheduler(model);
-        scheduler.start();
-
-
-        
-
-        gamePanel.setVisible(true);
-        frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
-        frame.revalidate();
-        frame.repaint();
-        frame.requestFocusInWindow();
-    }
+    
 
     public void showPauseScreen() {
         if (pausePanel == null) {
@@ -179,6 +156,11 @@ public class View implements Observer {
         if (pausePanel != null) {
             frame.getContentPane().remove(pausePanel);
             pausePanel = null;
+        }
+
+        if (model != null) {
+            model.deleteObservers(); // Remove all observers from the model
+            model = null; // Set the model to null
         }
 
         mainMenuPanel = new MainMenuPanel(controllerMenu);
