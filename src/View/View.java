@@ -27,7 +27,7 @@ public class View implements Observer {
 
         frame = new JFrame("TETRIS");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 700);
+        frame.setSize(550, 700);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
