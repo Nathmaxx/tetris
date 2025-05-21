@@ -69,6 +69,50 @@ public class NextPiecesPanel extends JPanel {
             add(gridPanel);
             add(Box.createVerticalStrut(20));
         }
+
+        // Add controls section using JLabels
+        JLabel controlsTitle = new JLabel("Controls:");
+        controlsTitle.setFont(new Font("Arial", Font.BOLD, 16));
+        controlsTitle.setForeground(Color.WHITE);
+        controlsTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(Box.createVerticalStrut(20));
+        add(controlsTitle);
+
+        JLabel moveLeftLabel = new JLabel("← : Move Left");
+        moveLeftLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        moveLeftLabel.setForeground(Color.WHITE);
+        moveLeftLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(moveLeftLabel);
+
+        JLabel moveRightLabel = new JLabel("→ : Move Right");
+        moveRightLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        moveRightLabel.setForeground(Color.WHITE);
+        moveRightLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(moveRightLabel);
+
+        JLabel moveDownLabel = new JLabel("↓ : Move Down");
+        moveDownLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        moveDownLabel.setForeground(Color.WHITE);
+        moveDownLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(moveDownLabel);
+
+        JLabel rotateLabel = new JLabel("↑ : Rotate");
+        rotateLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        rotateLabel.setForeground(Color.WHITE);
+        rotateLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(rotateLabel);
+
+        JLabel dropPieceLabel = new JLabel("SPACE : Drop Piece");
+        dropPieceLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        dropPieceLabel.setForeground(Color.WHITE);
+        dropPieceLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(dropPieceLabel);
+
+        JLabel pauseResumeLabel = new JLabel("ESCAPE : Pause/Resume");
+        pauseResumeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        pauseResumeLabel.setForeground(Color.WHITE);
+        pauseResumeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(pauseResumeLabel);
     }
 
     public void update(Game game) {
