@@ -56,9 +56,29 @@ public class View implements Observer {
         frame.requestFocusInWindow();
     }
 
-    public void showMultiplayerMessage() {
-        JOptionPane.showMessageDialog(frame, "Multiplayer mode is not implemented yet.", "Multiplayer",
-                JOptionPane.INFORMATION_MESSAGE);
+    public void showMultiplayerPanel() {
+        frame.getContentPane().removeAll();
+
+        MultiplayerPanel mp = new MultiplayerPanel(controller);
+        frame.getContentPane().add(mp);
+
+        frame.revalidate();
+        frame.repaint();
+        frame.requestFocusInWindow();
+    }
+
+    public void startMultiplayerGame() {
+        frame.getContentPane().removeAll();
+
+        this.gamePanel = new GamePanel(model);
+        nextPiecesPanel = new NextPiecesPanel(model, controller);
+
+        frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
+        frame.getContentPane().add(nextPiecesPanel, BorderLayout.EAST);
+
+        frame.revalidate();
+        frame.repaint();
+        frame.requestFocusInWindow();
     }
 
     @Override
@@ -162,5 +182,9 @@ public class View implements Observer {
 
         frame.revalidate();
         frame.repaint();
+    }
+
+    public JFrame getFrame() {
+        return this.frame;
     }
 }

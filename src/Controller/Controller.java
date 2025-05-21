@@ -37,7 +37,7 @@ public class Controller implements KeyListener, ActionListener {
             case KeyEvent.VK_DOWN:
                 model.run();
                 break;
-            
+
         }
     }
 
@@ -53,7 +53,7 @@ public class Controller implements KeyListener, ActionListener {
                 model.rotate();
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE){
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             if (model.isPaused()) {
                 model.resume();
             } else {
@@ -68,42 +68,43 @@ public class Controller implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    String command = e.getActionCommand();
+        String command = e.getActionCommand();
 
-    switch (command) {
-        case "StartGame":
-            view.startGame();
-            model.startGame();
-            break;
-        case "Multiplayer":
-            view.showMultiplayerMessage();
-            break;
-        case "Restart":
-            model.restart();
-            break;
-        case "Pause":
-            model.pause();
-            break;
-        case "Resume":
-            model.resume();
-            break;
-        case "Menu": 
-            view.showMainMenu();
-            break;
-        case "QuitToMenu":
-            model.getGrid().restart(); // Réinitialise le jeu
-            System.out.println("Quit to menu");
-            view.showMainMenu(); // Retourne au menu principal
-            break;
-
+        switch (command) {
+            case "StartGame":
+                view.startGame();
+                model.startGame();
+                break;
+            case "Multiplayer":
+                view.showMultiplayerPanel();
+                break;
+            case "Restart":
+                model.restart();
+                break;
+            case "Pause":
+                model.pause();
+                break;
+            case "Resume":
+                model.resume();
+                break;
+            case "Menu":
+                view.showMainMenu();
+                break;
+            case "QuitToMenu":
+                model.getGrid().restart(); // Réinitialise le jeu
+                System.out.println("Quit to menu");
+                view.showMainMenu(); // Retourne au menu principal
+                break;
+            case "createGame":
+                view.startMultiplayerGame();
+                model.startGame();
+            case "joinGame":
+                view.startMultiplayerGame();
+                model.startGame();
+        }
     }
-}
-
 
     public void setModel(Game model) {
         this.model = model;
     }
 }
-
-
-
