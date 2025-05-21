@@ -57,7 +57,8 @@ public class View implements Observer {
     }
 
     public void showMultiplayerMessage() {
-        JOptionPane.showMessageDialog(frame, "Multiplayer mode is not implemented yet.", "Multiplayer", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame, "Multiplayer mode is not implemented yet.", "Multiplayer",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class View implements Observer {
         if (o instanceof Game) {
             Game game = (Game) o;
             if (gamePanel != null) {
-                
+
                 if (game.isGameOver()) {
                     showGameOverScreen();
                     return;
@@ -73,13 +74,13 @@ public class View implements Observer {
                 if (game.isRestarted()) {
                     restartGame();
                 }
-                if (game.isPaused()) {  
+                if (game.isPaused()) {
                     showPauseScreen();
                     return;
                 } else {
                     hidePauseScreen();
                 }
-    
+
                 gamePanel.update(game);
                 nextPiecesPanel.update(game);
             }
@@ -156,7 +157,8 @@ public class View implements Observer {
         mainMenuPanel = new MainMenuPanel(controller);
         frame.add(mainMenuPanel, BorderLayout.CENTER);
 
-        // JOptionPane.showMessageDialog(frame, "Best Score: " + Score.getBestScore(), "Best Score", JOptionPane.INFORMATION_MESSAGE);
+        // JOptionPane.showMessageDialog(frame, "Best Score: " + Score.getBestScore(),
+        // "Best Score", JOptionPane.INFORMATION_MESSAGE);
 
         frame.revalidate();
         frame.repaint();
