@@ -23,7 +23,7 @@ public class NextPiecesPanel extends JPanel {
 
         // Score label
         scoreLabel = new JLabel("Score: 0");
-        scoreLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
         scoreLabel.setForeground(Color.WHITE);
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(Box.createVerticalStrut(20));
@@ -31,7 +31,7 @@ public class NextPiecesPanel extends JPanel {
 
         // Best score label
         bestScoreLabel = new JLabel("Best Score: " + Score.getBestScore());
-        bestScoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        bestScoreLabel.setFont(new Font("Arial", Font.BOLD, 18));
         bestScoreLabel.setForeground(Color.YELLOW);
         bestScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(Box.createVerticalStrut(10));
@@ -69,7 +69,7 @@ public class NextPiecesPanel extends JPanel {
             add(gridPanel);
             add(Box.createVerticalStrut(20));
         }
-        int fontSize = 14;
+        int fontSize = 12;
         // Add controls section using JLabels
         JLabel controlsTitle = new JLabel("Controls:");
         controlsTitle.setFont(new Font("Arial", Font.BOLD, fontSize+2));
