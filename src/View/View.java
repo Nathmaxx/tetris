@@ -7,6 +7,7 @@ import javax.swing.*;
 import Controller.Controller;
 import Controller.MusicPlayer;
 import Model.Game;
+import Model.Score;
 
 public class View implements Observer {
     private JFrame frame;
@@ -154,6 +155,8 @@ public class View implements Observer {
         model.setPause(true);
         mainMenuPanel = new MainMenuPanel(controller);
         frame.add(mainMenuPanel, BorderLayout.CENTER);
+
+        // JOptionPane.showMessageDialog(frame, "Best Score: " + Score.getBestScore(), "Best Score", JOptionPane.INFORMATION_MESSAGE);
 
         frame.revalidate();
         frame.repaint();

@@ -12,7 +12,7 @@ public class Game extends Observable implements Runnable {
 
     public Game(Grid grid) {
         this.grid = grid;
-
+        Score.loadBestScore(); // Charger le meilleur score au démarrage
     }
 
     public void moveLeft() {

@@ -7,9 +7,11 @@ import java.awt.event.ActionListener;
 import Controller.Controller;
 
 import Model.Game;
+import Model.Score;
 
 public class NextPiecesPanel extends JPanel {
     private JLabel scoreLabel;
+    private JLabel bestScoreLabel;
     private Color backgroundColor;
     private JButton pauseButton;
 
@@ -26,7 +28,14 @@ public class NextPiecesPanel extends JPanel {
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(Box.createVerticalStrut(20));
         add(scoreLabel);
+
+        // Best score label
+        bestScoreLabel = new JLabel("Best Score: " + Score.getBestScore());
+        bestScoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        bestScoreLabel.setForeground(Color.YELLOW);
+        bestScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(Box.createVerticalStrut(10));
+        add(bestScoreLabel);
 
         // Pause button
         pauseButton = new JButton("Pause");
@@ -41,6 +50,7 @@ public class NextPiecesPanel extends JPanel {
         
         pauseButton.setBorder(BorderFactory.createLineBorder(backgroundColor, 0));
 
+        add(Box.createVerticalStrut(10));
         add(pauseButton);
         add(Box.createVerticalStrut(30));
 
@@ -64,6 +74,9 @@ public class NextPiecesPanel extends JPanel {
     public void update(Game game) {
         // Update score
         scoreLabel.setText("Score: " + game.getScore());
+
+        // Update best score
+        bestScoreLabel.setText("Best Score: " + Score.getBestScore());
 
         Component[] components = getComponents();
         int gridIndex = 0;
