@@ -18,7 +18,7 @@ public class GameOverPanel extends JPanel {
         innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
 
         JLabel gameOverLabel = new JLabel("GAME OVER", JLabel.CENTER);
-        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 50));
+        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 40));
         gameOverLabel.setForeground(Color.RED);
         gameOverLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -28,7 +28,7 @@ public class GameOverPanel extends JPanel {
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton restartButton = new JButton("Restart");
-        restartButton.setFont(new Font("Arial", Font.BOLD, 40));
+        restartButton.setFont(new Font("Arial", Font.BOLD, 30));
         restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         restartButton.setForeground(Color.GREEN);
         restartButton.setBackground(Color.BLACK);

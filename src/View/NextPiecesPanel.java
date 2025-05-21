@@ -14,12 +14,19 @@ public class NextPiecesPanel extends JPanel {
     private JLabel bestScoreLabel;
     private Color backgroundColor;
     private JButton pauseButton;
+    private JLabel levelLabel;
 
     public NextPiecesPanel(Game model, Controller controller) {
         this.backgroundColor = model.getGrid().getBackgroundColor();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(backgroundColor.brighter());
         setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+
+        levelLabel = new JLabel("Level: " + model.getLevel());
+        levelLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        levelLabel.setForeground(Color.WHITE);
+        levelLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(levelLabel);
 
         // Score label
         scoreLabel = new JLabel("Score: 0");
@@ -53,6 +60,8 @@ public class NextPiecesPanel extends JPanel {
         add(Box.createVerticalStrut(10));
         add(pauseButton);
         add(Box.createVerticalStrut(30));
+
+
 
         // Add 3 next piece grids
         for (int k = 0; k < 3; k++) {
@@ -115,7 +124,12 @@ public class NextPiecesPanel extends JPanel {
         add(pauseResumeLabel);
     }
 
+
+
     public void update(Game game) {
+
+        // Update level
+        levelLabel.setText("Level: " + game.getLevel());
         // Update score
         scoreLabel.setText("Score: " + game.getScore());
 

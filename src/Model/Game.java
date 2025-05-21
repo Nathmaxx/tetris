@@ -123,6 +123,10 @@ public class Game extends Observable implements Runnable {
         return Score.getScore();
     }
 
+    public int getLevel() {
+        return Score.getLevel();
+    }
+
     public void setPause(boolean pause) {
         this.isPaused = pause;
     }

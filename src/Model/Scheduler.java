@@ -2,6 +2,7 @@ package Model;
 
 public class Scheduler extends Thread{
     private Runnable r;
+    private int level = 1;
     public  Scheduler(Runnable r) {
         this.r = r;
 
@@ -10,7 +11,10 @@ public class Scheduler extends Thread{
     private long pause = 1000;
     public  void run(){
         while (true) {
+            levelupdate();
+            System.out.println("Level: " + level);
             System.out.println("Scheduler is running");
+           
             if (!((Game) r).isGameOver() && !((Game) r).isPaused()) {
                 
                 r.run();
@@ -23,6 +27,19 @@ public class Scheduler extends Thread{
             }
             System.out.println("GAME OVER : " + ((Game) r).isGameOver());
         }
+    }
+
+    public void levelupdate() {
+        int newLevel = Score.getLevel();
+        if (newLevel != level) {
+            level = newLevel;
+            System.out.println("Level updated to: " + level);
+            pause = pause - (level * 200);
+            if (pause < 100) {
+                pause = 100;
+            }
+        }
+
     }
 
     public void setPause(long pause) {
