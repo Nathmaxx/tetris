@@ -59,8 +59,8 @@ public class NextPiecesPanel extends JPanel {
             JPanel gridPanel = new JPanel(new GridLayout(4, 4, 1, 1));
             gridPanel.setBackground(backgroundColor.darker());
             gridPanel.setBorder(BorderFactory.createLineBorder(backgroundColor.darker(), 4));
-            gridPanel.setMaximumSize(new Dimension(120, 120));
-            gridPanel.setPreferredSize(new Dimension(120, 120));
+            gridPanel.setMaximumSize(new Dimension(80, 80));
+            gridPanel.setPreferredSize(new Dimension(80, 80));
             for (int i = 0; i < 16; i++) {
                 JPanel cell = new JPanel();
                 cell.setBackground(backgroundColor);
