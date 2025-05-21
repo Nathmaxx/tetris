@@ -8,7 +8,7 @@ public class GameOverPanel extends JPanel {
     private Controller controller;
     private JButton menuButton;
 
-    public GameOverPanel(Controller controller, int score, boolean isNetworkGame) {
+    public GameOverPanel(Controller controller, int score, boolean isNetworkGame, boolean isHost, boolean isWinner) {
         this.controller = controller;
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
@@ -17,6 +17,13 @@ public class GameOverPanel extends JPanel {
         innerPanel.setBackground(Color.BLACK);
         innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
 
+        if (isNetworkGame) {
+            JLabel winnerLabel = new JLabel(isWinner ? "YOU WIN!" : "YOU LOSE!", JLabel.CENTER);
+            winnerLabel.setFont(new Font("Arial", Font.BOLD, 40));
+            winnerLabel.setForeground(isWinner ? Color.GREEN : Color.RED);
+            winnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            innerPanel.add(winnerLabel);
+        }
         JLabel gameOverLabel = new JLabel("GAME OVER", JLabel.CENTER);
         gameOverLabel.setFont(new Font("Arial", Font.BOLD, 40));
         gameOverLabel.setForeground(Color.RED);
