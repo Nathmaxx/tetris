@@ -23,25 +23,28 @@ public class PausePanel extends JPanel {
         innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
 
         JLabel pauseLabel = new JLabel("PAUSE", JLabel.CENTER);
-        pauseLabel.setFont(new Font("Arial", Font.BOLD, 50));
+        pauseLabel.setFont(new Font("Arial", Font.BOLD, 45));
         pauseLabel.setForeground(Color.RED);
         pauseLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton resumeButton = new JButton("Resume");
-        resumeButton.setFont(new Font("Arial", Font.BOLD, 40));
+        resumeButton.setFont(new Font("Arial", Font.BOLD, 25));
         resumeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         resumeButton.setForeground(Color.GREEN);
         resumeButton.setBackground(Color.BLACK);
         resumeButton.setActionCommand("Resume");
         resumeButton.addActionListener(controller);
+        resumeButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+
 
         JButton quitButton = new JButton("Quit");
-        quitButton.setFont(new Font("Arial", Font.BOLD, 40));
+        quitButton.setFont(new Font("Arial", Font.BOLD, 25));
         quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         quitButton.setActionCommand("QuitToMenu"); // Use "Menu" action to navigate to the main menu
         quitButton.setForeground(Color.RED);
         quitButton.setBackground(Color.BLACK);
         quitButton.addActionListener(controller);
+        quitButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
   
 
         innerPanel.add(Box.createRigidArea(new Dimension(0, 20)));

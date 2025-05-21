@@ -69,47 +69,47 @@ public class NextPiecesPanel extends JPanel {
             add(gridPanel);
             add(Box.createVerticalStrut(20));
         }
-
+        int fontSize = 14;
         // Add controls section using JLabels
         JLabel controlsTitle = new JLabel("Controls:");
-        controlsTitle.setFont(new Font("Arial", Font.BOLD, 16));
+        controlsTitle.setFont(new Font("Arial", Font.BOLD, fontSize+2));
         controlsTitle.setForeground(Color.WHITE);
         controlsTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(Box.createVerticalStrut(20));
         add(controlsTitle);
 
         JLabel moveLeftLabel = new JLabel("← : Move Left");
-        moveLeftLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        moveLeftLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
         moveLeftLabel.setForeground(Color.WHITE);
         moveLeftLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(moveLeftLabel);
 
         JLabel moveRightLabel = new JLabel("→ : Move Right");
-        moveRightLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        moveRightLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
         moveRightLabel.setForeground(Color.WHITE);
         moveRightLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(moveRightLabel);
 
         JLabel moveDownLabel = new JLabel("↓ : Move Down");
-        moveDownLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        moveDownLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
         moveDownLabel.setForeground(Color.WHITE);
         moveDownLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(moveDownLabel);
 
         JLabel rotateLabel = new JLabel("↑ : Rotate");
-        rotateLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        rotateLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
         rotateLabel.setForeground(Color.WHITE);
         rotateLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(rotateLabel);
 
         JLabel dropPieceLabel = new JLabel("SPACE : Drop Piece");
-        dropPieceLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        dropPieceLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
         dropPieceLabel.setForeground(Color.WHITE);
         dropPieceLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(dropPieceLabel);
 
         JLabel pauseResumeLabel = new JLabel("ESCAPE : Pause/Resume");
-        pauseResumeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        pauseResumeLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
         pauseResumeLabel.setForeground(Color.WHITE);
         pauseResumeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(pauseResumeLabel);

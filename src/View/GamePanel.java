@@ -14,7 +14,7 @@ public class GamePanel extends JPanel {
         this.backgroundColor = model.getGrid().getBackgroundColor();
         setLayout(new GridLayout(model.getRows(), model.getCols()));
         setBackground(backgroundColor.brighter());
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setBorder(BorderFactory.createEmptyBorder(80, 20, 10, 10));
 
         Border border = BorderFactory.createLineBorder(backgroundColor.darker(), 1);
 

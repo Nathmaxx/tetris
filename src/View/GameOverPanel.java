@@ -34,14 +34,18 @@ public class GameOverPanel extends JPanel {
         restartButton.setBackground(Color.BLACK);
         restartButton.setActionCommand("Restart");
         restartButton.addActionListener(controller);
+        restartButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+
 
         menuButton = new JButton("Menu");
-        menuButton.setFont(new Font("Arial", Font.BOLD, 40));
+        menuButton.setFont(new Font("Arial", Font.BOLD, 30));
         menuButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         menuButton.setForeground(Color.GREEN);
         menuButton.setBackground(Color.BLACK);
         menuButton.setActionCommand("Menu");
         menuButton.addActionListener(controller);
+        menuButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+
 
         innerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         innerPanel.add(gameOverLabel);
