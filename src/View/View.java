@@ -27,7 +27,9 @@ public class View implements Observer {
 
         frame = new JFrame("TETRIS");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(550, 700);
+
+        // Adjusted frame size for better layout
+        frame.setSize(600, 700); // Increased width for better spacing
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
@@ -48,37 +50,19 @@ public class View implements Observer {
         this.gamePanel = new GamePanel(model);
         nextPiecesPanel = new NextPiecesPanel(model, controller);
 
+        // Adjust layout proportions
         frame.add(gamePanel, BorderLayout.CENTER);
         frame.add(nextPiecesPanel, BorderLayout.EAST);
+        nextPiecesPanel.setPreferredSize(new Dimension(300, 700)); // Reduced width for NextPiecesPanel
 
         frame.revalidate();
         frame.repaint();
         frame.requestFocusInWindow();
     }
 
-    public void showMultiplayerPanel() {
-        frame.getContentPane().removeAll();
-
-        MultiplayerPanel mp = new MultiplayerPanel(controller);
-        frame.getContentPane().add(mp);
-
-        frame.revalidate();
-        frame.repaint();
-        frame.requestFocusInWindow();
-    }
-
-    public void startMultiplayerGame() {
-        frame.getContentPane().removeAll();
-
-        this.gamePanel = new GamePanel(model);
-        nextPiecesPanel = new NextPiecesPanel(model, controller);
-
-        frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
-        frame.getContentPane().add(nextPiecesPanel, BorderLayout.EAST);
-
-        frame.revalidate();
-        frame.repaint();
-        frame.requestFocusInWindow();
+    public void showMultiplayerMessage() {
+        JOptionPane.showMessageDialog(frame, "Multiplayer mode is not implemented yet.", "Multiplayer",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
@@ -176,9 +160,6 @@ public class View implements Observer {
         model.setPause(true);
         mainMenuPanel = new MainMenuPanel(controller);
         frame.add(mainMenuPanel, BorderLayout.CENTER);
-
-        // JOptionPane.showMessageDialog(frame, "Best Score: " + Score.getBestScore(),
-        // "Best Score", JOptionPane.INFORMATION_MESSAGE);
 
         frame.revalidate();
         frame.repaint();
