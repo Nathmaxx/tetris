@@ -16,7 +16,7 @@ public class NextPiecesPanel extends JPanel {
     private Color backgroundColor;
     private JButton pauseButton;
 
-    public NextPiecesPanel(Game model, Controller controller) {
+    public NextPiecesPanel(Game model, Controller controller, boolean isNetworkGame) {
         this.backgroundColor = model.getGrid().getBackgroundColor();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(backgroundColor.brighter());
@@ -39,12 +39,14 @@ public class NextPiecesPanel extends JPanel {
         add(bestScoreLabel);
 
         // Opponent score label
-        opponentScoreLabel = new JLabel("Adversaire: 0");
-        opponentScoreLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        opponentScoreLabel.setForeground(Color.ORANGE);
-        opponentScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(Box.createVerticalStrut(10));
-        add(opponentScoreLabel);
+        if (isNetworkGame) {
+            opponentScoreLabel = new JLabel("Adversaire: 0");
+            opponentScoreLabel.setFont(new Font("Arial", Font.BOLD, 18));
+            opponentScoreLabel.setForeground(Color.ORANGE);
+            opponentScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            add(Box.createVerticalStrut(10));
+            add(opponentScoreLabel);
+        }
 
         // Pause button
         pauseButton = new JButton("Pause");
@@ -125,14 +127,26 @@ public class NextPiecesPanel extends JPanel {
     }
 
     public void update(Game game) {
+        // Vérifier si le jeu n'est pas null avant de continuer
+        if (game == null) {
+            System.out.println("ATTENTION: Game est null dans update de NextPiecesPanel");
+            return;
+        }
+
         // Update score
         scoreLabel.setText("Score: " + game.getScore());
 
         // Update best score
         bestScoreLabel.setText("Best Score: " + Score.getBestScore());
 
-        // Update opponent score
-        opponentScoreLabel.setText("Adversaire: " + game.getOpponentScore());
+        // Update opponent score if in network game
+        try {
+            if (opponentScoreLabel != null) {
+                opponentScoreLabel.setText("Adversaire: " + game.getOpponentScore());
+            }
+        } catch (Exception e) {
+            System.out.println("Exception lors de la mise à jour du score adversaire: " + e.getMessage());
+        }
 
         Component[] components = getComponents();
         int gridIndex = 0;

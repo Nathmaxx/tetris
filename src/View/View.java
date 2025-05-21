@@ -20,6 +20,7 @@ public class View implements Observer {
     private Controller controller;
     private MusicPlayer musicPlayer = new MusicPlayer();
     private NetworkManager nm;
+    private boolean isNetworkGame;
 
     public View(Game model) {
         this.model = model;
@@ -48,9 +49,9 @@ public class View implements Observer {
 
     public void startGame() {
         frame.remove(mainMenuPanel);
-
+        this.isNetworkGame = false;
         this.gamePanel = new GamePanel(model);
-        nextPiecesPanel = new NextPiecesPanel(model, controller);
+        nextPiecesPanel = new NextPiecesPanel(model, controller, isNetworkGame);
 
         // Adjust layout proportions
         frame.add(gamePanel, BorderLayout.CENTER);
@@ -75,9 +76,9 @@ public class View implements Observer {
 
     public void startServerMultiplayerGame() {
         frame.getContentPane().removeAll();
-
+        this.isNetworkGame = true;
         this.gamePanel = new GamePanel(model);
-        nextPiecesPanel = new NextPiecesPanel(model, controller);
+        nextPiecesPanel = new NextPiecesPanel(model, controller, isNetworkGame);
 
         frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
         frame.getContentPane().add(nextPiecesPanel, BorderLayout.EAST);
@@ -91,9 +92,9 @@ public class View implements Observer {
 
     public void startMultiplayerGame() {
         frame.getContentPane().removeAll();
-
+        this.isNetworkGame = true;
         this.gamePanel = new GamePanel(model);
-        nextPiecesPanel = new NextPiecesPanel(model, controller);
+        nextPiecesPanel = new NextPiecesPanel(model, controller, isNetworkGame);
 
         frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
         frame.getContentPane().add(nextPiecesPanel, BorderLayout.EAST);
@@ -134,10 +135,15 @@ public class View implements Observer {
                     return;
                 } else {
                     hidePauseScreen();
+                } // Mettre à jour le panneau de jeu si non null
+                if (gamePanel != null) {
+                    gamePanel.update(game);
                 }
 
-                gamePanel.update(game);
-                nextPiecesPanel.update(game);
+                // Mettre à jour le panneau d'informations si non null
+                if (nextPiecesPanel != null) {
+                    nextPiecesPanel.update(game);
+                }
             }
         }
     }
@@ -159,11 +165,21 @@ public class View implements Observer {
             gameOverPanel = null;
         }
 
-        gamePanel.setVisible(true);
-        frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
-        frame.revalidate();
-        frame.repaint();
-        frame.requestFocusInWindow();
+        if (gamePanel != null) {
+            gamePanel.setVisible(true);
+            frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
+
+            // Mettre à jour immédiatement après le redémarrage
+            if (nextPiecesPanel != null) {
+                nextPiecesPanel.update(model);
+            }
+
+            frame.revalidate();
+            frame.repaint();
+            frame.requestFocusInWindow();
+        } else {
+            System.out.println("ERREUR: gamePanel est null dans restartGame()");
+        }
     }
 
     public void showPauseScreen() {
