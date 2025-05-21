@@ -32,23 +32,6 @@ public class Client {
         }
     }
 
-    public boolean sendValue(int value) {
-        if (!connected || out == null) {
-            System.out.println("Impossible d'envoyer la valeur: non connecté");
-            return false;
-        }
-
-        try {
-            String message = String.valueOf(value);
-            out.println(message);
-            System.out.println("Valeur envoyée: " + message);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Erreur lors de l'envoi: " + e.getMessage());
-            return false;
-        }
-    }
-
     public boolean sendScore(int score) {
         if (!connected || out == null) {
             System.out.println("Impossible d'envoyer le score: non connecté");
@@ -62,6 +45,24 @@ public class Client {
             return true;
         } catch (Exception e) {
             System.out.println("Erreur lors de l'envoi du score: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean sendEndGame() {
+        if (!connected || out == null) {
+            System.out.println("Impossible d'envoyer ENDGAME: non connecté");
+            return false;
+        }
+
+        try {
+            String message = "ENDGAME";
+            out.println(message);
+            System.out.println("Message ENDGAME envoyé au serveur");
+            return true;
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'envoi du message ENDGAME: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -82,6 +83,10 @@ public class Client {
                     } catch (NumberFormatException e) {
                         System.out.println("Format de score invalide");
                     }
+                } else if (message.equals("ENDGAME")) {
+                    System.out.println("REÇU: L'adversaire a perdu la partie!");
+                    // Afficher un message à l'utilisateur pour indiquer qu'il a gagné
+                    model.setOpponentGameOver(true);
                 }
             }
         } catch (IOException e) {

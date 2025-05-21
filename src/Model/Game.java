@@ -5,11 +5,11 @@ import java.util.Observable;
 import Model.pieces.Piece;
 
 public class Game extends Observable implements Runnable {
-
     private Grid grid;
     private boolean isRestarted = false;
     private boolean isPaused = false;
     private int opponentScore = 0; // Ajout du score de l'adversaire
+    private boolean opponentGameOver = false; // Pour suivre l'état de fin de partie de l'adversaire
 
     public Game(Grid grid) {
         this.grid = grid;
@@ -44,6 +44,7 @@ public class Game extends Observable implements Runnable {
         isPaused = false;
         Score.resetScore();
         opponentScore = 0;
+        opponentGameOver = false;
         grid.restart();
         Piece currentPiece = grid.createPiece();
         grid.setCurrentPiece(currentPiece);
@@ -67,6 +68,7 @@ public class Game extends Observable implements Runnable {
         isPaused = false;
         Score.resetScore();
         opponentScore = 0;
+        opponentGameOver = false;
         grid.restart();
 
         Piece currentPiece = grid.createPiece();
@@ -145,11 +147,23 @@ public class Game extends Observable implements Runnable {
         this.opponentScore = score;
         setChanged();
         notifyObservers();
-    }
+    } // Méthode pour obtenir le score de l'adversaire
 
-    // Méthode pour obtenir le score de l'adversaire
     public int getOpponentScore() {
         return opponentScore;
+    }
+
+    // Méthode pour définir l'état de fin de partie de l'adversaire
+    public void setOpponentGameOver(boolean isGameOver) {
+        this.opponentGameOver = isGameOver;
+        setChanged();
+        notifyObservers();
+        System.out.println("L'adversaire a perdu! Vous avez gagné!");
+    }
+
+    // Méthode pour savoir si l'adversaire est en fin de partie
+    public boolean isOpponentGameOver() {
+        return opponentGameOver;
     }
 
     @Override

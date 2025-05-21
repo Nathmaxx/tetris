@@ -53,6 +53,10 @@ public class Server {
         System.out.println("Score broadcast: " + formattedScore);
     }
 
+    public void receiveEndGame(ClientHandler client) {
+        broadcastMessage("ENDGAME", client);
+    }
+
     public void deleteClient(ClientHandler client) {
         clients.remove(client);
         System.out.println("Client déconnecté. Total clients : " + clients.size());

@@ -51,10 +51,14 @@ public class NetworkManager {
                 int currentScore = Score.getScore();
                 // Envoyer le score seulement s'il a changé
                 if (currentScore != lastScore) {
-                    System.out.println("Envoi du score: " + currentScore + ", isServerMode: " + isServerMode);
                     sendScore(currentScore);
                     lastScore = currentScore;
                 }
+
+                if (model.isGameOver()) {
+                    sendEndGame();
+                }
+
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -99,6 +103,13 @@ public class NetworkManager {
     public boolean sendScore(int score) {
         if (client != null && client.isConnected()) {
             return client.sendScore(score);
+        }
+        return false;
+    }
+
+    public boolean sendEndGame() {
+        if (client != null && client.isConnected()) {
+            return client.sendEndGame();
         }
         return false;
     }

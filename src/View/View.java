@@ -66,6 +66,9 @@ public class View implements Observer {
     public void showMultiplayerPanel() {
         frame.getContentPane().removeAll();
 
+        // S'assurer que le jeu est en pause avant d'afficher le panneau multijoueur
+        model.setPause(true);
+
         MultiplayerPanel mp = new MultiplayerPanel(controller);
         frame.getContentPane().add(mp);
 
@@ -77,6 +80,11 @@ public class View implements Observer {
     public void startServerMultiplayerGame() {
         frame.getContentPane().removeAll();
         this.isNetworkGame = true;
+
+        // Toujours réinitialiser la grille pour être sûr que la partie précédente est
+        // effacée
+        model.restart();
+
         this.gamePanel = new GamePanel(model);
         nextPiecesPanel = new NextPiecesPanel(model, controller, isNetworkGame);
 
@@ -93,6 +101,11 @@ public class View implements Observer {
     public void startMultiplayerGame() {
         frame.getContentPane().removeAll();
         this.isNetworkGame = true;
+
+        // Toujours réinitialiser la grille pour être sûr que la partie précédente est
+        // effacée
+        model.restart();
+
         this.gamePanel = new GamePanel(model);
         nextPiecesPanel = new NextPiecesPanel(model, controller, isNetworkGame);
 

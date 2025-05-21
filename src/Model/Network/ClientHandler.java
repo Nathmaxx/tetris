@@ -32,6 +32,12 @@ public class ClientHandler implements Runnable {
                     } catch (NumberFormatException e) {
                         System.out.println("Format de score invalide: " + line);
                     }
+                } else if (line.equals("ENDGAME")) {
+                    try {
+                        server.receiveEndGame(this);
+                    } catch (Exception e) {
+                        System.out.println("Erreur de réception de fin de partie");
+                    }
                 }
             }
         } catch (IOException e) {
