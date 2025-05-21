@@ -48,7 +48,9 @@ public class Server {
     }
 
     public void receiveValue(int value, ClientHandler client) {
-        broadcastMessage("SCORE:" + value, client);
+        String formattedScore = "SCORE:" + value;
+        broadcastMessage(formattedScore, client);
+        System.out.println("Score broadcast: " + formattedScore);
     }
 
     public void deleteClient(ClientHandler client) {

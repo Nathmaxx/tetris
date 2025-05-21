@@ -31,11 +31,10 @@ public class NetworkManager {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         boolean connected = connectToServer("localhost");
 
         if (connected) {
-            startSendingScores();
+            startSendingScoresPublic();
         }
 
         return connected;
@@ -45,11 +44,17 @@ public class NetworkManager {
         if (scoreUpdateThread != null && scoreUpdateThread.isAlive()) {
             stopSendingScores();
         }
-
         isSendingScores = true;
         scoreUpdateThread = new Thread(() -> {
+            int lastScore = -1; // Pour éviter d'envoyer le même score plusieurs fois
             while (isSendingScores && client != null && client.isConnected() && !model.isGameOver()) {
-                sendScore(Score.getScore());
+                int currentScore = Score.getScore();
+                // Envoyer le score seulement s'il a changé
+                if (currentScore != lastScore) {
+                    System.out.println("Envoi du score: " + currentScore + ", isServerMode: " + isServerMode);
+                    sendScore(currentScore);
+                    lastScore = currentScore;
+                }
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -57,6 +62,9 @@ public class NetworkManager {
                     break;
                 }
             }
+            System.out.println("Thread d'envoi de score terminé. isSendingScores: " + isSendingScores +
+                    ", client connecté: " + (client != null && client.isConnected()) +
+                    ", gameOver: " + model.isGameOver());
         });
 
         scoreUpdateThread.start();
@@ -96,6 +104,7 @@ public class NetworkManager {
     }
 
     public void disconnect() {
+        stopSendingScores();
         if (client != null) {
             client.disconnect();
             client = null;
@@ -108,5 +117,17 @@ public class NetworkManager {
 
     public boolean isServerMode() {
         return isServerMode;
+    }
+
+    // Méthode pour mettre à jour manuellement le score
+    public void updateScore() {
+        if (client != null && client.isConnected()) {
+            sendScore(Score.getScore());
+        }
+    }
+
+    // Méthode publique pour démarrer l'envoi automatique du score
+    public void startSendingScoresPublic() {
+        startSendingScores();
     }
 }

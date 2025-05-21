@@ -12,6 +12,7 @@ import Model.Score;
 public class NextPiecesPanel extends JPanel {
     private JLabel scoreLabel;
     private JLabel bestScoreLabel;
+    private JLabel opponentScoreLabel;
     private Color backgroundColor;
     private JButton pauseButton;
 
@@ -37,6 +38,14 @@ public class NextPiecesPanel extends JPanel {
         add(Box.createVerticalStrut(10));
         add(bestScoreLabel);
 
+        // Opponent score label
+        opponentScoreLabel = new JLabel("Adversaire: 0");
+        opponentScoreLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        opponentScoreLabel.setForeground(Color.ORANGE);
+        opponentScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(Box.createVerticalStrut(10));
+        add(opponentScoreLabel);
+
         // Pause button
         pauseButton = new JButton("Pause");
         pauseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -46,8 +55,8 @@ public class NextPiecesPanel extends JPanel {
         pauseButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2)); // Exemple : bordure rouge
         pauseButton.setFont(new Font("Arial", Font.BOLD, 15)); // Police plus grande
         pauseButton.setPreferredSize(new Dimension(140, 40)); // Taille plus grande
-        pauseButton.setMaximumSize(new Dimension(80, 40));   // Taille max pour éviter l'étirement
-        
+        pauseButton.setMaximumSize(new Dimension(80, 40)); // Taille max pour éviter l'étirement
+
         pauseButton.setBorder(BorderFactory.createLineBorder(backgroundColor, 0));
 
         add(Box.createVerticalStrut(10));
@@ -72,7 +81,7 @@ public class NextPiecesPanel extends JPanel {
         int fontSize = 12;
         // Add controls section using JLabels
         JLabel controlsTitle = new JLabel("Controls:");
-        controlsTitle.setFont(new Font("Arial", Font.BOLD, fontSize+2));
+        controlsTitle.setFont(new Font("Arial", Font.BOLD, fontSize + 2));
         controlsTitle.setForeground(Color.WHITE);
         controlsTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(Box.createVerticalStrut(20));
@@ -121,6 +130,9 @@ public class NextPiecesPanel extends JPanel {
 
         // Update best score
         bestScoreLabel.setText("Best Score: " + Score.getBestScore());
+
+        // Update opponent score
+        opponentScoreLabel.setText("Adversaire: " + game.getOpponentScore());
 
         Component[] components = getComponents();
         int gridIndex = 0;

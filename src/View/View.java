@@ -102,7 +102,18 @@ public class View implements Observer {
         frame.repaint();
         frame.requestFocusInWindow();
 
-        nm.connectToServer("localhost");
+        boolean connected = nm.connectToServer("localhost");
+        if (connected) {
+            // Démarrer l'envoi automatique du score pour le client également
+            new Thread(() -> {
+                try {
+                    Thread.sleep(500); // Petite pause pour s'assurer que la connexion est bien établie
+                    nm.startSendingScoresPublic();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
     }
 
     @Override

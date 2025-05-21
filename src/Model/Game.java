@@ -9,6 +9,7 @@ public class Game extends Observable implements Runnable {
     private Grid grid;
     private boolean isRestarted = false;
     private boolean isPaused = false;
+    private int opponentScore = 0; // Ajout du score de l'adversaire
 
     public Game(Grid grid) {
         this.grid = grid;
@@ -42,6 +43,7 @@ public class Game extends Observable implements Runnable {
         isRestarted = false;
         isPaused = false;
         Score.resetScore();
+        opponentScore = 0;
         grid.restart();
         Piece currentPiece = grid.createPiece();
         grid.setCurrentPiece(currentPiece);
@@ -64,6 +66,7 @@ public class Game extends Observable implements Runnable {
         isRestarted = true;
         isPaused = false;
         Score.resetScore();
+        opponentScore = 0;
         grid.restart();
 
         Piece currentPiece = grid.createPiece();
@@ -135,6 +138,18 @@ public class Game extends Observable implements Runnable {
         grid.placeCurrentPiece();
         grid.removeLine();
         updateGridWithProjection();
+    }
+
+    // Méthode pour mettre à jour le score de l'adversaire
+    public void setOpponentScore(int score) {
+        this.opponentScore = score;
+        setChanged();
+        notifyObservers();
+    }
+
+    // Méthode pour obtenir le score de l'adversaire
+    public int getOpponentScore() {
+        return opponentScore;
     }
 
     @Override

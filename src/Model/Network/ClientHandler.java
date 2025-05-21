@@ -23,12 +23,12 @@ public class ClientHandler implements Runnable {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             String line;
-
             while ((line = in.readLine()) != null) {
                 if (line.startsWith("SCORE:")) {
                     try {
                         int score = Integer.parseInt(line.substring(6));
                         server.receiveValue(score, this);
+                        System.out.println("Score reçu du client: " + score);
                     } catch (NumberFormatException e) {
                         System.out.println("Format de score invalide: " + line);
                     }
@@ -44,6 +44,7 @@ public class ClientHandler implements Runnable {
     public void sendMessage(String message) {
         if (out != null) {
             out.println(message);
+            System.out.println("Message envoyé au client: " + message);
         }
     }
 

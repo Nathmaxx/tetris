@@ -50,7 +50,21 @@ public class Client {
     }
 
     public boolean sendScore(int score) {
-        return sendValue(score);
+        if (!connected || out == null) {
+            System.out.println("Impossible d'envoyer le score: non connecté");
+            return false;
+        }
+
+        try {
+            String message = "SCORE:" + score;
+            out.println(message);
+            System.out.println("Score envoyé: " + score + " (format: '" + message + "')");
+            return true;
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'envoi du score: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private void receiveMessages() {
@@ -63,6 +77,8 @@ public class Client {
                     try {
                         int opponentScore = Integer.parseInt(message.substring(6));
                         System.out.println("Score adversaire: " + opponentScore);
+                        // Mettre à jour le score de l'adversaire dans le modèle
+                        model.setOpponentScore(opponentScore);
                     } catch (NumberFormatException e) {
                         System.out.println("Format de score invalide");
                     }
