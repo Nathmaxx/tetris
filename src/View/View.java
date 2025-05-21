@@ -99,34 +99,41 @@ public class View implements Observer {
     }
 
     public void startMultiplayerGame() {
-        frame.getContentPane().removeAll();
-        this.isNetworkGame = true;
+        while (true) {
+            // Demande à l'utilisateur de saisir une adresse IP
+            String ipAddress = JOptionPane.showInputDialog(frame, "Entrez l'adresse IP du serveur :",
+                    "Rejoindre une partie", JOptionPane.QUESTION_MESSAGE);
 
-        // Toujours réinitialiser la grille pour être sûr que la partie précédente est
-        // effacée
-        model.restart();
+            // Si l'utilisateur annule ou ne saisit rien, on quitte la boucle
+            if (ipAddress == null || ipAddress.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Connexion annulée.", "Annulation",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 
-        this.gamePanel = new GamePanel(model);
-        nextPiecesPanel = new NextPiecesPanel(model, controller, isNetworkGame);
+            // Tente de se connecter au serveur avec l'adresse IP fournie par l'utilisateur
+            if (nm.connectToServer(ipAddress.trim())) {
+                JOptionPane.showMessageDialog(frame, "Connexion réussie à " + ipAddress, "Succès",
+                        JOptionPane.INFORMATION_MESSAGE);
 
-        frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
-        frame.getContentPane().add(nextPiecesPanel, BorderLayout.EAST);
+                // Charge l'interface de jeu
+                frame.getContentPane().removeAll();
+                this.gamePanel = new GamePanel(model);
+                nextPiecesPanel = new NextPiecesPanel(model, controller);
 
-        frame.revalidate();
-        frame.repaint();
-        frame.requestFocusInWindow();
+                frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
+                frame.getContentPane().add(nextPiecesPanel, BorderLayout.EAST);
 
-        boolean connected = nm.connectToServer("localhost");
-        if (connected) {
-            // Démarrer l'envoi automatique du score pour le client également
-            new Thread(() -> {
-                try {
-                    Thread.sleep(500); // Petite pause pour s'assurer que la connexion est bien établie
-                    nm.startSendingScoresPublic();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }).start();
+                frame.revalidate();
+                frame.repaint();
+                frame.requestFocusInWindow();
+                return;
+            } else {
+                // Affiche une erreur si la connexion échoue
+                JOptionPane.showMessageDialog(frame,
+                        "Impossible de se connecter à " + ipAddress + ". Veuillez réessayer.", "Erreur de connexion",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 

@@ -28,6 +28,10 @@ public class Score implements Serializable {
         score = 0;
     }
 
+    public static int getLevel() {
+        return (score / 1000) + 1; 
+    }
+
     public static void loadBestScore() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(BEST_SCORE_FILE))) {
             bestScore = ois.readInt();
@@ -44,4 +48,6 @@ public class Score implements Serializable {
             System.err.println("Failed to save best score: " + e.getMessage());
         }
     }
+
+    
 }

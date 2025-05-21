@@ -18,7 +18,7 @@ public class GameOverPanel extends JPanel {
         innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
 
         JLabel gameOverLabel = new JLabel("GAME OVER", JLabel.CENTER);
-        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 50));
+        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 40));
         gameOverLabel.setForeground(Color.RED);
         gameOverLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
