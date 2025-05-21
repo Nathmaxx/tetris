@@ -3,11 +3,18 @@ package Model.Network;
 import java.io.*;
 import java.net.*;
 
+import Model.Game;
+
 public class Client {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
     private boolean connected = false;
+    private Game model;
+
+    public Client(Game model) {
+        this.model = model;
+    }
 
     public void start(String host, int port) {
         try {
@@ -50,8 +57,9 @@ public class Client {
         try {
             String message;
             while (connected && (message = in.readLine()) != null) {
-                System.out.println("Message reçu du serveur: " + message);
-                // Traitement des messages reçus ici
+                if (message.equals("START")) {
+                    model.startGame();
+                }
             }
         } catch (IOException e) {
             if (connected) {

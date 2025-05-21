@@ -15,16 +15,36 @@ public class Server {
             serverSocket = new ServerSocket(port);
             System.out.println("Serveur lancé sur le port " + port);
 
-            while (true) {
+            while (clients.size() < 2) {
                 Socket socket = serverSocket.accept();
                 ClientHandler client = new ClientHandler(socket, this);
                 clients.add(client);
                 new Thread(client).start();
                 System.out.println("Nouveau client connecté. Total clients : " + clients.size());
+
+                // Si c'est le deuxième joueur, démarrer la partie
+                if (clients.size() == 2) {
+                    System.out.println("Deux joueurs connectés. Démarrage de la partie...");
+                    broadcastMessage("START");
+                }
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void broadcastMessage(String message) {
+        for (ClientHandler client : clients) {
+            client.sendMessage(message);
+        }
+    }
+
+    public void broadcastMessage(String message, ClientHandler excludeClient) {
+        for (ClientHandler client : clients) {
+            if (client != excludeClient) {
+                client.sendMessage(message);
+            }
         }
     }
 

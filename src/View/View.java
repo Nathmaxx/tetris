@@ -7,9 +7,7 @@ import javax.swing.*;
 import Controller.Controller;
 import Controller.MusicPlayer;
 import Model.Game;
-import Model.Score;
-import Model.Network.Client;
-import Model.Network.Server;
+import Model.Network.NetworkManager;
 
 public class View implements Observer {
     private JFrame frame;
@@ -21,9 +19,11 @@ public class View implements Observer {
     private Game model;
     private Controller controller;
     private MusicPlayer musicPlayer = new MusicPlayer();
+    private NetworkManager nm;
 
     public View(Game model) {
         this.model = model;
+        this.nm = new NetworkManager(model);
         model.addObserver(this);
         musicPlayer.play("src/resources/Tetris.wav", true);
 
@@ -69,6 +69,22 @@ public class View implements Observer {
         frame.requestFocusInWindow();
     }
 
+    public void startServerMultiplayerGame() {
+        frame.getContentPane().removeAll();
+
+        this.gamePanel = new GamePanel(model);
+        nextPiecesPanel = new NextPiecesPanel(model, controller);
+
+        frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
+        frame.getContentPane().add(nextPiecesPanel, BorderLayout.EAST);
+
+        frame.revalidate();
+        frame.repaint();
+        frame.requestFocusInWindow();
+
+        nm.startServer();
+    }
+
     public void startMultiplayerGame() {
         frame.getContentPane().removeAll();
 
@@ -82,21 +98,7 @@ public class View implements Observer {
         frame.repaint();
         frame.requestFocusInWindow();
 
-        new Thread(() -> {
-            Server server = new Server();
-            server.start(12345);
-        }).start();
-
-        // Attendre un court instant pour que le serveur démarre
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Connecter le client au serveur local
-        Client client = new Client();
-        client.start("localhost", 12345);
+        nm.connectToServer("localhost");
     }
 
     @Override
@@ -194,9 +196,6 @@ public class View implements Observer {
         model.setPause(true);
         mainMenuPanel = new MainMenuPanel(controller);
         frame.add(mainMenuPanel, BorderLayout.CENTER);
-
-        // JOptionPane.showMessageDialog(frame, "Best Score: " + Score.getBestScore(),
-        // "Best Score", JOptionPane.INFORMATION_MESSAGE);
 
         frame.revalidate();
         frame.repaint();
