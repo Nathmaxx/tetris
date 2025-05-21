@@ -35,7 +35,7 @@ public class Game extends Observable implements Runnable {
         grid.rotatePiece();
         grid.updateGrid();
         System.out.println(grid.getCurrentPiece().getActualDirection());
-        setChanged();    
+        setChanged();
         notifyObservers();
     }
 
@@ -44,6 +44,17 @@ public class Game extends Observable implements Runnable {
         isPaused = false;
         Score.resetScore();
         grid.restart();
+        Piece currentPiece = grid.createPiece();
+        grid.setCurrentPiece(currentPiece);
+
+        Piece nextPiece = grid.createPiece();
+        grid.setNextPiece(nextPiece);
+
+        Piece nextPiece2 = grid.createPiece();
+        grid.setNextPiece2(nextPiece2);
+
+        Piece nextPiece3 = grid.createPiece();
+        grid.setNextPiece3(nextPiece3);
         grid.updateGrid();
         grid.printGrid();
         setChanged();
@@ -55,6 +66,18 @@ public class Game extends Observable implements Runnable {
         isPaused = false;
         Score.resetScore();
         grid.restart();
+
+        Piece currentPiece = grid.createPiece();
+        grid.setCurrentPiece(currentPiece);
+
+        Piece nextPiece = grid.createPiece();
+        grid.setNextPiece(nextPiece);
+
+        Piece nextPiece2 = grid.createPiece();
+        grid.setNextPiece2(nextPiece2);
+
+        Piece nextPiece3 = grid.createPiece();
+        grid.setNextPiece3(nextPiece3);
         grid.updateGrid();
         grid.printGrid();
         setChanged();
@@ -122,7 +145,7 @@ public class Game extends Observable implements Runnable {
     public void run() {
         System.out.println("RUN");
         isRestarted = false;
-        System.out.println( " pause : " + isPaused);
+        System.out.println(" pause : " + isPaused);
         System.out.println(" game over : " + isGameOver());
         if (!isGameOver()) {
             Piece currentPiece = grid.getCurrentPiece();

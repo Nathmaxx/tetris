@@ -98,9 +98,11 @@ public class Controller implements KeyListener, ActionListener {
             case "createGame":
                 view.startMultiplayerGame();
                 model.startGame();
+                break;
             case "joinGame":
                 view.startMultiplayerGame();
                 model.startGame();
+                break;
         }
     }
 

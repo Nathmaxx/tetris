@@ -12,7 +12,7 @@ public class MultiplayerPanel extends JPanel {
         JButton button2 = new JButton("Rejoindre une partie");
 
         button1.setActionCommand("createGame");
-        button2.setActionCommand("joinPary");
+        button2.setActionCommand("joinGame");
 
         button1.addActionListener(controller);
         button2.addActionListener(controller);

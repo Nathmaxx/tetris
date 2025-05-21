@@ -24,7 +24,7 @@ public class Grid {
     private Random random = new Random();
     private List<Integer> pieceBag = new ArrayList<>();
     private boolean isGameOver = false;
-    private Piece nexPiece;
+    private Piece nextPiece;
     private Piece nextPiece2;
     private Piece nextPiece3;
 
@@ -93,6 +93,11 @@ public class Grid {
     }
 
     public void updateGrid() {
+
+        if (currentPiece == null) {
+            return;
+        }
+
         boolean[][] shape = currentPiece.getShape();
         Color pieceColor = currentPiece.getColor();
 
@@ -190,8 +195,8 @@ public class Grid {
         }
 
         // Update the current piece and next pieces correctly
-        currentPiece = nexPiece;
-        nexPiece = nextPiece2;
+        currentPiece = nextPiece;
+        nextPiece = nextPiece2;
         nextPiece2 = nextPiece3;
         nextPiece3 = createPiece();
 
@@ -201,8 +206,6 @@ public class Grid {
             setIsGameOver(true);
         }
     }
-
-
 
     boolean canPlacePiece(Piece piece) {
         boolean[][] shape = piece.getShape();
@@ -349,7 +352,7 @@ public class Grid {
     public Piece getNextPiece(int index) {
         switch (index) {
             case 0:
-                return nexPiece;
+                return nextPiece;
             case 1:
                 return nextPiece2;
             case 2:
@@ -360,7 +363,7 @@ public class Grid {
     }
 
     public void setNextPiece(Piece piece) {
-        this.nexPiece = piece;
+        this.nextPiece = piece;
     }
 
     public void setNextPiece2(Piece piece) {

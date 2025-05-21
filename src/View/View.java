@@ -8,6 +8,8 @@ import Controller.Controller;
 import Controller.MusicPlayer;
 import Model.Game;
 import Model.Score;
+import Model.Network.Client;
+import Model.Network.Server;
 
 public class View implements Observer {
     private JFrame frame;
@@ -79,6 +81,22 @@ public class View implements Observer {
         frame.revalidate();
         frame.repaint();
         frame.requestFocusInWindow();
+
+        new Thread(() -> {
+            Server server = new Server();
+            server.start(12345);
+        }).start();
+
+        // Attendre un court instant pour que le serveur démarre
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Connecter le client au serveur local
+        Client client = new Client();
+        client.start("localhost", 12345);
     }
 
     @Override
