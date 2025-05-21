@@ -8,7 +8,7 @@ public class GameOverPanel extends JPanel {
     private Controller controller;
     private JButton menuButton;
 
-    public GameOverPanel(Controller controller, int score) {
+    public GameOverPanel(Controller controller, int score, boolean isNetworkGame) {
         this.controller = controller;
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
@@ -28,14 +28,15 @@ public class GameOverPanel extends JPanel {
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton restartButton = new JButton("Restart");
-        restartButton.setFont(new Font("Arial", Font.BOLD, 40));
-        restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        restartButton.setForeground(Color.GREEN);
-        restartButton.setBackground(Color.BLACK);
-        restartButton.setActionCommand("Restart");
-        restartButton.addActionListener(controller);
-        restartButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-
+        if (!isNetworkGame) {
+            restartButton.setFont(new Font("Arial", Font.BOLD, 40));
+            restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            restartButton.setForeground(Color.GREEN);
+            restartButton.setBackground(Color.BLACK);
+            restartButton.setActionCommand("Restart");
+            restartButton.addActionListener(controller);
+            restartButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        }
 
         menuButton = new JButton("Menu");
         menuButton.setFont(new Font("Arial", Font.BOLD, 30));
@@ -46,13 +47,14 @@ public class GameOverPanel extends JPanel {
         menuButton.addActionListener(controller);
         menuButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 
-
         innerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         innerPanel.add(gameOverLabel);
         innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         innerPanel.add(scoreLabel);
-        innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        innerPanel.add(restartButton);
+        if (!isNetworkGame) {
+            innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+            innerPanel.add(restartButton);
+        }
         innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         innerPanel.add(menuButton);
 

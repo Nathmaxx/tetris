@@ -135,12 +135,11 @@ public class View implements Observer {
                     return;
                 } else {
                     hidePauseScreen();
-                } // Mettre à jour le panneau de jeu si non null
+                }
                 if (gamePanel != null) {
                     gamePanel.update(game);
                 }
 
-                // Mettre à jour le panneau d'informations si non null
                 if (nextPiecesPanel != null) {
                     nextPiecesPanel.update(game);
                 }
@@ -150,7 +149,7 @@ public class View implements Observer {
 
     private void showGameOverScreen() {
         if (gameOverPanel == null) {
-            gameOverPanel = new GameOverPanel(controller, model.getScore());
+            gameOverPanel = new GameOverPanel(controller, model.getScore(), isNetworkGame);
         }
 
         frame.getContentPane().remove(gamePanel);
