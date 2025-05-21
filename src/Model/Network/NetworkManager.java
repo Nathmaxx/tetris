@@ -1,13 +1,16 @@
 package Model.Network;
 
 import Model.Game;
+import Model.Score;
 
 public class NetworkManager {
     private Server server;
     private Client client;
     private boolean isServerMode;
+    private Thread scoreUpdateThread;
     private static final int DEFAULT_PORT = 8080;
     private Game model;
+    private boolean isSendingScores = false;
 
     public NetworkManager(Game model) {
         this.server = null;
@@ -29,7 +32,49 @@ public class NetworkManager {
             e.printStackTrace();
         }
 
-        return connectToServer("localhost");
+        boolean connected = connectToServer("localhost");
+
+        if (connected) {
+            startSendingScores();
+        }
+
+        return connected;
+    }
+
+    private void startSendingScores() {
+        if (scoreUpdateThread != null && scoreUpdateThread.isAlive()) {
+            stopSendingScores();
+        }
+
+        isSendingScores = true;
+        scoreUpdateThread = new Thread(() -> {
+            while (isSendingScores && client != null && client.isConnected() && !model.isGameOver()) {
+                sendScore(Score.getScore());
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        });
+
+        scoreUpdateThread.start();
+        System.out.println("Envoi automatique du score démarré");
+    }
+
+    private void stopSendingScores() {
+        isSendingScores = false;
+        if (scoreUpdateThread != null) {
+            scoreUpdateThread.interrupt();
+            try {
+                scoreUpdateThread.join(1000);
+            } catch (InterruptedException e) {
+                System.err.println("Erreur lors de l'arrêt du thread d'envoi de score");
+            }
+            scoreUpdateThread = null;
+        }
+        System.out.println("Envoi automatique du score arrêté");
     }
 
     public boolean connectToServer(String host) {

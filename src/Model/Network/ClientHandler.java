@@ -25,11 +25,13 @@ public class ClientHandler implements Runnable {
             String line;
 
             while ((line = in.readLine()) != null) {
-                try {
-                    double value = Double.parseDouble(line);
-                    server.receiveValue(value, this);
-                } catch (NumberFormatException e) {
-                    System.out.println("Donnée non numérique reçue : " + line);
+                if (line.startsWith("SCORE:")) {
+                    try {
+                        int score = Integer.parseInt(line.substring(6));
+                        server.receiveValue(score, this);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Format de score invalide: " + line);
+                    }
                 }
             }
         } catch (IOException e) {

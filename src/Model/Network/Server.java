@@ -22,7 +22,6 @@ public class Server {
                 new Thread(client).start();
                 System.out.println("Nouveau client connecté. Total clients : " + clients.size());
 
-                // Si c'est le deuxième joueur, démarrer la partie
                 if (clients.size() == 2) {
                     System.out.println("Deux joueurs connectés. Démarrage de la partie...");
                     broadcastMessage("START");
@@ -48,8 +47,8 @@ public class Server {
         }
     }
 
-    public void receiveValue(double valeur, ClientHandler expediteur) {
-        System.out.println("Valeur reçue d'un client : " + valeur);
+    public void receiveValue(int value, ClientHandler client) {
+        broadcastMessage("SCORE:" + value, client);
     }
 
     public void deleteClient(ClientHandler client) {

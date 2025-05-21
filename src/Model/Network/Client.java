@@ -59,6 +59,13 @@ public class Client {
             while (connected && (message = in.readLine()) != null) {
                 if (message.equals("START")) {
                     model.startGame();
+                } else if (message.startsWith("SCORE:")) {
+                    try {
+                        int opponentScore = Integer.parseInt(message.substring(6));
+                        System.out.println("Score adversaire: " + opponentScore);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Format de score invalide");
+                    }
                 }
             }
         } catch (IOException e) {
