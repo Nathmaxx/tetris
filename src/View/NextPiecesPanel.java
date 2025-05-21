@@ -22,7 +22,7 @@ public class NextPiecesPanel extends JPanel {
         setBackground(backgroundColor.brighter());
         setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
-        levelLabel = new JLabel("Level: " + model.getLevel());
+        levelLabel = new JLabel("Level: " + Score.getLevel());
         levelLabel.setFont(new Font("Arial", Font.BOLD, 20));
         levelLabel.setForeground(Color.WHITE);
         levelLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -38,26 +38,23 @@ public class NextPiecesPanel extends JPanel {
 
         // Best score label
         bestScoreLabel = new JLabel("Best Score: " + Score.getBestScore());
-        bestScoreLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        bestScoreLabel.setFont(new Font("Arial", Font.BOLD, 15));
         bestScoreLabel.setForeground(Color.YELLOW);
         bestScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(Box.createVerticalStrut(10));
         add(bestScoreLabel);
 
         // Opponent score label
         if (isNetworkGame) {
             opponentScoreLabel = new JLabel("Adversaire: 0");
-            opponentScoreLabel.setFont(new Font("Arial", Font.BOLD, 18));
+            opponentScoreLabel.setFont(new Font("Arial", Font.BOLD, 15));
             opponentScoreLabel.setForeground(Color.ORANGE);
             opponentScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            add(Box.createVerticalStrut(10));
             add(opponentScoreLabel);
 
             opponentInfo = new JLabel();
-            opponentInfo.setFont(new Font("Arial", Font.BOLD, 18));
+            opponentInfo.setFont(new Font("Arial", Font.BOLD, 15));
             opponentInfo.setForeground(Color.ORANGE);
             opponentInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
-            add(Box.createVerticalStrut(10));
             add(opponentInfo);
         }
 
@@ -99,7 +96,6 @@ public class NextPiecesPanel extends JPanel {
         controlsTitle.setFont(new Font("Arial", Font.BOLD, fontSize + 2));
         controlsTitle.setForeground(Color.WHITE);
         controlsTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
-        add(Box.createVerticalStrut(20));
         add(controlsTitle);
 
         JLabel moveLeftLabel = new JLabel("← : Move Left");

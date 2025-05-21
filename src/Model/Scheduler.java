@@ -34,7 +34,7 @@ public class Scheduler extends Thread{
         if (newLevel != level) {
             level = newLevel;
             System.out.println("Level updated to: " + level);
-            pause = pause - (level * 200);
+            pause = pause - 100;
             if (pause < 100) {
                 pause = 100;
             }
