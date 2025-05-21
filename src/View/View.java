@@ -29,7 +29,9 @@ public class View implements Observer {
 
         frame = new JFrame("TETRIS");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(550, 700);
+
+        // Adjusted frame size for better layout
+        frame.setSize(600, 700); // Increased width for better spacing
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
@@ -50,8 +52,10 @@ public class View implements Observer {
         this.gamePanel = new GamePanel(model);
         nextPiecesPanel = new NextPiecesPanel(model, controller);
 
+        // Adjust layout proportions
         frame.add(gamePanel, BorderLayout.CENTER);
         frame.add(nextPiecesPanel, BorderLayout.EAST);
+        nextPiecesPanel.setPreferredSize(new Dimension(300, 700)); // Reduced width for NextPiecesPanel
 
         frame.revalidate();
         frame.repaint();

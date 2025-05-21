@@ -15,28 +15,27 @@ public class Game extends Observable implements Runnable {
         Score.loadBestScore(); // Charger le meilleur score au démarrage
     }
 
-    public void moveLeft() {
-        grid.moveCurrentPieceLeft();
+    public void updateGridWithProjection() {
         grid.updateGrid();
-
+        grid.showProjection(); // Affiche la projection de la pièce
         setChanged();
         notifyObservers();
+    }
+
+    public void moveLeft() {
+        grid.moveCurrentPieceLeft();
+        updateGridWithProjection();
     }
 
     public void moveRight() {
         grid.moveCurrentPieceRight();
-        grid.updateGrid();
-
-        setChanged();
-        notifyObservers();
+        updateGridWithProjection();
     }
 
     public void rotate() {
         grid.rotatePiece();
-        grid.updateGrid();
+        updateGridWithProjection();
         System.out.println(grid.getCurrentPiece().getActualDirection());
-        setChanged();
-        notifyObservers();
     }
 
     public void startGame() {
@@ -133,12 +132,9 @@ public class Game extends Observable implements Runnable {
             grid.moveCurrentPieceDown();
         }
         grid.updateGrid();
-
         grid.placeCurrentPiece();
         grid.removeLine();
-        grid.updateGrid();
-        setChanged();
-        notifyObservers();
+        updateGridWithProjection();
     }
 
     @Override
@@ -176,10 +172,8 @@ public class Game extends Observable implements Runnable {
 
             if (grid.checkMoveDown()) {
                 grid.moveCurrentPieceDown();
-                grid.updateGrid();
+                updateGridWithProjection();
                 System.out.println(Score.getScore());
-                setChanged();
-                notifyObservers();
                 return;
             } else {
                 grid.placeCurrentPiece();

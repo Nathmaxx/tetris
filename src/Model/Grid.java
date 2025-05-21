@@ -374,4 +374,53 @@ public class Grid {
         this.nextPiece3 = piece;
     }
 
+    public void showProjection() {
+        // Clear previous projection
+        boolean[][] shape = currentPiece.getShape();
+        Color pieceColor = currentPiece.getColor();
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (boxes[i][j].getColor().equals(currentPiece.getColor().darker().darker()) && !boxes[i][j].getIsComplete()) {
+                    boxes[i][j].setColor(backgroundColor);
+                }
+            }
+        }
+
+        // Calculate projection position
+        int projectionY = currentPiece.getY();
+        while (canMoveProjectionDown(projectionY)) {
+            projectionY++;
+        }
+
+        // Draw projection
+        for (int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape[i].length; j++) {
+                if (shape[i][j]) {
+                    int newY = projectionY + i;
+                    int newX = currentPiece.getX() + j;
+                    if (newY >= 0 && newY < rows && newX >= 0 && newX < cols) {
+                        boxes[newY][newX].setColor(currentPiece.getColor().darker().darker()); // Use gray color for projection
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean canMoveProjectionDown(int projectionY) {
+        boolean[][] shape = currentPiece.getShape();
+        for (int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape[i].length; j++) {
+                if (shape[i][j]) {
+                    int newY = projectionY + i + 1;
+                    int newX = currentPiece.getX() + j;
+                    if (newY >= rows || (newY >= 0 && boxes[newY][newX].getIsComplete())) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
 }
