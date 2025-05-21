@@ -38,6 +38,12 @@ public class ClientHandler implements Runnable {
                     } catch (Exception e) {
                         System.out.println("Erreur de réception de fin de partie");
                     }
+                } else if (line.equals("WINGAME")) {
+                    try {
+                        server.receiveWinGame(this);
+                    } catch (Exception e) {
+                        System.out.println("Erreur de réception de victoire de partie");
+                    }
                 }
             }
         } catch (IOException e) {

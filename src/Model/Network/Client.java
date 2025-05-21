@@ -50,19 +50,18 @@ public class Client {
         }
     }
 
-    public boolean sendEndGame() {
+    public boolean sendGameInfo(String message) {
         if (!connected || out == null) {
-            System.out.println("Impossible d'envoyer ENDGAME: non connecté");
+            System.out.println("Impossible d'envoyer : non connecté");
             return false;
         }
 
         try {
-            String message = "ENDGAME";
             out.println(message);
-            System.out.println("Message ENDGAME envoyé au serveur");
+            System.out.println("Message envoyé au serveur");
             return true;
         } catch (Exception e) {
-            System.out.println("Erreur lors de l'envoi du message ENDGAME: " + e.getMessage());
+            System.out.println("Erreur lors de l'envoi du message: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -74,6 +73,7 @@ public class Client {
             while (connected && (message = in.readLine()) != null) {
                 if (message.equals("START")) {
                     model.startGame();
+                    model.setOpponentMessage("L'adversaire joue");
                 } else if (message.startsWith("SCORE:")) {
                     try {
                         int opponentScore = Integer.parseInt(message.substring(6));
@@ -84,9 +84,9 @@ public class Client {
                         System.out.println("Format de score invalide");
                     }
                 } else if (message.equals("ENDGAME")) {
-                    System.out.println("REÇU: L'adversaire a perdu la partie!");
-                    // Afficher un message à l'utilisateur pour indiquer qu'il a gagné
-                    model.setOpponentGameOver(true);
+                    model.setOpponentMessage("L'adversaire a perdu");
+                } else if (message.equals("WINGAME")) {
+                    model.setOpponentMessage("L'adversaire a gagné");
                 }
             }
         } catch (IOException e) {

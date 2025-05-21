@@ -165,6 +165,10 @@ public class View implements Observer {
             gameOverPanel = new GameOverPanel(controller, model.getScore(), isNetworkGame);
         }
 
+        if (isNetworkGame && nm != null) {
+            nm.sendEndGame();
+        }
+
         frame.getContentPane().remove(gamePanel);
         frame.getContentPane().add(gameOverPanel, BorderLayout.CENTER);
         frame.revalidate();

@@ -59,6 +59,10 @@ public class NetworkManager {
                     sendEndGame();
                 }
 
+                if (Score.getScore() > 1000) {
+                    sendWinGame();
+                }
+
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -109,7 +113,14 @@ public class NetworkManager {
 
     public boolean sendEndGame() {
         if (client != null && client.isConnected()) {
-            return client.sendEndGame();
+            return client.sendGameInfo("ENDGAME");
+        }
+        return false;
+    }
+
+    public boolean sendWinGame() {
+        if (client != null && client.isConnected()) {
+            return client.sendGameInfo("WINGAME");
         }
         return false;
     }

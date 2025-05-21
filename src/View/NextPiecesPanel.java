@@ -2,8 +2,6 @@ package View;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.event.ActionListener;
 import Controller.Controller;
 
 import Model.Game;
@@ -13,6 +11,7 @@ public class NextPiecesPanel extends JPanel {
     private JLabel scoreLabel;
     private JLabel bestScoreLabel;
     private JLabel opponentScoreLabel;
+    private JLabel opponentInfo;
     private Color backgroundColor;
     private JButton pauseButton;
 
@@ -46,6 +45,13 @@ public class NextPiecesPanel extends JPanel {
             opponentScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             add(Box.createVerticalStrut(10));
             add(opponentScoreLabel);
+
+            opponentInfo = new JLabel();
+            opponentInfo.setFont(new Font("Arial", Font.BOLD, 18));
+            opponentInfo.setForeground(Color.ORANGE);
+            opponentInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
+            add(Box.createVerticalStrut(10));
+            add(opponentInfo);
         }
 
         // Pause button
@@ -144,8 +150,17 @@ public class NextPiecesPanel extends JPanel {
             if (opponentScoreLabel != null) {
                 opponentScoreLabel.setText("Adversaire: " + game.getOpponentScore());
             }
+
+            if (opponentInfo != null) {
+                opponentInfo.setText(game.getOpponentMessage());
+                if (opponentInfo.getText().equals("L'adversaire a gagné")) {
+                    opponentInfo.setForeground(Color.GREEN);
+                } else if (opponentInfo.getText().equals("L'adversaire a perdu")) {
+                    opponentInfo.setForeground(Color.RED);
+                }
+            }
         } catch (Exception e) {
-            System.out.println("Exception lors de la mise à jour du score adversaire: " + e.getMessage());
+            System.out.println("Exception lors de la mise à jour des infos adversaire: " + e.getMessage());
         }
 
         Component[] components = getComponents();
