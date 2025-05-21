@@ -95,7 +95,12 @@ public class View implements Observer {
         frame.repaint();
         frame.requestFocusInWindow();
 
-        nm.startServer();
+        boolean connected = nm.startServer();
+
+        // Démarrer l'envoi automatique des scores ici, après la connexion
+        if (connected) {
+            nm.startSendingScoresPublic();
+        }
     }
 
     public void startMultiplayerGame() {
@@ -119,7 +124,7 @@ public class View implements Observer {
                 // Charge l'interface de jeu
                 frame.getContentPane().removeAll();
                 this.gamePanel = new GamePanel(model);
-                nextPiecesPanel = new NextPiecesPanel(model, controller);
+                nextPiecesPanel = new NextPiecesPanel(model, controller, true);
 
                 frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
                 frame.getContentPane().add(nextPiecesPanel, BorderLayout.EAST);
@@ -127,6 +132,9 @@ public class View implements Observer {
                 frame.revalidate();
                 frame.repaint();
                 frame.requestFocusInWindow();
+
+                nm.startSendingScoresPublic();
+
                 return;
             } else {
                 // Affiche une erreur si la connexion échoue

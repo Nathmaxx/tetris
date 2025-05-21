@@ -33,10 +33,6 @@ public class NetworkManager {
         }
         boolean connected = connectToServer("localhost");
 
-        if (connected) {
-            startSendingScoresPublic();
-        }
-
         return connected;
     }
 
