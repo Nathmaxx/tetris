@@ -96,6 +96,7 @@ public class NextPiecesPanel extends JPanel {
         controlsTitle.setFont(new Font("Arial", Font.BOLD, fontSize + 2));
         controlsTitle.setForeground(Color.WHITE);
         controlsTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(Box.createVerticalStrut(20));
         add(controlsTitle);
 
         JLabel moveLeftLabel = new JLabel("← : Move Left");

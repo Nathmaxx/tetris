@@ -32,7 +32,7 @@ public class View implements Observer {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Adjusted frame size for better layout
-        frame.setSize(600, 800); // Increased width for better spacing
+        frame.setSize(600, 700); // Increased width for better spacing
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
@@ -176,12 +176,9 @@ public class View implements Observer {
     }
 
     private void showGameOverScreen() {
-        boolean isHost = nm.isServerMode(); // Vérifie si le joueur est l'hôte
-        boolean isWinner = !model.isGameOver(); // Si le joueur actuel n'a pas perdu, il est le gagnant
-        
-
         if (gameOverPanel == null) {
-            gameOverPanel = new GameOverPanel(controller, model.getScore(), isNetworkGame, isHost, isWinner);
+            boolean isHost = nm.isServerMode(); // Vérifie si le joueur est l'hôte
+            gameOverPanel = new GameOverPanel(controller, model.getScore(), isNetworkGame, isHost);
         }
 
         if (isNetworkGame && nm != null) {
