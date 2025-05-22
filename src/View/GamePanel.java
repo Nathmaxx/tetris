@@ -6,11 +6,9 @@ import javax.swing.border.Border;
 import Model.Game;
 
 public class GamePanel extends JPanel {
-    private Game model;
     private Color backgroundColor;
 
     public GamePanel(Game model) {
-        this.model = model;
         this.backgroundColor = model.getGrid().getBackgroundColor();
         setLayout(new GridLayout(model.getRows(), model.getCols()));
         setBackground(backgroundColor.brighter());

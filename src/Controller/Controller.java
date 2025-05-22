@@ -1,35 +1,44 @@
 package Controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 import View.View;
 
 import Model.Game;
 
+/**
+ * Contrôleur MVC gérant les entrées clavier et les actions déclenchées
+ * par la vue ou le timer.
+ */
 public class Controller implements KeyListener, ActionListener {
     private Game model;
     private View view;
 
+    /**
+     * Initialise le contrôleur avec le modèle et la vue.
+     * @param model le modèle du jeu
+     * @param view la vue associée
+     */
     public Controller(Game model, View view) {
         this.model = model;
         this.view = view;
 
     }
 
+    /**
+     * Traite les appuis de touches :
+     * - Flèche gauche/droite pour déplacer la pièce
+     * - Flèche bas pour la chute accélérée
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                System.out.println("Left key pressed");
                 if (model.getGrid().checkMoveLeft()) {
                     model.moveLeft();
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                System.out.println("Right key pressed");
                 if (model.getGrid().checkMoveRight()) {
                     model.moveRight();
                 }
@@ -48,7 +57,6 @@ public class Controller implements KeyListener, ActionListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            System.out.println("Up key pressed");
             if (model.getGrid().canRotate(model.getGrid().getCurrentPiece())) {
                 model.rotate();
             }
@@ -61,11 +69,13 @@ public class Controller implements KeyListener, ActionListener {
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            System.out.println("Space key pressed");
             model.placePieceAtBottom();
         }
     }
 
+    /**
+     * Réagit aux événements d’action 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -92,7 +102,6 @@ public class Controller implements KeyListener, ActionListener {
                 break;
             case "QuitToMenu":
                 model.getGrid().restart();
-                System.out.println("Quit to menu");
                 view.showMainMenu();
                 break;
             case "createGame":

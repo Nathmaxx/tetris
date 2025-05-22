@@ -12,7 +12,7 @@ public class App {
         Game model = new Game(grid);
 
         // Create the view
-        View vue = new View(model);
+        new View(model);
 
         Scheduler scheduler = new Scheduler(model);
         scheduler.start();

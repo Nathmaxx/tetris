@@ -12,10 +12,8 @@ import Controller.Controller;
 import Model.Game;
 
 public class PausePanel extends JPanel {
-    private Controller controller;
 
     public PausePanel(Controller controller, Game model) {
-        this.controller = controller;
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
 
@@ -29,7 +27,7 @@ public class PausePanel extends JPanel {
         pauseLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
-        if (!model.getOpponentMessage().equals("L'adversaire a gagné") && !model.getOpponentMessage().equals("L'adversaire a perdu")) {
+        if (!model.getOpponentMessage().equals("L'adversaire a gagné") && !model.getOpponentMessage().equals("L'adversaire a perdu") && !model.getOpponentMessage().equals("Vous avez gagné") ) {
             System.out.println("Opponent message: " + model.getOpponentMessage());
             JButton resumeButton = new JButton("Resume");
             resumeButton.setFont(new Font("Arial", Font.BOLD, 25));

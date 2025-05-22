@@ -60,6 +60,9 @@ public class Scheduler extends Thread {
      */
     public void levelupdate() {
         int newLevel = Score.getLevel();
+        if (newLevel==1){
+            level=1000;
+        }
         if (newLevel != level) {
             level = newLevel;
             System.out.println("Level updated to: " + level);
