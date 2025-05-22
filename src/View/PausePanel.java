@@ -9,11 +9,12 @@ import java.awt.GridBagLayout;
 import javax.swing.*;
 
 import Controller.Controller;
+import Model.Game;
 
 public class PausePanel extends JPanel {
     private Controller controller;
 
-    public PausePanel(Controller controller) {
+    public PausePanel(Controller controller, Game model) {
         this.controller = controller;
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
@@ -27,14 +28,20 @@ public class PausePanel extends JPanel {
         pauseLabel.setForeground(Color.RED);
         pauseLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton resumeButton = new JButton("Resume");
-        resumeButton.setFont(new Font("Arial", Font.BOLD, 25));
-        resumeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        resumeButton.setForeground(Color.GREEN);
-        resumeButton.setBackground(Color.BLACK);
-        resumeButton.setActionCommand("Resume");
-        resumeButton.addActionListener(controller);
-        resumeButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+
+        if (!model.getOpponentMessage().equals("L'adversaire a gagné") || !model.getOpponentMessage().equals("L'adversaire a perdu")) {
+            System.out.println("Opponent message: " + model.getOpponentMessage());
+            JButton resumeButton = new JButton("Resume");
+            resumeButton.setFont(new Font("Arial", Font.BOLD, 25));
+            resumeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            resumeButton.setForeground(Color.GREEN);
+            resumeButton.setBackground(Color.BLACK);
+            resumeButton.setActionCommand("Resume");
+            resumeButton.addActionListener(controller);
+            resumeButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+            innerPanel.add(resumeButton);
+
+        }
 
 
         JButton quitButton = new JButton("Quit");
@@ -50,7 +57,6 @@ public class PausePanel extends JPanel {
         innerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         innerPanel.add(pauseLabel);
         innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        innerPanel.add(resumeButton);
         innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         innerPanel.add(quitButton);
 

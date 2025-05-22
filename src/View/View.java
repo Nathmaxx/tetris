@@ -214,7 +214,7 @@ public class View implements Observer {
 
     public void showPauseScreen() {
         if (pausePanel == null) {
-            pausePanel = new PausePanel(controller);
+            pausePanel = new PausePanel(controller,model);
         }
 
         frame.getContentPane().remove(gamePanel);
