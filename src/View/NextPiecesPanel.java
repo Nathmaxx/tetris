@@ -160,22 +160,24 @@ public class NextPiecesPanel extends JPanel {
             if (opponentInfo != null) {
 
                 opponentInfo.setText(game.getOpponentMessage());
-                if (opponentInfo.getText().equals("L'adversaire a gagné")) {
+                if (opponentInfo.getText().equals("L'adversaire a gagné")
+                        || opponentInfo.getText().equals("Vous avez gagné")) {
                     opponentInfo.setForeground(Color.GREEN);
                 } else if (opponentInfo.getText().equals("L'adversaire a perdu")) {
                     opponentInfo.setForeground(Color.RED);
                 }
             }
-        // Display a JOptionPane with the opponent's message
-        if (opponentInfo.getText() != null && !opponentInfo.getText().isEmpty() && (opponentInfo.getText().equals("L'adversaire a gagné") || opponentInfo.getText().equals("L'adversaire a perdu"))) {
-            game.setPause(true);
-            JOptionPane.showMessageDialog(
-                this,
-                opponentInfo.getText(),
-                "Opponent Info",
-                JOptionPane.INFORMATION_MESSAGE
-            );
-        }
+            // Display a JOptionPane with the opponent's message
+            if (opponentInfo.getText() != null && !opponentInfo.getText().isEmpty()
+                    && (opponentInfo.getText().equals("L'adversaire a gagné")
+                            || opponentInfo.getText().equals("L'adversaire a perdu"))) {
+                game.setPause(true);
+                JOptionPane.showMessageDialog(
+                        this,
+                        opponentInfo.getText(),
+                        "Opponent Info",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception e) {
             System.out.println("Exception lors de la mise à jour des infos adversaire: " + e.getMessage());
         }
