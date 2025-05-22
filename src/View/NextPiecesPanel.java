@@ -143,32 +143,28 @@ public class NextPiecesPanel extends JPanel {
             return;
         }
 
-        // Update level
         levelLabel.setText("Level: " + game.getLevel());
-        // Update score
         scoreLabel.setText("Score: " + game.getScore());
 
-        // Update best score
         bestScoreLabel.setText("Best Score: " + Score.getBestScore());
 
-        // Update opponent score if in network game
         try {
             if (opponentScoreLabel != null) {
                 opponentScoreLabel.setText("Adversaire: " + game.getOpponentScore());
             }
 
             if (opponentInfo != null) {
-
                 opponentInfo.setText(game.getOpponentMessage());
-                if (opponentInfo.getText().equals("L'adversaire a gagné")
-                        || opponentInfo.getText().equals("Vous avez gagné")) {
+                String infoText = opponentInfo.getText();
+                if (infoText.equals("L'adversaire a gagné")
+                        || infoText.equals("Vous avez gagné")) {
                     opponentInfo.setForeground(Color.GREEN);
-                } else if (opponentInfo.getText().equals("L'adversaire a perdu")) {
+                } else if (infoText.equals("L'adversaire a perdu")) {
                     opponentInfo.setForeground(Color.RED);
                 }
             }
             // Display a JOptionPane with the opponent's message
-            if (opponentInfo.getText() != null && !opponentInfo.getText().isEmpty()
+            if (opponentInfo != null && !opponentInfo.getText().isEmpty()
                     && (opponentInfo.getText().equals("L'adversaire a gagné")
                             || opponentInfo.getText().equals("L'adversaire a perdu"))) {
                 game.setPause(true);
