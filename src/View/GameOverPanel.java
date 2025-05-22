@@ -5,11 +5,9 @@ import javax.swing.*;
 import Controller.Controller;
 
 public class GameOverPanel extends JPanel {
-    private Controller controller;
     private JButton menuButton;
 
     public GameOverPanel(Controller controller, int score) {
-        this.controller = controller;
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
 

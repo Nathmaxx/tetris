@@ -12,10 +12,8 @@ import Controller.Controller;
 import Model.Game;
 
 public class PausePanel extends JPanel {
-    private Controller controller;
 
     public PausePanel(Controller controller, Game model) {
-        this.controller = controller;
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
 
