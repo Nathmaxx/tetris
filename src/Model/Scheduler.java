@@ -36,8 +36,7 @@ public class Scheduler extends Thread {
     public void run() {
         while (true) {
             levelupdate();
-            System.out.println("Level: " + level);
-            System.out.println("Scheduler is running");
+
 
             if (!((Game) r).isGameOver() && !((Game) r).isPaused()) {
 
@@ -60,20 +59,21 @@ public class Scheduler extends Thread {
      */
     public void levelupdate() {
         int newLevel = Score.getLevel();
-
+        System.out.println("new level" + newLevel);
+        System.out.println("level" + level);
         if (newLevel != level) {
-            if (newLevel==1){
-                level=1000;
-            }else{
 
-                level = newLevel;
-                System.out.println("Level updated to: " + level);
-                pause = pause - 100;
-                if (pause < 100) {
-                    pause = 100;
-                }
+            level = newLevel;
+            System.out.println("Level updated to: " + level);
+            pause = pause - 100;
+            if (pause < 100) {
+                pause = 100;
             }
+        }else if (newLevel==1) {
+            pause = 1000;
+            
         }
+        
 
     }
 
