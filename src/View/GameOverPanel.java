@@ -8,7 +8,7 @@ public class GameOverPanel extends JPanel {
     private Controller controller;
     private JButton menuButton;
 
-    public GameOverPanel(Controller controller, int score, boolean isNetworkGame) {
+    public GameOverPanel(Controller controller, int score, boolean isNetworkGame, boolean isHost) {
         this.controller = controller;
         setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
@@ -27,15 +27,44 @@ public class GameOverPanel extends JPanel {
         scoreLabel.setForeground(Color.WHITE);
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton restartButton = new JButton("Restart");
-        if (!isNetworkGame) {
-            restartButton.setFont(new Font("Arial", Font.BOLD, 40));
+        if (isNetworkGame) {
+            JLabel networkMessage = new JLabel("La partie est terminée.", JLabel.CENTER);
+            networkMessage.setFont(new Font("Arial", Font.BOLD, 20));
+            networkMessage.setForeground(Color.ORANGE);
+            networkMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
+            innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+            innerPanel.add(networkMessage);
+
+            if (isHost) {
+                JButton restartButton = new JButton("Restart");
+                restartButton.setFont(new Font("Arial", Font.BOLD, 30));
+                restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                restartButton.setForeground(Color.GREEN);
+                restartButton.setBackground(Color.BLACK);
+                restartButton.setActionCommand("Restart");
+                restartButton.addActionListener(controller);
+                restartButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+                innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                innerPanel.add(restartButton);
+            } else {
+                JLabel waitMessage = new JLabel("En attente de l'hôte pour redémarrer...", JLabel.CENTER);
+                waitMessage.setFont(new Font("Arial", Font.BOLD, 20));
+                waitMessage.setForeground(Color.YELLOW);
+                waitMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
+                innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                innerPanel.add(waitMessage);
+            }
+        } else {
+            JButton restartButton = new JButton("Restart");
+            restartButton.setFont(new Font("Arial", Font.BOLD, 30));
             restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             restartButton.setForeground(Color.GREEN);
             restartButton.setBackground(Color.BLACK);
             restartButton.setActionCommand("Restart");
             restartButton.addActionListener(controller);
             restartButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+            innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+            innerPanel.add(restartButton);
         }
 
         menuButton = new JButton("Menu");
@@ -51,10 +80,6 @@ public class GameOverPanel extends JPanel {
         innerPanel.add(gameOverLabel);
         innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         innerPanel.add(scoreLabel);
-        if (!isNetworkGame) {
-            innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-            innerPanel.add(restartButton);
-        }
         innerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         innerPanel.add(menuButton);
 
