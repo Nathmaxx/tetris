@@ -1,5 +1,6 @@
 package Model.pieces;
 
+/** Piece Z du jeu tetris */
 public class PieceZ extends Piece {
 
 	/** Position Nord */

@@ -99,7 +99,7 @@ public class View implements Observer {
 
         // Démarrer l'envoi automatique des scores ici, après la connexion
         if (connected) {
-            nm.startSendingScoresPublic();
+            nm.startSendingScores();
         }
     }
 
@@ -133,7 +133,7 @@ public class View implements Observer {
                 frame.repaint();
                 frame.requestFocusInWindow();
 
-                nm.startSendingScoresPublic();
+                nm.startSendingScores();
 
                 return;
             } else {

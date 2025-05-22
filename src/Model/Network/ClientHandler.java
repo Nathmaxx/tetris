@@ -6,17 +6,48 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/**
+ * Classe ClientHandler qui gère la communication individuelle avec chaque
+ * client connecté au serveur.
+ * 
+ * Cette classe est responsable de :
+ * - Recevoir et traiter les messages du client
+ * - Envoyer des messages au client
+ * - Maintenir la connexion socket avec le client
+ * - Notifier le serveur des événements importants
+ */
 public class ClientHandler implements Runnable {
+
+    /** Socket de connexion avec le client */
     private final Socket socket;
+
+    /** Référence au serveur parent pour transmettre les messages */
     private final Server server;
+
+    /** Flux d'entrée pour lire les messages du client */
     private BufferedReader in;
+
+    /** Flux de sortie pour envoyer des messages au client */
     private PrintWriter out;
 
+    /**
+     * Constructeur qui initialise le gestionnaire de client avec sa socket et le
+     * serveur parent
+     * 
+     * @param socket La socket de connexion avec le client
+     * @param server Le serveur parent qui gère tous les clients
+     */
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
     }
 
+    /**
+     * Méthode principale qui s'exécute dans un thread séparé.
+     * Elle initialise les flux d'E/S et attend continuellement les messages du
+     * client.
+     * Les messages sont traités selon leur type (score, fin de partie, victoire).
+     */
     @Override
     public void run() {
         try {
@@ -28,15 +59,14 @@ public class ClientHandler implements Runnable {
                     try {
                         int score = Integer.parseInt(line.substring(6));
                         server.receiveValue(score, this);
-                        System.out.println("Score reçu du client: " + score);
                     } catch (NumberFormatException e) {
-                        System.out.println("Format de score invalide: " + line);
+                        e.printStackTrace();
                     }
                 } else if (line.equals("ENDGAME")) {
                     try {
                         server.receiveEndGame(this);
                     } catch (Exception e) {
-                        System.out.println("Erreur de réception de fin de partie");
+                        e.printStackTrace();
                     }
                 } else if (line.equals("WINGAME")) {
                     try {
@@ -53,13 +83,18 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Envoie un message au client connecté à cette instance
+     * 
+     * @param message le message à envoyer
+     */
     public void sendMessage(String message) {
         if (out != null) {
             out.println(message);
-            System.out.println("Message envoyé au client: " + message);
         }
     }
 
+    /** Ferme la connexion avec le client et notifie le serveur */
     private void closeConnection() {
         try {
             in.close();

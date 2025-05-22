@@ -2,6 +2,7 @@ package Model.pieces;
 
 import java.awt.Color;
 
+/** Piece I du jeu tetris */
 public class PieceI extends Piece {
 	/** Position Nord */
 	private final boolean[][] NORTH = new boolean[][] {

@@ -3,15 +3,40 @@ package Model.Network;
 import Model.Game;
 import Model.Score;
 
+/**
+ * Classe NetworkManager qui gère toutes les communications réseau du jeu Tetris
+ * multijoueur.
+ * 
+ * Cette classe fait le lien entre le modèle de jeu et les composants réseau
+ */
 public class NetworkManager {
+
+    /** Instance du serveur */
     private Server server;
+
+    /** Instance du client pour communiquer avec le serveur */
     private Client client;
+
+    /** Indique si ce joueur héberge le serveur */
     private boolean isServerMode;
+
+    /** Thread qui envoie périodiquement le score au serveur */
     private Thread scoreUpdateThread;
+
+    /** Port par défaut utilisé pour les communications */
     private static final int DEFAULT_PORT = 8080;
+
+    /** Instance de la partie en cours */
     private Game model;
+
+    /** Contrôle l'état de la boucle d'envoi des scores */
     private boolean isSendingScores = false;
 
+    /**
+     * Constructeur du gestionnaire réseau
+     * 
+     * @param model Référence au modèle de jeu pour accéder aux données
+     */
     public NetworkManager(Game model) {
         this.server = null;
         this.client = null;
@@ -19,6 +44,11 @@ public class NetworkManager {
         this.model = model;
     }
 
+    /**
+     * Démarre un serveur sur la machine d'un client et le connecte automatiquement
+     * 
+     * @return booléen indiquant si le serveur a démarré
+     */
     public boolean startServer() {
         isServerMode = true;
         new Thread(() -> {
@@ -36,16 +66,20 @@ public class NetworkManager {
         return connected;
     }
 
-    private void startSendingScores() {
+    /**
+     * Démarre un thread qui envoie périodiquement le score actuel au serveur.
+     * Vérifie également si la partie est gagné ou perdue et le communique au
+     * serveur le cas échéant
+     */
+    public void startSendingScores() {
         if (scoreUpdateThread != null && scoreUpdateThread.isAlive()) {
             stopSendingScores();
         }
         isSendingScores = true;
         scoreUpdateThread = new Thread(() -> {
-            int lastScore = -1; // Pour éviter d'envoyer le même score plusieurs fois
+            int lastScore = -1;
             while (isSendingScores && client != null && client.isConnected() && !model.isGameOver()) {
                 int currentScore = Score.getScore();
-                // Envoyer le score seulement s'il a changé
                 if (currentScore != lastScore) {
                     sendScore(currentScore);
                     lastScore = currentScore;
@@ -66,15 +100,13 @@ public class NetworkManager {
                     break;
                 }
             }
-            System.out.println("Thread d'envoi de score terminé. isSendingScores: " + isSendingScores +
-                    ", client connecté: " + (client != null && client.isConnected()) +
-                    ", gameOver: " + model.isGameOver());
         });
 
         scoreUpdateThread.start();
         System.out.println("Envoi automatique du score démarré");
     }
 
+    /** Arrête d'envoyer les scores au serveur */
     private void stopSendingScores() {
         isSendingScores = false;
         if (scoreUpdateThread != null) {
@@ -86,9 +118,14 @@ public class NetworkManager {
             }
             scoreUpdateThread = null;
         }
-        System.out.println("Envoi automatique du score arrêté");
     }
 
+    /**
+     * Connecte un client à un serveur
+     * 
+     * @param host l'adresse ip du serveur
+     * @return booléen, connexion réussie ou non
+     */
     public boolean connectToServer(String host) {
         try {
             client = new Client(model);
@@ -100,6 +137,12 @@ public class NetworkManager {
         }
     }
 
+    /**
+     * Envoie le score actuel au serveur.
+     * 
+     * @param score Le score à envoyer
+     * @return true si l'envoi a réussi, false sinon
+     */
     public boolean sendScore(int score) {
         if (client != null && client.isConnected()) {
             return client.sendScore(score);
@@ -107,6 +150,11 @@ public class NetworkManager {
         return false;
     }
 
+    /**
+     * Envoie un message indiquant que le joueur a perdu la partie.
+     * 
+     * @return true si l'envoi a réussi, false sinon
+     */
     public boolean sendEndGame() {
         if (client != null && client.isConnected()) {
             return client.sendGameInfo("ENDGAME");
@@ -114,6 +162,11 @@ public class NetworkManager {
         return false;
     }
 
+    /**
+     * Envoie un message indiquant que le joueur a gagné la partie.
+     * 
+     * @return true si l'envoi a réussi, false sinon
+     */
     public boolean sendWinGame() {
         if (client != null && client.isConnected()) {
             return client.sendGameInfo("WINGAME");
@@ -121,6 +174,9 @@ public class NetworkManager {
         return false;
     }
 
+    /**
+     * Déconnecte le client du serveur et arrête l'envoi des scores.
+     */
     public void disconnect() {
         stopSendingScores();
         if (client != null) {
@@ -135,17 +191,5 @@ public class NetworkManager {
 
     public boolean isServerMode() {
         return isServerMode;
-    }
-
-    // Méthode pour mettre à jour manuellement le score
-    public void updateScore() {
-        if (client != null && client.isConnected()) {
-            sendScore(Score.getScore());
-        }
-    }
-
-    // Méthode publique pour démarrer l'envoi automatique du score
-    public void startSendingScoresPublic() {
-        startSendingScores();
     }
 }

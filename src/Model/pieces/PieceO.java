@@ -2,6 +2,7 @@ package Model.pieces;
 
 import java.awt.Color;
 
+/** Piece O du jeu tetris */
 public class PieceO extends Piece {
 
     /** Forme pour toute les directions */

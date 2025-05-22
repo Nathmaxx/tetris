@@ -2,6 +2,7 @@ package Model.pieces;
 
 import java.awt.Color;
 
+/** Piece J du jeu tetris */
 public class PieceJ extends Piece {
 
 	/** Direction Nord */
