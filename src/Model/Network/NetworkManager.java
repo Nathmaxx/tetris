@@ -79,14 +79,16 @@ public class NetworkManager {
         scoreUpdateThread = new Thread(() -> {
             int lastScore = -1;
             while (isSendingScores && client != null && client.isConnected() && !model.isGameOver()) {
-                int currentScore = Score.getScore();
-                if (currentScore != lastScore) {
-                    sendScore(currentScore);
-                    lastScore = currentScore;
-                }
+                if (!model.isGameOver()) {
+                    int currentScore = Score.getScore();
+                    if (currentScore != lastScore) {
+                        sendScore(currentScore);
+                        lastScore = currentScore;
+                    }
 
-                if (model.isGameOver()) {
-                    sendEndGame();
+                    if (Score.getScore() > 1000) {
+                        sendWinGame();
+                    }
                 }
 
                 if (Score.getScore() > 1000) {
@@ -99,6 +101,10 @@ public class NetworkManager {
                     Thread.currentThread().interrupt();
                     break;
                 }
+            }
+
+            if (model.isGameOver()) {
+                sendEndGame();
             }
         });
 
