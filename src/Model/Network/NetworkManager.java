@@ -88,11 +88,8 @@ public class NetworkManager {
 
                     if (Score.getScore() > 1000) {
                         sendWinGame();
+                        model.setOpponentMessage("Vous avez gagné");
                     }
-                }
-
-                if (Score.getScore() > 1000) {
-                    sendWinGame();
                 }
 
                 try {
@@ -105,6 +102,7 @@ public class NetworkManager {
 
             if (model.isGameOver()) {
                 sendEndGame();
+                model.setOpponentMessage("Vous avez perdu");
             }
         });
 
