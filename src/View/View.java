@@ -176,7 +176,7 @@ public class View implements Observer {
     private void showGameOverScreen() {
         if (gameOverPanel == null) {
             boolean isHost = nm.isServerMode(); // Vérifie si le joueur est l'hôte
-            gameOverPanel = new GameOverPanel(controller, model.getScore(), isNetworkGame, isHost);
+            gameOverPanel = new GameOverPanel(controller, model.getScore());
         }
 
         if (isNetworkGame && nm != null) {
