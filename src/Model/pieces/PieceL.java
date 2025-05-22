@@ -4,6 +4,7 @@ import java.awt.Color;
 
 public class PieceL extends Piece {
 
+	/** Direction Nord */
 	private final boolean[][] NORTH = new boolean[][] {
 			{ false, false, true, false },
 			{ false, false, true, false },
@@ -11,6 +12,7 @@ public class PieceL extends Piece {
 			{ false, false, false, false },
 	};
 
+	/** Direction Sud */
 	private final boolean[][] SOUTH = new boolean[][] {
 			{ false, true, true, false },
 			{ false, false, true, false },
@@ -18,6 +20,7 @@ public class PieceL extends Piece {
 			{ false, false, false, false },
 	};
 
+	/** Direction Est */
 	private final boolean[][] EAST = new boolean[][] {
 			{ false, false, false, false },
 			{ false, true, true, true },
@@ -25,6 +28,7 @@ public class PieceL extends Piece {
 			{ false, false, false, false },
 	};
 
+	/** Direction Ouest */
 	private final boolean[][] WEST = new boolean[][] {
 			{ false, false, false, false },
 			{ false, false, false, true },
@@ -32,6 +36,12 @@ public class PieceL extends Piece {
 			{ false, false, false, false },
 	};
 
+	/**
+	 * Constructeur de PieceL
+	 * 
+	 * @param x Position x de la pièce dans la grille
+	 * @param y Position y de la pièce dans la grille
+	 */
 	public PieceL(int x, int y) {
 		super(x, y);
 		this.color = Color.ORANGE;

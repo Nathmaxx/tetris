@@ -4,6 +4,7 @@ import java.awt.Color;
 
 public class PieceO extends Piece {
 
+    /** Forme pour toute les directions */
     private final boolean[][] SHAPE = new boolean[][] {
             { false, false, true, true },
             { false, false, true, true },
@@ -11,6 +12,12 @@ public class PieceO extends Piece {
             { false, false, false, false },
     };
 
+    /**
+     * Constructeur de PieceO
+     * 
+     * @param x Position x de la pièce dans la grille
+     * @param y Position y de la pièce dans la grille
+     */
     public PieceO(int x, int y) {
         super(x, y);
         this.color = Color.YELLOW;
