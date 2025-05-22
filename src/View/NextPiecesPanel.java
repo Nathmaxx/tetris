@@ -166,7 +166,8 @@ public class NextPiecesPanel extends JPanel {
             // Display a JOptionPane with the opponent's message
             if (opponentInfo != null && !opponentInfo.getText().isEmpty()
                     && (opponentInfo.getText().equals("L'adversaire a gagné")
-                            || opponentInfo.getText().equals("L'adversaire a perdu"))) {
+                            || opponentInfo.getText().equals("L'adversaire a perdu")
+                            || opponentInfo.getText().equals("Vous avez gagné"))) {
                 game.setPause(true);
                 JOptionPane.showMessageDialog(
                         this,
